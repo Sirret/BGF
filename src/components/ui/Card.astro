@@ -1,0 +1,113 @@
+---
+/**
+ * Card.astro
+ * Universal card component. Always use this — never bespoke card markup in section files.
+ *
+ * Props:
+ *   image       — image src path
+ *   imageAlt    — alt text for image (default '')
+ *   category    — category label string (renders in accent color)
+ *   title       — card heading
+ *   description — body text
+ *   impact      — impact statement (renders with accent left-border)
+ *   href        — "Read More" link target
+ *   status      — 'completed' | 'ongoing' — renders a status badge
+ *   layout      — 'vertical' (default) | 'horizontal'
+ *
+ * Slots:
+ *   icon        — optional icon injected above title in vertical layout (used by FocusAreas)
+ *   default     — any additional content appended at bottom of card body
+ */
+
+const {
+  image,
+  imageAlt = '',
+  category,
+  title,
+  description,
+  impact,
+  href,
+  status,
+  layout = 'vertical',
+  cardClass = '',        // optional outer wrapper class override (used by MissionCard)
+  titleClass = '',       // optional title colour override
+  descriptionClass = '', // optional description colour override
+} = Astro.props
+
+const statusColors: Record<string, string> = {
+  completed: 'bg-green-100 text-green-700',
+  ongoing:   'bg-accent/10 text-accent',
+}
+
+const statusLabel: Record<string, string> = {
+  completed: 'Completed',
+  ongoing:   'Ongoing',
+}
+---
+
+{layout === 'horizontal' ? (
+  <div class={`flex flex-col sm:flex-row rounded-2xl shadow-sm overflow-hidden border border-border hover:shadow-md transition-shadow duration-200 ${cardClass || 'bg-white'}`}>
+    {image && (
+      <div class="sm:w-2/5 h-56 sm:h-auto flex-shrink-0">
+        <img src={image} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    )}
+    <div class="flex flex-col justify-center p-6 sm:w-3/5 gap-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        {category && (
+          <span class="text-xs font-heading font-semibold uppercase tracking-widest text-accent">
+            {category}
+          </span>
+        )}
+        {status && (
+          <span class={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColors[status] ?? ''}`}>
+            {statusLabel[status] ?? status}
+          </span>
+        )}
+      </div>
+      {title && <h3 class={`font-heading text-xl font-bold ${titleClass || 'text-text-dark'}`}>{title}</h3>}
+      {description && <p class={`text-sm leading-relaxed ${descriptionClass || 'text-text-muted'}`}>{description}</p>}
+      {impact && <p class="text-sm font-semibold text-primary border-l-2 border-accent pl-3">{impact}</p>}
+      {href && (
+        <a href={href} class="text-accent font-semibold text-sm hover:underline mt-1">
+          Read More →
+        </a>
+      )}
+    </div>
+  </div>
+) : (
+  <div class={`rounded-2xl shadow-sm overflow-hidden border border-border hover:shadow-md transition-shadow duration-200 flex flex-col ${cardClass || 'bg-white'}`}>
+    {image && (
+      <div class="h-48 overflow-hidden shrink-0">
+        <img src={image} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    )}
+    <div class="p-6 flex flex-col gap-3 flex-1">
+      <!-- Named icon slot — renders above title (used by FocusAreas) -->
+      <slot name="icon" />
+
+      <div class="flex items-center gap-2 flex-wrap">
+        {category && (
+          <span class="text-xs font-heading font-semibold uppercase tracking-widest text-accent">
+            {category}
+          </span>
+        )}
+        {status && (
+          <span class={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColors[status] ?? ''}`}>
+            {statusLabel[status] ?? status}
+          </span>
+        )}
+      </div>
+      {title && <h3 class={`font-heading text-xl font-bold ${titleClass || 'text-text-dark'}`}>{title}</h3>}
+      {description && <p class={`text-sm leading-relaxed ${descriptionClass || 'text-text-muted'}`}>{description}</p>}
+      {impact && <p class="text-sm font-semibold text-primary border-l-2 border-accent pl-3">{impact}</p>}
+      {href && (
+        <a href={href} class="text-accent font-semibold text-sm hover:underline mt-auto pt-2">
+          Read More →
+        </a>
+      )}
+      <!-- Default slot for any additional content -->
+      <slot />
+    </div>
+  </div>
+)}

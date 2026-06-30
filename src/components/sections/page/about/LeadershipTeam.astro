@@ -1,0 +1,61 @@
+---
+/**
+ * LeadershipTeam.astro
+ * About page — Leadership Team section.
+ * All team data pulled from src/data/team.json — edit there, not here.
+ * Background: bg-white
+ * Grid: 1 col mobile → 2 col tablet → 3 col desktop (handles 6+ members cleanly)
+ * Cards: larger text, generous padding, circular photo, name + role + bio all readable.
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import team from '../../../../data/team.json';
+---
+
+<section class='bg-white py-24'>
+  <div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
+
+    <SectionHeading
+      label='The People Behind the Work'
+      title='Our Leadership Team'
+      subtitle='Dedicated individuals united by a shared purpose — to serve, empower, and inspire lasting change.'
+    />
+
+    <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+      {team.map((member: { name: string; position: string; photo: string; bio: string }) => (
+        <div class='flex flex-col items-center text-center gap-6 bg-bg-base border border-border rounded-2xl p-10 hover:shadow-md transition-shadow duration-200'>
+
+          <!-- Circular photo -->
+          <div class='w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-md'>
+            <img
+              src={member.photo}
+              alt={`Photo of ${member.name}`}
+              class='w-full h-full object-cover'
+              loading='lazy'
+            />
+          </div>
+
+          <!-- Name + role -->
+          <div class='flex flex-col gap-2'>
+            <h3 class='font-heading font-bold text-text-dark text-xl leading-snug'>
+              {member.name}
+            </h3>
+            <span class='font-heading text-xs font-semibold uppercase tracking-widest text-accent'>
+              {member.position}
+            </span>
+          </div>
+
+          <!-- Divider -->
+          <div class='w-12 h-0.5 bg-border rounded-full'></div>
+
+          <!-- Bio — readable size with proper line height -->
+          <p class='font-body text-base text-text-muted leading-relaxed'>
+            {member.bio}
+          </p>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,77 @@
+---
+/**
+ * MissionVision.astro
+ * About page — Mission, Vision, and Core Values section.
+ * All content pulled from src/data/about.json — edit there, not here.
+ * Background: bg-bg-base
+ *
+ * Mission  → MissionCard variant="primary" (blue)
+ * Vision   → MissionCard variant="default" (white)
+ * Values   → horizontal cards: icon top-left, title + description beside it
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import MissionCard from '../../../ui/MissionCard.astro';
+import about from '../../../../data/about.json';
+
+const { mission, vision, coreValues } = about;
+---
+
+<section class='bg-bg-base py-24'>
+  <div class='max-w-7xl mx-auto px-6 flex flex-col gap-20'>
+
+    <!-- Section heading -->
+    <SectionHeading
+      label='Who We Are'
+      title='Our Mission, Vision & Values'
+      subtitle='Everything we do is anchored in a clear purpose and a shared commitment to the communities we serve.'
+    />
+
+    <!-- Mission + Vision side by side -->
+    <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
+      <MissionCard
+        variant='primary'
+        label={mission.label}
+        title={mission.heading}
+        description={mission.description}
+        icon={mission.icon}
+      />
+      <MissionCard
+        variant='default'
+        label={vision.label}
+        title={vision.heading}
+        description={vision.description}
+        icon={vision.icon}
+      />
+    </div>
+
+    <!-- Core Values -->
+    <div class='flex flex-col gap-10'>
+      <h3 class='font-heading text-2xl font-bold text-text-dark text-center'>
+        Our Core Values
+      </h3>
+
+      <!-- Horizontal value cards: icon top-left, title + description beside it -->
+      <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'>
+        {coreValues.map((value: { title: string; description: string; icon: string }) => (
+          <div class='bg-white border border-border rounded-2xl p-6 flex items-start gap-5 shadow-sm hover:shadow-md transition-shadow duration-200'>
+            <!-- Icon — small, top-left -->
+            <div class='w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 text-accent mt-0.5'>
+              <Fragment set:html={value.icon} />
+            </div>
+            <!-- Text -->
+            <div class='flex flex-col gap-1.5'>
+              <h4 class='font-heading font-bold text-text-dark text-base leading-snug'>
+                {value.title}
+              </h4>
+              <p class='font-body text-text-muted text-sm leading-relaxed'>
+                {value.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

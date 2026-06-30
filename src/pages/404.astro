@@ -1,0 +1,117 @@
+---
+/**
+ * 404.astro
+ * Catch-all for unknown routes in Astro.
+ * Shows a "Coming Soon" message for pages that are planned but not yet built,
+ * and a clear "Page Not Found" for genuinely missing routes.
+ * Uses BaseLayout so Navbar and Footer render normally.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+---
+
+<BaseLayout
+	title='Coming Soon'
+	description='This page is coming soon. Check back later.'
+>
+	<section
+		class='bg-bg-base min-h-[80vh] flex items-center justify-center py-24'
+	>
+		<div
+			class='max-w-2xl mx-auto px-6 flex flex-col items-center text-center gap-10'
+		>
+			<!-- Large decorative number -->
+			<div class='relative select-none'>
+				<span
+					class='font-heading font-bold text-[160px] md:text-[200px] leading-none text-primary/8 tracking-tighter'
+				>
+					404
+				</span>
+				<!-- Icon centered over number -->
+				<div class='absolute inset-0 flex items-center justify-center'>
+					<div
+						class='w-24 h-24 rounded-full bg-primary flex items-center justify-center shadow-lg'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='w-12 h-12 text-white'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M12 6v6m0 0v6m0-6h6m-6 0H6'
+							></path>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<!-- Text content -->
+			<div class='flex flex-col gap-4'>
+				<!-- Eyebrow -->
+				<span
+					class='font-heading text-xs font-semibold uppercase tracking-widest text-accent'
+				>
+					Coming Soon
+				</span>
+
+				<h1
+					class='font-heading font-bold text-text-dark text-3xl md:text-4xl leading-tight'
+				>
+					This Page Is on Its Way
+				</h1>
+
+				<p
+					class='font-body text-text-muted text-base leading-relaxed max-w-md mx-auto'
+				>
+					We're still building this section of the {site.org.name} website.
+					Check back soon — great things are coming.
+				</p>
+			</div>
+
+			<!-- Divider -->
+			<div class='w-16 h-0.5 bg-border rounded-full'></div>
+
+			<!-- Actions -->
+			<div class='flex flex-col sm:flex-row items-center gap-4'>
+				<a
+					href='/'
+					class='inline-flex items-center gap-2 bg-primary text-white font-heading font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-primary/90 transition-colors duration-200 shadow-sm'
+				>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						class='w-4 h-4'
+						fill='none'
+						viewBox='0 0 24 24'
+						stroke='currentColor'
+						stroke-width='2'
+					>
+						<path
+							stroke-linecap='round'
+							stroke-linejoin='round'
+							d='M10 19l-7-7m0 0l7-7m-7 7h18'
+						></path>
+					</svg>
+					Back to Home
+				</a>
+
+				<a
+					href='/contact'
+					class='inline-flex items-center gap-2 border border-border text-text-dark font-heading font-semibold text-sm px-7 py-3.5 rounded-full hover:border-primary hover:text-primary transition-colors duration-200'
+				>
+					Contact Us
+				</a>
+			</div>
+
+			<!-- Foundation tagline -->
+			<p class='font-body text-xs text-text-muted/60 italic'>
+				"{site.org.tagline}"
+			</p>
+		</div>
+	</section>
+</BaseLayout>

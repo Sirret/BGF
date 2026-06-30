@@ -1,0 +1,17 @@
+---
+/**
+ * AboutHero.astro
+ * Thin shell — reads hero config from about.json and passes it to the shared PageHero component.
+ * To change the title, subtitle, image or breadcrumb: edit src/data/about.json only.
+ */
+
+import PageHero from '../../../ui/PageHero.astro';
+import about from '../../../../data/about.json';
+---
+
+<PageHero
+  title={about.hero.title}
+  subtitle={about.hero.subtitle}
+  breadcrumb={about.hero.breadcrumb}
+  backgroundImage={about.hero.backgroundImage}
+/>

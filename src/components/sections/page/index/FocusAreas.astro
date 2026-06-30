@@ -1,0 +1,80 @@
+---
+/**
+ * FocusAreas.astro
+ * 5-column grid of focus area cards with icons.
+ * Background: bg-bg-base. Uses Card (vertical, no image) + slot for icon.
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro'
+import Card from '../../../ui/Card.astro'
+
+const areas = [
+  {
+    title: 'Education',
+    description: 'Providing school materials, scholarships, and learning support to students in underserved communities.',
+    href: '/projects#education',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+    </svg>`,
+  },
+  {
+    title: 'Health',
+    description: 'Delivering free medical outreach, health screenings, and medication support to vulnerable families.',
+    href: '/projects#health',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    </svg>`,
+  },
+  {
+    title: 'Community Development',
+    description: 'Supporting infrastructure, resources, and capacity building in underserved communities.',
+    href: '/projects#community',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+    </svg>`,
+  },
+  {
+    title: 'Women & Youth Empowerment',
+    description: 'Running skills training, mentorship, and vocational workshops for women and young people.',
+    href: '/projects#empowerment',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>`,
+  },
+  {
+    title: 'Charity & Outreach',
+    description: 'Distributing food packages, relief aid, and essentials to families in need throughout the year.',
+    href: '/projects#charity',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+    </svg>`,
+  },
+]
+---
+
+<section class="bg-bg-base py-24">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <SectionHeading
+      label="What We Do"
+      title="Our Focus Areas"
+      subtitle="Five pillars of impact that guide every programme we run."
+    />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mt-16">
+      {areas.map(area => (
+        <Card
+          title={area.title}
+          description={area.description}
+          href={area.href}
+          layout="vertical"
+        >
+          <!-- Icon injected via slot -->
+          <Fragment set:html={area.icon} slot="icon" />
+        </Card>
+      ))}
+    </div>
+
+  </div>
+</section>

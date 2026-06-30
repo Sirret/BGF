@@ -1,0 +1,342 @@
+---
+/**
+ * Footer.astro
+ * Dark footer — bg-footer-bg (#1a1a2e), footer-text color.
+ * Reads ALL content from site.json — zero hardcoded values.
+ * 4-column desktop, 2-column tablet, stacked mobile.
+ */
+
+import site from '../data/site.json';
+
+const quickLinks = [
+	{ label: 'Home', href: '/' },
+	{ label: 'About Us', href: '/about' },
+	{ label: 'Projects', href: '/projects' },
+	{ label: 'Impact', href: '/impact' },
+];
+
+const getInvolvedLinks = [
+	{ label: 'Volunteer', href: '/get-involved' },
+	{ label: 'Donate', href: '/donate' },
+	{ label: 'Partner With Us', href: '/partner' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class='bg-footer-bg text-footer-text'>
+	<!-- Main Footer Grid -->
+	<div class='max-w-7xl mx-auto px-6 py-16'>
+		<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10'>
+			<!-- Col 1: Brand + Social -->
+			<div class='flex flex-col gap-5'>
+				<!-- Logo (inverted to white) -->
+				<a
+					href='/'
+					class='flex items-center gap-3'
+				>
+					<img
+						src={site.org.logo}
+						alt={`${site.org.name} logo`}
+						class='h-12 w-auto object-contain'
+						style='filter: brightness(0) invert(1);'
+					/>
+					<span class='font-heading font-bold text-white text-base'>
+						{site.org.name.toUpperCase()}
+					</span>
+				</a>
+
+				<!-- Tagline -->
+				<p class='font-body text-sm text-footer-text leading-relaxed'>
+					{site.org.tagline}
+				</p>
+
+				<!-- Social Icons -->
+				<div class='flex items-center gap-4 mt-1'>
+					<!-- Facebook -->
+					<a
+						href={site.social.facebook}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='text-footer-text hover:text-accent transition-colors duration-200'
+						aria-label='Facebook'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-5 w-5'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'
+							></path>
+						</svg>
+					</a>
+
+					<!-- Instagram -->
+					<a
+						href={site.social.instagram}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='text-footer-text hover:text-accent transition-colors duration-200'
+						aria-label='Instagram'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-5 w-5'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<rect
+								x='2'
+								y='2'
+								width='20'
+								height='20'
+								rx='5'
+								ry='5'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+							></rect>
+							<circle
+								cx='12'
+								cy='12'
+								r='4'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+							></circle>
+							<circle
+								cx='17.5'
+								cy='6.5'
+								r='0.5'
+								fill='currentColor'
+								stroke='none'
+							></circle>
+						</svg>
+					</a>
+
+					<!-- Twitter / X -->
+					<a
+						href={site.social.twitter}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='text-footer-text hover:text-accent transition-colors duration-200'
+						aria-label='Twitter / X'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-5 w-5'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M4 4l16 16M4 20L20 4'
+							></path>
+						</svg>
+					</a>
+
+					<!-- LinkedIn -->
+					<a
+						href={site.social.linkedin}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='text-footer-text hover:text-accent transition-colors duration-200'
+						aria-label='LinkedIn'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-5 w-5'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z'
+							></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+			<!-- End Col 1 -->
+
+			<!-- Col 2: Quick Links -->
+			<div class='flex flex-col gap-4'>
+				<h3
+					class='font-heading font-bold text-white text-sm uppercase tracking-widest'
+				>
+					Quick Links
+				</h3>
+				<nav class='flex flex-col gap-2'>
+					{
+						quickLinks.map((link) => (
+							<a
+								href={link.href}
+								class='font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
+							>
+								{link.label}
+							</a>
+						))
+					}
+				</nav>
+			</div>
+			<!-- End Col 2 -->
+
+			<!-- Col 3: Get Involved -->
+			<div class='flex flex-col gap-4'>
+				<h3
+					class='font-heading font-bold text-white text-sm uppercase tracking-widest'
+				>
+					Get Involved
+				</h3>
+				<nav class='flex flex-col gap-2'>
+					{
+						getInvolvedLinks.map((link) => (
+							<a
+								href={link.href}
+								class='font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
+							>
+								{link.label}
+							</a>
+						))
+					}
+				</nav>
+			</div>
+			<!-- End Col 3 -->
+
+			<!-- Col 4: Contact -->
+			<div class='flex flex-col gap-4'>
+				<h3
+					class='font-heading font-bold text-white text-sm uppercase tracking-widest'
+				>
+					Contact Us
+				</h3>
+				<div class='flex flex-col gap-3'>
+					<!-- Email -->
+					<a
+						href={`mailto:${site.contact.email}`}
+						class='flex items-start gap-2 font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-4 w-4 mt-0.5 flex-shrink-0'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+							></path>
+						</svg>
+						{site.contact.email}
+					</a>
+
+					<!-- Phone 1 -->
+					<a
+						href={`tel:${site.contact.phone}`}
+						class='flex items-start gap-2 font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-4 w-4 mt-0.5 flex-shrink-0'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+							></path>
+						</svg>
+						{site.contact.phone}
+					</a>
+
+					<!-- Phone 2 -->
+					<a
+						href={`tel:${site.contact.phone2}`}
+						class='flex items-start gap-2 font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-4 w-4 mt-0.5 flex-shrink-0'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+							></path>
+						</svg>
+						{site.contact.phone2}
+					</a>
+
+					<!-- Address -->
+					<div
+						class='flex items-start gap-2 font-body text-sm text-footer-text'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-4 w-4 mt-0.5 shrink-0'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
+							></path>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
+							></path>
+						</svg>
+						{site.contact.address}
+					</div>
+				</div>
+			</div>
+			<!-- End Col 4 -->
+		</div>
+	</div>
+	<!-- End Main Footer Grid -->
+
+	<!-- Bottom Bar -->
+	<div class='border-t border-white/10'>
+		<div
+			class='max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2'
+		>
+			<p
+				class='font-body text-xs text-footer-text text-center sm:text-left'
+			>
+				&copy; 2019 - {year}
+				{site.org.name}. {site.org.registered}. All rights reserved.
+			</p>
+			<p
+				class='font-body text-xs text-footer-text/60 text-center sm:text-right'
+			>
+				{site.org.tagline}
+			</p>
+		</div>
+	</div>
+</footer>

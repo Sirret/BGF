@@ -1,0 +1,31 @@
+---
+/**
+ * pages/about.astro
+ * About page — imports sections only. Zero design logic or inline classes here.
+ *
+ * Section order:
+ *   1. AboutHero        — slim branded banner with page title
+ *   2. OurStory         — foundation background, why it was created
+ *   3. MissionVision    — Mission card, Vision card, Core Values grid
+ *   4. LeadershipTeam   — team member cards from team.json
+ *   5. AboutCallToAction — closing donate / volunteer / contact CTA
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutHero from '../components/sections/page/about/AboutHero.astro';
+import OurStory from '../components/sections/page/about/OurStory.astro';
+import MissionVision from '../components/sections/page/about/MissionVision.astro';
+import LeadershipTeam from '../components/sections/page/about/LeadershipTeam.astro';
+import AboutCallToAction from '../components/sections/page/about/AboutCallToAction.astro';
+---
+
+<BaseLayout
+	title='About Us'
+	description='Learn about BethGold Foundation — our story, mission, vision, values, and the team working to empower communities.'
+>
+	<AboutHero />
+	<OurStory />
+	<MissionVision />
+	<LeadershipTeam />
+	<AboutCallToAction />
+</BaseLayout>

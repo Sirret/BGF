@@ -1,0 +1,55 @@
+---
+/**
+ * PageHero.astro
+ * Shared slim hero banner for all inner pages (About, Projects, Impact, etc.).
+ * Full-width background image with bg-primary/75 blue overlay.
+ * NOT full-screen — uses py-32 to give consistent height across pages.
+ *
+ * Props (all passed from page-specific JSON via the page file):
+ *   title           — main page heading
+ *   subtitle        — optional tagline or short description beneath heading
+ *   breadcrumb      — label shown in breadcrumb trail (e.g. "About Us")
+ *   backgroundImage — path to hero image (e.g. "/images/about/hero.jpg")
+ */
+
+const {
+  title,
+  subtitle,
+  breadcrumb,
+  backgroundImage = '/images/hero-bg.jpg', // fallback to homepage hero if no image set
+} = Astro.props;
+---
+
+<section
+  class='relative bg-cover bg-center bg-no-repeat py-32'
+  style={`background-image: url('${backgroundImage}');`}
+>
+  <!-- Blue overlay — matches homepage Hero overlay colour -->
+  <div class='absolute inset-0 bg-primary/75'></div>
+
+  <!-- Content -->
+  <div class='relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center gap-5'>
+
+    <!-- Breadcrumb -->
+    {breadcrumb && (
+      <nav class='flex items-center gap-2 text-white/60 text-sm font-body' aria-label='Breadcrumb'>
+        <a href='/' class='hover:text-white transition-colors duration-200'>Home</a>
+        <span aria-hidden='true'>/</span>
+        <span class='text-white font-medium'>{breadcrumb}</span>
+      </nav>
+    )}
+
+    <!-- Heading -->
+    <h1 class='font-heading font-bold text-white text-4xl md:text-5xl max-w-3xl leading-tight tracking-tight'>
+      {title}
+    </h1>
+
+    <!-- Subtitle -->
+    {subtitle && (
+      <p class='font-body text-white/80 text-lg max-w-xl leading-relaxed'>
+        {subtitle}
+      </p>
+    )}
+
+  </div>
+</section>

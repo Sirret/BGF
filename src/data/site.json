@@ -1,0 +1,22 @@
+{
+	"org": {
+		"name": "BethGold Foundation",
+		"tagline": "In Every Disability, There Is Ability",
+		"subline": "Empowering through education, empowerment, health initiatives, and community development",
+		"logo": "/images/logo.jpeg",
+		"registered": "Registered NGO",
+		"current-year":"2026"
+	},
+	"contact": {
+		"email": "info@bethgoldfoundation.org",
+		"phone": "000 000 0000",
+		"phone2": "000 000 0000",
+		"address": "000 Street Name, City, Country"
+	},
+	"social": {
+		"facebook": "https://facebook.com",
+		"instagram": "https://instagram.com",
+		"twitter": "https://twitter.com",
+		"linkedin": "https://linkedin.com"
+	}
+}

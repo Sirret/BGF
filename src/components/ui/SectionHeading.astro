@@ -1,0 +1,40 @@
+---
+/**
+ * SectionHeading.astro
+ * Consistent section title block. Always use this — never raw heading markup in section files.
+ *
+ * Props:
+ *   label     — small uppercase eyebrow text above the title
+ *   title     — main heading (h2)
+ *   subtitle  — optional paragraph beneath the title
+ *   align     — 'center' (default) | 'left'
+ *   light     — boolean; set true when on a dark/colored background (e.g. ImpactStats on bg-primary)
+ */
+
+const {
+  label,
+  title,
+  subtitle,
+  align = 'center',
+  light = false,
+} = Astro.props;
+
+const alignClass    = align === 'left' ? 'text-left items-start' : 'text-center items-center';
+const titleColor    = light ? 'text-white'      : 'text-text-dark';
+const labelColor    = light ? 'text-white/70'   : 'text-accent';
+const subtitleColor = light ? 'text-white/80'   : 'text-text-muted';
+---
+
+<div class={`flex flex-col gap-3 ${alignClass}`}>
+  {label && (
+    <span class={`text-xs font-heading font-semibold uppercase tracking-widest ${labelColor}`}>
+      {label}
+    </span>
+  )}
+  <h2 class={`font-heading text-3xl md:text-4xl font-bold max-w-2xl ${titleColor}`}>
+    {title}
+  </h2>
+  {subtitle && (
+    <p class={`text-lg max-w-xl ${subtitleColor}`}>{subtitle}</p>
+  )}
+</div>

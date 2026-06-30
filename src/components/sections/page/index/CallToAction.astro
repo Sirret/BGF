@@ -1,0 +1,61 @@
+---
+/**
+ * CallToAction.astro
+ * Final homepage CTA — get involved section.
+ * Two columns: text + buttons left, community image right.
+ * Background: bg-bg-base. Stacks on mobile, image below.
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import Button from '../../../ui/Button.astro';
+---
+
+<section class='bg-bg-base py-24'>
+	<div
+		class='max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'
+	>
+		<!-- Left: Text + Buttons -->
+		<div class='flex flex-col gap-6'>
+			<SectionHeading
+				align='left'
+				label='Get Involved'
+				title='Ready to Make a Difference?'
+				subtitle='Whether you donate, volunteer, or partner with us — your contribution changes lives.'
+			/>
+
+			<p class='font-body text-text-muted leading-relaxed'>
+				Join our growing community of changemakers. Every act of
+				generosity — big or small — helps us reach more people, run more
+				programmes, and build stronger communities.
+			</p>
+
+			<div class='flex flex-wrap gap-4'>
+				<Button
+					variant='accent'
+					href='/donate'
+					>Donate Now</Button
+				>
+				<Button
+					variant='outline'
+					href='/get-involved'
+					>Volunteer</Button
+				>
+				<Button
+					variant='ghost'
+					href='/partner'
+					>Partner With Us →</Button
+				>
+			</div>
+		</div>
+
+		<!-- Right: Image -->
+		<div>
+			<img
+				src='/images/cta-community.jpg'
+				alt='Community members supported by BethGold Foundation'
+				class='rounded-2xl shadow-lg object-cover w-full h-96'
+				loading='lazy'
+			/>
+		</div>
+	</div>
+</section>

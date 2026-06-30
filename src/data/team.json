@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Beth Goldstein",
+		"position": "Founder & Executive Director",
+		"photo": "/images/team/team-1.jpg",
+		"bio": "Beth founded the BethGold Foundation in 2019 with a vision of building inclusive communities where every individual, regardless of ability, has access to the resources and support they need to thrive."
+	},
+	{
+		"name": "Samuel Okafor",
+		"position": "Director of Programs",
+		"photo": "/images/team/team-2.jpg",
+		"bio": "Samuel oversees all field operations and project delivery, bringing over 10 years of experience in community development and humanitarian response across West Africa."
+	},
+	{
+		"name": "Amina Diallo",
+		"position": "Head of Partnerships",
+		"photo": "/images/team/team-3.jpg",
+		"bio": "Amina leads strategic partnerships and donor relations, connecting the foundation with NGOs, institutions, and corporate partners who share our commitment to positive change."
+	},
+	{
+		"name": "James Mensah",
+		"position": "Health Programs Coordinator",
+		"photo": "/images/team/team-4.jpg",
+		"bio": "James coordinates all health outreach initiatives, working directly with communities to deliver free medical care, screenings, and health education programs."
+	}
+]

@@ -1,0 +1,52 @@
+---
+/**
+ * MissionCard.astro
+ * Thin wrapper around Card.astro for Mission/Vision-style content.
+ * Adds icon + eyebrow label above the title, and handles colour theming via variant.
+ *
+ * Props:
+ *   variant     — 'primary' (blue bg, white text) | 'default' (white bg, dark text)
+ *   label       — small eyebrow text (e.g. "Our Mission")
+ *   title       — card heading
+ *   description — body paragraph
+ *   icon        — raw SVG string rendered inline
+ */
+
+import Card from './Card.astro';
+
+const {
+  variant = 'default',
+  label,
+  title,
+  description,
+  icon,
+} = Astro.props;
+
+const isPrimary = variant === 'primary';
+
+const cardClass  = isPrimary ? 'bg-primary border-primary/20' : 'bg-white';
+const titleClass = isPrimary ? 'text-white'     : 'text-text-dark';
+const descClass  = isPrimary ? 'text-white/75'  : 'text-text-muted';
+---
+
+<Card
+  title={title}
+  description={description}
+  cardClass={cardClass}
+  titleClass={titleClass}
+  descriptionClass={descClass}
+>
+  <!-- Icon + label injected via default slot into card body top -->
+  <div slot="icon" class="flex flex-col gap-3 mb-1">
+    {icon && (
+      <div class={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isPrimary ? 'bg-white/15 text-white' : 'bg-accent/10 text-accent'}`}>
+        <Fragment set:html={icon} />
+      </div>
+    )}
+    {label && (
+      <span class={`text-xs font-heading font-semibold uppercase tracking-widest ${isPrimary ? 'text-white/60' : 'text-accent'}`}>
+        {label}
+      </span>
+    )}
+  </div>
+</Card>

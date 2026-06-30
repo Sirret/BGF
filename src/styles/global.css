@@ -1,0 +1,64 @@
+/* src/styles/global.css */
+/* Tailwind v4 base import — handled by @tailwindcss/vite, no explicit @tailwind directives needed */
+
+/* ─── Design Tokens (Tailwind v4 @theme) ─────────────────────────────────── */
+@import 'tailwindcss';
+@theme {
+	/* Brand Colors */
+	--color-primary: #2f3192;
+	--color-primary-dark: #232580;
+	--color-accent: #b1308e;
+	--color-accent-dark: #8f2272;
+
+	/* Surface Colors */
+	--color-bg-base: #f8f7fc;
+	--color-border: #e5e0f0;
+
+	/* Text Colors */
+	--color-text-dark: #1a1a2e;
+	--color-text-muted: #6b657a;
+
+	/* Footer Colors */
+	--color-footer-bg: #1a1a2e;
+	--color-footer-text: #c8c3d8;
+
+	/* Typography */
+	--font-heading:
+		'Poppins', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+	--font-body: 'Open Sans', 'Roboto', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Base Resets & Typography ───────────────────────────────────────────── */
+@layer base {
+	body {
+		font-family: var(--font-body);
+		font-size: 1rem;
+		line-height: 1.75;
+		color: var(--color-text-dark);
+		background-color: var(--color-bg-base);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.025em;
+	}
+
+	a {
+		transition: color 0.2s ease;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	section {
+		width: 100%;
+	}
+}

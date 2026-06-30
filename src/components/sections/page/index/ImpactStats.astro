@@ -1,0 +1,40 @@
+---
+/**
+ * ImpactStats.astro
+ * Bold impact numbers on solid deep-blue background.
+ * Reads from stats.json.
+ * Background: bg-primary (solid — not a gradient, not an overlay).
+ *
+ * Backend note: when API ready, replace import with:
+ * const stats = await fetch('/api/stats').then(r => r.json())
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import StatBlock from '../../../ui/StatBlock.astro';
+import stats from '../../../../data/stats.json';
+---
+
+<section class='bg-primary py-24'>
+	<div class='max-w-7xl mx-auto px-6'>
+		<SectionHeading
+			light={true}
+			label='Our Impact'
+			title='Making a Real Difference'
+			subtitle='Every number represents a life touched, a community served, a barrier broken.'
+		/>
+
+		<div
+			class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-16'
+		>
+			{
+				stats.map((stat: any) => (
+					<StatBlock
+						label={stat.label}
+						value={stat.value}
+						chartData={stat.chartData}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>

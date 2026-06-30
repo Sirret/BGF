@@ -1,0 +1,61 @@
+---
+/**
+ * Hero.astro
+ * Full-viewport hero section.
+ * Background: community image with bg-primary/70 overlay (deep blue, not black).
+ * Reads org data from site.json for tagline, subline.
+ */
+
+import Button from '../../../ui/Button.astro';
+import site from '../../../../data/site.json';
+---
+
+<section
+	class='relative min-h-screen bg-cover bg-center bg-no-repeat'
+	style="background-image: url('/images/hero-bg.jpg');"
+>
+	<!-- Blue overlay -->
+	<div class='absolute inset-0 bg-primary/70'></div>
+
+	<!-- Content -->
+	<div
+		class='relative z-10 flex flex-col items-center justify-center text-center px-6 py-32 min-h-screen'
+	>
+		<!-- Tagline pill -->
+		<span
+			class='inline-block bg-white/10 text-white px-4 py-1 rounded-full text-sm font-heading border border-white/20 mb-6'
+		>
+			{site.org.tagline}
+		</span>
+
+		<!-- Headline -->
+		<h1
+			class='font-heading font-bold text-white text-4xl md:text-6xl max-w-4xl leading-tight tracking-tight'
+		>
+			{site.org.name}
+		</h1>
+
+		<!-- Subline -->
+		<p
+			class='text-white/80 text-xl max-w-2xl mt-4 font-body leading-relaxed'
+		>
+			{site.org.subline}
+		</p>
+
+		<!-- CTA Buttons -->
+		<div class='mt-8 flex flex-wrap gap-4 justify-center'>
+			<Button
+				variant='accent'
+				size='lg'
+				href='/donate'
+				>Donate Now</Button
+			>
+			<a
+				href='/projects'
+				class='inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-primary focus:ring-white'
+			>
+				View Projects
+			</a>
+		</div>
+	</div>
+</section>
