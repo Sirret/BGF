@@ -122,44 +122,8 @@ const categories = [...new Set(projects.map((p) => p.category))];
 	</div>
 </section>
 
-<script>
-	const buttons = document.querySelectorAll<HTMLButtonElement>(
-		'.project-filter-btn',
-	);
-	const cards = document.querySelectorAll<HTMLElement>('.project-card');
-	const emptyState = document.getElementById('project-empty-state');
-
-	const activeClasses = ['bg-primary', 'text-white'];
-	const inactiveClasses = ['text-primary'];
-
-	function setActiveButton(target: HTMLButtonElement) {
-		buttons.forEach((btn) => {
-			const isActive = btn === target;
-			btn.setAttribute('aria-pressed', String(isActive));
-			btn.classList.toggle('bg-primary', isActive);
-			btn.classList.toggle('text-white', isActive);
-			btn.classList.toggle('text-primary', !isActive);
-		});
-	}
-
-	function applyFilter(filter: string) {
-		let visibleCount = 0;
-
-		cards.forEach((card) => {
-			const matches =
-				filter === 'all' || card.dataset.category === filter;
-			card.classList.toggle('hidden', !matches);
-			if (matches) visibleCount++;
-		});
-
-		emptyState?.classList.toggle('hidden', visibleCount > 0);
-	}
-
-	buttons.forEach((button) => {
-		button.addEventListener('click', () => {
-			const filter = button.dataset.filter ?? 'all';
-			setActiveButton(button);
-			applyFilter(filter);
-		});
-	});
-</script>
+<!-- External, non-processed script — CSP: script-src 'self' works with zero exceptions -->
+<script
+	src='/scripts/project-filter.js'
+	is:inline
+></script>

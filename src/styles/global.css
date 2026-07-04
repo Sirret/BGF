@@ -62,3 +62,23 @@
 		width: 100%;
 	}
 }
+
+/* ─── Static Background & Filter Utilities ───────────────────────────────── */
+/* CSP note: these replace inline style="" attributes. Any style value that is
+   fixed at build time (not user/runtime-generated) belongs here as a real
+   class, not as an inline style attribute — this keeps style-src-attr free
+   of 'unsafe-inline' requirements. Add one entry per new hero image used by
+   PageHero.astro's bgClassMap. */
+@layer utilities {
+	.bg-hero-home {
+		background-image: url('/images/hero-bg.jpg');
+	}
+
+	.bg-hero-about {
+		background-image: url('/images/about/about-hero.jpg');
+	}
+
+	.logo-invert {
+		filter: brightness(0) invert(1);
+	}
+}

@@ -10,46 +10,69 @@
  *   subtitle        — optional tagline or short description beneath heading
  *   breadcrumb      — label shown in breadcrumb trail (e.g. "About Us")
  *   backgroundImage — path to hero image (e.g. "/images/about/hero.jpg")
+ *
+ * CSP note: backgroundImage is resolved to a pre-declared CSS class (see
+ * global.css .bg-hero-*) instead of an inline style="" attribute, so this
+ * component never emits inline styles. Adding a new hero image means adding
+ * one .bg-hero-xxx rule in global.css and one entry in bgClassMap below.
  */
 
 const {
-  title,
-  subtitle,
-  breadcrumb,
-  backgroundImage = '/images/hero-bg.jpg', // fallback to homepage hero if no image set
+	title,
+	subtitle,
+	breadcrumb,
+	backgroundImage = '/images/hero-bg.jpg', // fallback to homepage hero if no image set
 } = Astro.props;
+
+const bgClassMap: Record<string, string> = {
+	'/images/hero-bg.jpg': 'bg-hero-home',
+	'/images/about/about-hero.jpg': 'bg-hero-about',
+};
+
+const bgClass = bgClassMap[backgroundImage] ?? 'bg-hero-home';
 ---
 
-<section
-  class='relative bg-cover bg-center bg-no-repeat py-32'
-  style={`background-image: url('${backgroundImage}');`}
->
-  <!-- Blue overlay — matches homepage Hero overlay colour -->
-  <div class='absolute inset-0 bg-primary/75'></div>
+<section class={`relative bg-cover bg-center bg-no-repeat py-32 ${bgClass}`}>
+	<!-- Blue overlay — matches homepage Hero overlay colour -->
+	<div class='absolute inset-0 bg-primary/75'></div>
 
-  <!-- Content -->
-  <div class='relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center gap-5'>
+	<!-- Content -->
+	<div
+		class='relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center gap-5'
+	>
+		<!-- Breadcrumb -->
+		{
+			breadcrumb && (
+				<nav
+					class='flex items-center gap-2 text-white/60 text-sm font-body'
+					aria-label='Breadcrumb'
+				>
+					<a
+						href='/'
+						class='hover:text-white transition-colors duration-200'
+					>
+						Home
+					</a>
+					<span aria-hidden='true'>/</span>
+					<span class='text-white font-medium'>{breadcrumb}</span>
+				</nav>
+			)
+		}
 
-    <!-- Breadcrumb -->
-    {breadcrumb && (
-      <nav class='flex items-center gap-2 text-white/60 text-sm font-body' aria-label='Breadcrumb'>
-        <a href='/' class='hover:text-white transition-colors duration-200'>Home</a>
-        <span aria-hidden='true'>/</span>
-        <span class='text-white font-medium'>{breadcrumb}</span>
-      </nav>
-    )}
+		<!-- Heading -->
+		<h1
+			class='font-heading font-bold text-white text-4xl md:text-5xl max-w-3xl leading-tight tracking-tight'
+		>
+			{title}
+		</h1>
 
-    <!-- Heading -->
-    <h1 class='font-heading font-bold text-white text-4xl md:text-5xl max-w-3xl leading-tight tracking-tight'>
-      {title}
-    </h1>
-
-    <!-- Subtitle -->
-    {subtitle && (
-      <p class='font-body text-white/80 text-lg max-w-xl leading-relaxed'>
-        {subtitle}
-      </p>
-    )}
-
-  </div>
+		<!-- Subtitle -->
+		{
+			subtitle && (
+				<p class='font-body text-white/80 text-lg max-w-xl leading-relaxed'>
+					{subtitle}
+				</p>
+			)
+		}
+	</div>
 </section>
