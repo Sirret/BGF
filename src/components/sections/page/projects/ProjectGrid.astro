@@ -1,0 +1,150 @@
+---
+/**
+ * ProjectGrid.astro
+ * Projects page — full grid of all projects with a client-side category filter.
+ * Reads from projects.json — records missing a slug/title are dropped (guards
+ * against stray non-project entries in the data file).
+ * Background: bg-white
+ *
+ * Backend note: when API ready, replace import with:
+ * const projects = await fetch('/api/projects').then(r => r.json())
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import Card from '../../../ui/Card.astro';
+import allProjects from '../../../../data/projects.json';
+
+interface Project {
+	title: string;
+	slug: string;
+	category: string;
+	status: 'completed' | 'ongoing';
+	image: string;
+	description: string;
+	impact: string;
+	date?: string;
+	featured?: boolean;
+}
+
+const projects = (allProjects as Project[]).filter(
+	(p) => p && typeof p.title === 'string' && typeof p.slug === 'string',
+);
+
+// Unique categories, in first-seen order, for the filter bar
+const categories = [...new Set(projects.map((p) => p.category))];
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-7xl mx-auto px-6'>
+		<SectionHeading
+			label='Our Work'
+			title='All Projects'
+			subtitle='Browse every programme we have delivered — filter by focus area to find what matters most to you.'
+		/>
+
+		<!-- Filter bar -->
+		<div
+			class='flex flex-wrap justify-center gap-3 mt-12'
+			role='group'
+			aria-label='Filter projects by category'
+		>
+			<button
+				type='button'
+				class='project-filter-btn px-5 py-2 rounded-full text-sm font-heading font-semibold border-2 border-primary bg-primary text-white transition-colors duration-200'
+				data-filter='all'
+				aria-pressed='true'
+			>
+				All
+			</button>
+			{
+				categories.map((category) => (
+					<button
+						type='button'
+						class='project-filter-btn px-5 py-2 rounded-full text-sm font-heading font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200'
+						data-filter={category}
+						aria-pressed='false'
+					>
+						{category}
+					</button>
+				))
+			}
+		</div>
+
+		<!-- Grid -->
+		<div
+			class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16'
+			id='project-grid'
+		>
+			{
+				projects.map((project) => (
+					<div
+						class='project-card'
+						data-category={project.category}
+					>
+						<Card
+							layout='vertical'
+							image={project.image}
+							imageAlt={project.title}
+							title={project.title}
+							category={project.category}
+							status={project.status}
+							description={project.description}
+							impact={project.impact}
+							href={`/projects/${project.slug}`}
+						/>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Empty state — shown when a filter matches nothing -->
+		<p
+			id='project-empty-state'
+			class='hidden text-center text-text-muted font-body mt-16'
+		>
+			No projects found in this category yet.
+		</p>
+	</div>
+</section>
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>(
+		'.project-filter-btn',
+	);
+	const cards = document.querySelectorAll<HTMLElement>('.project-card');
+	const emptyState = document.getElementById('project-empty-state');
+
+	const activeClasses = ['bg-primary', 'text-white'];
+	const inactiveClasses = ['text-primary'];
+
+	function setActiveButton(target: HTMLButtonElement) {
+		buttons.forEach((btn) => {
+			const isActive = btn === target;
+			btn.setAttribute('aria-pressed', String(isActive));
+			btn.classList.toggle('bg-primary', isActive);
+			btn.classList.toggle('text-white', isActive);
+			btn.classList.toggle('text-primary', !isActive);
+		});
+	}
+
+	function applyFilter(filter: string) {
+		let visibleCount = 0;
+
+		cards.forEach((card) => {
+			const matches =
+				filter === 'all' || card.dataset.category === filter;
+			card.classList.toggle('hidden', !matches);
+			if (matches) visibleCount++;
+		});
+
+		emptyState?.classList.toggle('hidden', visibleCount > 0);
+	}
+
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			const filter = button.dataset.filter ?? 'all';
+			setActiveButton(button);
+			applyFilter(filter);
+		});
+	});
+</script>
