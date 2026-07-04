@@ -5,6 +5,13 @@
 		"category": "Education",
 		"status": "completed",
 		"image": "/images/projects/project-1.jpg",
+		"images": [
+			{ "src": "/images/projects/project-1-detail-1.jpg", "alt": "doctor" },
+    		{ "src": "/images/projects/project-1-detail-2.jpg", "alt": "Doctor and kids" }
+		],
+		"files": [
+			{ "name": "Project Impact Report 2024", "url": "/files/projects/school-materials-report.pdf", "type": "pdf" }
+		],
 		"description": "Provided books and supplies to students in underserved communities.",
 		"impact": "500 students received materials across 3 schools.",
 		"location": "City, Country",
@@ -17,6 +24,8 @@
 		"category": "Health",
 		"status": "completed",
 		"image": "/images/projects/project-2.jpg",
+		"images": [],
+		"files": [],
 		"description": "Free health checkups and medication support for vulnerable families.",
 		"impact": "300 people received free medical care.",
 		"location": "City, Country",
@@ -29,6 +38,8 @@
 		"category": "Charity & Outreach",
 		"status": "completed",
 		"image": "/images/projects/project-3.jpg",
+		"images": [],
+		"files": [],
 		"description": "Provided food packages to vulnerable families during Ramadan.",
 		"impact": "200 families received food packages.",
 		"location": "City, Country",
@@ -41,6 +52,8 @@
 		"category": "Empowerment",
 		"status": "ongoing",
 		"image": "/images/projects/project-4.jpg",
+		"images": [],
+		"files": [],
 		"description": "Skills development workshops for young people in rural communities.",
 		"impact": "150 youth trained in vocational skills.",
 		"location": "City, Country",
@@ -53,13 +66,12 @@
 		"category": "Community Development",
 		"status": "ongoing",
 		"image": "/images/projects/project-5.jpg",
+		"images": [],
+		"files": [],
 		"description": "Infrastructure and resource support for underserved communities.",
 		"impact": "5 communities directly supported.",
 		"location": "City, Country",
 		"date": "2025-01-15",
 		"featured": false
-	},{
-		"_comment":"add a place for files incase projects come with files etc"
 	}
-
 ]

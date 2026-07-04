@@ -14,14 +14,29 @@ import SectionHeading from '../../../ui/SectionHeading.astro';
 import Card from '../../../ui/Card.astro';
 import allProjects from '../../../../data/projects.json';
 
+interface ProjectImage {
+	src: string;
+	alt: string;
+}
+
+interface ProjectFile {
+	name: string;
+	url: string;
+	type: string;
+}
+
 interface Project {
 	title: string;
 	slug: string;
 	category: string;
 	status: 'completed' | 'ongoing';
 	image: string;
+	// Optional — populated for individual project detail pages (not rendered in this grid yet).
+	images?: ProjectImage[];
+	files?: ProjectFile[];
 	description: string;
 	impact: string;
+	location?: string;
 	date?: string;
 	featured?: boolean;
 }
