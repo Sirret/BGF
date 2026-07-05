@@ -16,11 +16,12 @@
  *   3. OtherWaysCTA  — volunteer / contact fallback (bg-bg-base)
  */
 
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/ui/PageHero.astro';
-import SectionHeading from '../components/ui/SectionHeading.astro';
-import Button from '../components/ui/Button.astro';
-import site from '../data/site.json';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import site from '@data/site.json';
+import { withBase } from '@components/utils/paths';
 ---
 
 <BaseLayout
@@ -38,11 +39,7 @@ import site from '../data/site.json';
 		<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
 			<SectionHeading
 				label='Ways to Give'
-				title='Choose How You'
-				d
-				Like
-				to
-				Donate'
+				title='Choose How You Like to Donate'
 				subtitle='Your support directly funds our education, health, and community programs.'
 			/>
 
@@ -128,7 +125,7 @@ import site from '../data/site.json';
 				Have questions about donating, or want a receipt for your
 				contribution?
 				<a
-					href='/contact'
+					href={withBase('/contact')}
 					class='text-accent font-semibold hover:underline'
 					>Contact us</a
 				>

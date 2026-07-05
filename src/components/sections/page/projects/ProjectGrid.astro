@@ -10,10 +10,10 @@
  * const projects = await fetch('/api/projects').then(r => r.json())
  */
 
-import SectionHeading from '../../../ui/SectionHeading.astro';
-import Card from '../../../ui/Card.astro';
-import allProjects from '../../../../data/projects.json';
-import { withBase } from '../../../../utils/paths';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Card from '@components/ui/Card.astro';
+import allProjects from '@data/projects.json';
+import { withBase } from '@components/utils/paths';
 
 interface ProjectImage {
 	src: string;

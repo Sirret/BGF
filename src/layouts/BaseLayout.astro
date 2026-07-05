@@ -9,15 +9,15 @@
  *   description — <meta description> content
  */
 
-import '../styles/global.css';
+import '@styles/global.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/open-sans/400.css';
 import '@fontsource/open-sans/600.css';
 
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import site from '../data/site.json';
-import { withBase } from '../utils/paths';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import site from '@data/site.json';
+import { withBase } from '@components/utils/paths';
 const { title = site.org.name, description = site.org.subline } = Astro.props;
 ---
 

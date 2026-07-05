@@ -5,8 +5,9 @@
  * Background: bg-white. Stacks vertically on mobile.
  */
 
-import Button from '../../../ui/Button.astro';
-import SectionHeading from '../../../ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import { withBase } from '@components/utils/paths';
 ---
 
 <section class='bg-white py-24'>
@@ -41,7 +42,7 @@ import SectionHeading from '../../../ui/SectionHeading.astro';
 		<!-- Right: Image -->
 		<div class='order-first lg:order-last'>
 			<img
-				src='/images/about-community.jpg'
+				src={withBase('/images/about-community.jpg')}
 				alt='BethGold Foundation community members'
 				class='rounded-2xl shadow-md object-cover w-full h-96 lg:h-full'
 				loading='lazy'

@@ -6,8 +6,9 @@
  * Background: bg-bg-base. Stacks on mobile, image below.
  */
 
-import SectionHeading from '../../../ui/SectionHeading.astro';
-import Button from '../../../ui/Button.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import { withBase } from '@components/utils/paths';
 ---
 
 <section class='bg-bg-base py-24'>
@@ -51,7 +52,7 @@ import Button from '../../../ui/Button.astro';
 		<!-- Right: Image -->
 		<div>
 			<img
-				src='/images/cta-community.jpg'
+				src={withBase('/images/cta-community.jpg')}
 				alt='Community members supported by BethGold Foundation'
 				class='rounded-2xl shadow-lg object-cover w-full h-96'
 				loading='lazy'

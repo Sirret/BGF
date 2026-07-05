@@ -9,10 +9,10 @@
  * const projects = await fetch('/api/projects?featured=true').then(r => r.json())
  */
 
-import SectionHeading from '../../../ui/SectionHeading.astro';
-import Card from '../../../ui/Card.astro';
-import Button from '../../../ui/Button.astro';
-import allProjects from '../../../../data/projects.json';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Card from '@components/ui/Card.astro';
+import Button from '@components/ui/Button.astro';
+import allProjects from '@data/projects.json';
 
 const projects = allProjects
 	.filter((p: any) => p.featured === true)
