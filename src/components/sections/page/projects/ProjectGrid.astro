@@ -13,6 +13,7 @@
 import SectionHeading from '../../../ui/SectionHeading.astro';
 import Card from '../../../ui/Card.astro';
 import allProjects from '../../../../data/projects.json';
+import { withBase } from '../../../../utils/paths';
 
 interface ProjectImage {
 	src: string;
@@ -124,6 +125,6 @@ const categories = [...new Set(projects.map((p) => p.category))];
 
 <!-- External, non-processed script — CSP: script-src 'self' works with zero exceptions -->
 <script
-	src='/scripts/project-filter.js'
+	src={withBase('/scripts/project-filter.js')}
 	is:inline
 ></script>

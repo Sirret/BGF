@@ -10,6 +10,7 @@
 
 import SectionHeading from '../../../ui/SectionHeading.astro';
 import team from '../../../../data/team.json';
+import { withBase } from '../../../../utils/paths';
 ---
 
 <section class='bg-white py-24'>
@@ -28,7 +29,7 @@ import team from '../../../../data/team.json';
           <!-- Circular photo -->
           <div class='w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-md'>
             <img
-              src={member.photo}
+              src={withBase(member.photo)}
               alt={`Photo of ${member.name}`}
               class='w-full h-full object-cover'
               loading='lazy'

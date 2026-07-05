@@ -19,6 +19,8 @@
  * Astro automatically dedupes this script tag even though StatBlock repeats.
  */
 
+import { withBase } from '../../utils/paths';
+
 const { label, value, chartData = [] } = Astro.props;
 ---
 
@@ -50,6 +52,6 @@ const { label, value, chartData = [] } = Astro.props;
 </div>
 
 <script
-	src='/scripts/chart-bars.js'
+	src={withBase('/scripts/chart-bars.js')}
 	is:inline
 ></script>

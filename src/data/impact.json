@@ -1,0 +1,22 @@
+{
+	"hero": {
+		"title": "Our Impact",
+		"subtitle": "Real numbers, real stories, and a timeline of the work that got us here.",
+		"breadcrumb": "Impact"
+	},
+	"statsSection": {
+		"label": "By the Numbers",
+		"title": "Making a Real Difference",
+		"subtitle": "Every number represents a life touched, a community served, a barrier broken."
+	},
+	"testimonialsSection": {
+		"label": "In Their Words",
+		"title": "Stories From the People We Serve",
+		"subtitle": "The impact behind the numbers, told by the people and volunteers who lived it."
+	},
+	"timelineSection": {
+		"label": "Our Journey",
+		"title": "How Far We've Come",
+		"subtitle": "Key milestones in BethGold Foundation's growth since our founding."
+	}
+}

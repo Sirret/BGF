@@ -8,6 +8,7 @@
  */
 
 import site from '../data/site.json';
+import { withBase } from '../utils/paths';
 
 const navLinks = [
 	{ label: 'Home', href: '/' },
@@ -26,11 +27,11 @@ const currentPath = Astro.url.pathname;
 	<div class='max-w-7xl mx-auto px-6 flex items-center justify-between h-20'>
 		<!-- Logo + Org Name -->
 		<a
-			href='/'
+			href={withBase('/')}
 			class='flex items-center gap-3 flex-shrink-0'
 		>
 			<img
-				src={site.org.logo}
+				src={withBase(site.org.logo)}
 				alt={`${site.org.name} logo`}
 				class='h-12 w-auto object-contain'
 			/>
@@ -51,9 +52,9 @@ const currentPath = Astro.url.pathname;
 			{
 				navLinks.map((link) => (
 					<a
-						href={link.href}
+						href={withBase(link.href)}
 						class={`font-body text-sm transition-colors duration-200 ${
-							currentPath === link.href
+							currentPath === withBase(link.href)
 								? 'text-accent font-semibold'
 								: 'text-text-dark hover:text-accent'
 						}`}
@@ -68,7 +69,7 @@ const currentPath = Astro.url.pathname;
 		<div class='flex items-center gap-3'>
 			<!-- Donate — always visible -->
 			<a
-				href='/donate'
+				href={withBase('/donate')}
 				class='inline-flex items-center justify-center font-heading font-semibold rounded-full px-5 py-2.5 text-sm bg-accent text-white hover:bg-accent-dark transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2'
 			>
 				Donate Now
@@ -127,9 +128,9 @@ const currentPath = Astro.url.pathname;
 			{
 				navLinks.map((link) => (
 					<a
-						href={link.href}
+						href={withBase(link.href)}
 						class={`font-body text-base py-2.5 px-3 rounded-lg transition-colors duration-200 ${
-							currentPath === link.href
+							currentPath === withBase(link.href)
 								? 'text-accent font-semibold bg-accent/5'
 								: 'text-text-dark hover:text-accent hover:bg-accent/5'
 						}`}
@@ -141,7 +142,7 @@ const currentPath = Astro.url.pathname;
 
 			<div class='border-t border-border mt-3 pt-3'>
 				<a
-					href='/donate'
+					href={withBase('/donate')}
 					class='inline-flex w-full items-center justify-center font-heading font-semibold rounded-full px-6 py-3 text-base bg-accent text-white hover:bg-accent-dark transition-all duration-200'
 				>
 					Donate Now
@@ -153,6 +154,6 @@ const currentPath = Astro.url.pathname;
 
 <!-- External, non-processed script — CSP: script-src 'self' works with zero exceptions -->
 <script
-	src='/scripts/nav-toggle.js'
+	src={withBase('/scripts/nav-toggle.js')}
 	is:inline
 ></script>

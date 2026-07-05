@@ -1,0 +1,44 @@
+---
+/**
+ * Statistics.astro
+ * Impact page — bold impact numbers on solid deep-blue background.
+ * Reads shared stats.json (same source as homepage ImpactStats.astro) and
+ * this page's own section heading copy from impact.json.
+ * Background: bg-primary — this page's one reserved statistical section.
+ *
+ * Backend note: when API ready, replace import with:
+ * const stats = await fetch('/api/stats').then(r => r.json())
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import StatBlock from '../../../ui/StatBlock.astro';
+import stats from '../../../../data/stats.json';
+import impact from '../../../../data/impact.json';
+
+const { statsSection } = impact;
+---
+
+<section class='bg-primary py-24'>
+	<div class='max-w-7xl mx-auto px-6'>
+		<SectionHeading
+			light={true}
+			label={statsSection.label}
+			title={statsSection.title}
+			subtitle={statsSection.subtitle}
+		/>
+
+		<div
+			class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-16'
+		>
+			{
+				stats.map((stat: any) => (
+					<StatBlock
+						label={stat.label}
+						value={stat.value}
+						chartData={stat.chartData}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>

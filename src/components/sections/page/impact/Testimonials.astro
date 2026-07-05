@@ -1,0 +1,59 @@
+---
+/**
+ * Testimonials.astro
+ * Impact page — grid of quote cards from beneficiaries, volunteers, and community members.
+ * Reads testimonials.json (kept separate from impact.json since this is repeatable
+ * list content, same category as team.json).
+ * Background: bg-white
+ *
+ * Backend note: when API ready, replace import with:
+ * const testimonials = await fetch('/api/testimonials').then(r => r.json())
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import testimonials from '../../../../data/testimonials.json';
+import impact from '../../../../data/impact.json';
+
+const { testimonialsSection } = impact;
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-7xl mx-auto px-6'>
+		<SectionHeading
+			label={testimonialsSection.label}
+			title={testimonialsSection.title}
+			subtitle={testimonialsSection.subtitle}
+		/>
+
+		<div class='grid grid-cols-1 sm:grid-cols-2 gap-8 mt-16'>
+			{
+				testimonials.map((t: any) => (
+					<div class='bg-white rounded-2xl shadow-sm border border-border p-8 flex flex-col gap-4'>
+						<!-- Quote mark -->
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='w-8 h-8 text-accent/30'
+							viewBox='0 0 24 24'
+							fill='currentColor'
+						>
+							<path d='M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.213 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.213 3.996-5.849h-3.983v-10h9.983z' />
+						</svg>
+
+						<p class='text-text-dark text-base leading-relaxed italic'>
+							"{t.quote}"
+						</p>
+
+						<div class='flex flex-col mt-auto pt-4 border-t border-border'>
+							<span class='font-heading font-bold text-text-dark text-sm'>
+								{t.author}
+							</span>
+							<span class='text-text-muted text-sm'>
+								{t.role} · {t.location}
+							</span>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

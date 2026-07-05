@@ -1,0 +1,16 @@
+---
+/**
+ * ImpactHero.astro
+ * Thin shell — reads hero config from impact.json and passes it to the shared PageHero component.
+ * To change the title, subtitle or breadcrumb: edit src/data/impact.json only.
+ */
+
+import PageHero from '../../../ui/PageHero.astro';
+import impact from '../../../../data/impact.json';
+---
+
+<PageHero
+  title={impact.hero.title}
+  subtitle={impact.hero.subtitle}
+  breadcrumb={impact.hero.breadcrumb}
+/>

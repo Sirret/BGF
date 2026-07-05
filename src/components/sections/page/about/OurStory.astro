@@ -10,41 +10,45 @@
 import SectionHeading from '../../../ui/SectionHeading.astro';
 import Button from '../../../ui/Button.astro';
 import about from '../../../../data/about.json';
+import { withBase } from '../../../../utils/paths';
 
 const { story } = about;
 ---
 
 <section class='bg-white py-24'>
-  <div class='max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
+	<div
+		class='max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'
+	>
+		<!-- Left: Text -->
+		<div class='flex flex-col gap-8'>
+			<SectionHeading
+				align='left'
+				label={story.label}
+				title={story.heading}
+			/>
 
-    <!-- Left: Text -->
-    <div class='flex flex-col gap-8'>
-      <SectionHeading
-        align='left'
-        label={story.label}
-        title={story.heading}
-      />
+			<div
+				class='flex flex-col gap-5 font-body text-text-muted leading-relaxed text-base'
+			>
+				{story.paragraphs.map((p: string) => <p>{p}</p>)}
+			</div>
 
-      <div class='flex flex-col gap-5 font-body text-text-muted leading-relaxed text-base'>
-        {story.paragraphs.map((p: string) => (
-          <p>{p}</p>
-        ))}
-      </div>
+			<Button
+				variant='outline'
+				href={story.ctaHref}
+			>
+				{story.ctaLabel}
+			</Button>
+		</div>
 
-      <Button variant='outline' href={story.ctaHref}>
-        {story.ctaLabel}
-      </Button>
-    </div>
-
-    <!-- Right: Image -->
-    <div class='w-full h-96 lg:h-[520px]'>
-      <img
-        src={story.image}
-        alt={story.imageAlt}
-        class='w-full h-full object-cover rounded-2xl shadow-md'
-        loading='lazy'
-      />
-    </div>
-
-  </div>
+		<!-- Right: Image -->
+		<div class='w-full h-96 lg:h-[520px]'>
+			<img
+				src={withBase(story.image)}
+				alt={story.imageAlt}
+				class='w-full h-full object-cover rounded-2xl shadow-md'
+				loading='lazy'
+			/>
+		</div>
+	</div>
 </section>

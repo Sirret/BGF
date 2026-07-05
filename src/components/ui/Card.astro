@@ -19,6 +19,8 @@
  *   default     — any additional content appended at bottom of card body
  */
 
+import { withBase } from '../../utils/paths';
+
 const {
   image,
   imageAlt = '',
@@ -49,7 +51,7 @@ const statusLabel: Record<string, string> = {
   <div class={`flex flex-col sm:flex-row rounded-2xl shadow-sm overflow-hidden border border-border hover:shadow-md transition-shadow duration-200 ${cardClass || 'bg-white'}`}>
     {image && (
       <div class="sm:w-2/5 h-56 sm:h-auto flex-shrink-0">
-        <img src={image} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
+        <img src={withBase(image)} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
       </div>
     )}
     <div class="flex flex-col justify-center p-6 sm:w-3/5 gap-3">
@@ -69,7 +71,7 @@ const statusLabel: Record<string, string> = {
       {description && <p class={`text-sm leading-relaxed ${descriptionClass || 'text-text-muted'}`}>{description}</p>}
       {impact && <p class="text-sm font-semibold text-primary border-l-2 border-accent pl-3">{impact}</p>}
       {href && (
-        <a href={href} class="text-accent font-semibold text-sm hover:underline mt-1">
+        <a href={withBase(href)} class="text-accent font-semibold text-sm hover:underline mt-1">
           Read More →
         </a>
       )}
@@ -79,7 +81,7 @@ const statusLabel: Record<string, string> = {
   <div class={`rounded-2xl shadow-sm overflow-hidden border border-border hover:shadow-md transition-shadow duration-200 flex flex-col ${cardClass || 'bg-white'}`}>
     {image && (
       <div class="h-48 overflow-hidden shrink-0">
-        <img src={image} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
+        <img src={withBase(image)} alt={imageAlt} class="w-full h-full object-cover" loading="lazy" />
       </div>
     )}
     <div class="p-6 flex flex-col gap-3 flex-1">
@@ -102,7 +104,7 @@ const statusLabel: Record<string, string> = {
       {description && <p class={`text-sm leading-relaxed ${descriptionClass || 'text-text-muted'}`}>{description}</p>}
       {impact && <p class="text-sm font-semibold text-primary border-l-2 border-accent pl-3">{impact}</p>}
       {href && (
-        <a href={href} class="text-accent font-semibold text-sm hover:underline mt-auto pt-2">
+        <a href={withBase(href)} class="text-accent font-semibold text-sm hover:underline mt-auto pt-2">
           Read More →
         </a>
       )}

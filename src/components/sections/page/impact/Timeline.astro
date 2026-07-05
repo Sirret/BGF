@@ -1,0 +1,53 @@
+---
+/**
+ * Timeline.astro
+ * Impact page — vertical timeline of organizational milestones.
+ * Reads timeline.json (kept separate from impact.json since this is repeatable
+ * list content, same category as team.json).
+ * Background: bg-bg-base
+ *
+ * Backend note: when API ready, replace import with:
+ * const timeline = await fetch('/api/timeline').then(r => r.json())
+ */
+
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import timeline from '../../../../data/timeline.json';
+import impact from '../../../../data/impact.json';
+
+const { timelineSection } = impact;
+---
+
+<section class='bg-bg-base py-24'>
+	<div class='max-w-3xl mx-auto px-6'>
+		<SectionHeading
+			label={timelineSection.label}
+			title={timelineSection.title}
+			subtitle={timelineSection.subtitle}
+		/>
+
+		<div class='relative mt-16 flex flex-col gap-12'>
+			<!-- Connecting line -->
+			<div class='absolute left-[27px] top-2 bottom-2 w-0.5 bg-border' aria-hidden='true'></div>
+
+			{
+				timeline.map((item: any) => (
+					<div class='relative flex gap-6'>
+						<!-- Dot -->
+						<div class='relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-primary text-white font-heading font-bold text-sm flex items-center justify-center shadow-sm'>
+							{item.year}
+						</div>
+
+						<div class='flex flex-col gap-1 pt-1'>
+							<h3 class='font-heading text-lg font-bold text-text-dark'>
+								{item.title}
+							</h3>
+							<p class='text-text-muted text-sm leading-relaxed'>
+								{item.description}
+							</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

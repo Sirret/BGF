@@ -7,6 +7,7 @@
  */
 
 import site from '../data/site.json';
+import { withBase } from '../utils/paths';
 
 const quickLinks = [
 	{ label: 'Home', href: '/' },
@@ -32,11 +33,11 @@ const year = new Date().getFullYear();
 			<div class='flex flex-col gap-5'>
 				<!-- Logo (inverted to white) -->
 				<a
-					href='/'
+					href={withBase('/')}
 					class='flex items-center gap-3'
 				>
 					<img
-						src={site.org.logo}
+						src={withBase(site.org.logo)}
 						alt={`${site.org.name} logo`}
 						class='h-12 w-auto object-contain logo-invert'
 					/>
@@ -181,7 +182,7 @@ const year = new Date().getFullYear();
 					{
 						quickLinks.map((link) => (
 							<a
-								href={link.href}
+								href={withBase(link.href)}
 								class='font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
 							>
 								{link.label}
@@ -203,7 +204,7 @@ const year = new Date().getFullYear();
 					{
 						getInvolvedLinks.map((link) => (
 							<a
-								href={link.href}
+								href={withBase(link.href)}
 								class='font-body text-sm text-footer-text hover:text-accent transition-colors duration-200'
 							>
 								{link.label}

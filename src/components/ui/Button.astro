@@ -11,47 +11,59 @@
  *   type     — button type attribute (only applies when no href), default 'button'
  */
 
+import { withBase } from '../../utils/paths';
+
 const {
-  variant = 'primary',
-  href,
-  size = 'md',
-  class: className = '',
-  type = 'button',
+	variant = 'primary',
+	href,
+	size = 'md',
+	class: className = '',
+	type = 'button',
 } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer';
+	'inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer';
 
 const sizes: Record<string, string> = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg',
+	sm: 'px-4 py-2 text-sm',
+	md: 'px-6 py-3 text-base',
+	lg: 'px-8 py-4 text-lg',
 };
 
 const variants: Record<string, string> = {
-  primary:
-    'bg-primary text-white hover:bg-primary-dark focus:ring-primary',
-  accent:
-    'bg-accent text-white hover:bg-accent-dark focus:ring-accent',
-  outline:
-    'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary',
-  'outline-accent':
-    'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent',
-  ghost:
-    'text-accent underline-offset-4 hover:underline focus:ring-accent bg-transparent',
+	primary: 'bg-primary text-white hover:bg-primary-dark focus:ring-primary',
+	accent: 'bg-accent text-white hover:bg-accent-dark focus:ring-accent',
+	outline:
+		'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary',
+	'outline-accent':
+		'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent',
+	ghost: 'text-accent underline-offset-4 hover:underline focus:ring-accent bg-transparent',
 };
 
-const classes = [base, sizes[size] ?? sizes.md, variants[variant] ?? variants.primary, className]
-  .filter(Boolean)
-  .join(' ');
+const classes = [
+	base,
+	sizes[size] ?? sizes.md,
+	variants[variant] ?? variants.primary,
+	className,
+]
+	.filter(Boolean)
+	.join(' ');
 ---
 
-{href ? (
-  <a href={href} class={classes}>
-    <slot />
-  </a>
-) : (
-  <button type={type} class={classes}>
-    <slot />
-  </button>
-)}
+{
+	href ? (
+		<a
+			href={withBase(href)}
+			class={classes}
+		>
+			<slot />
+		</a>
+	) : (
+		<button
+			type={type}
+			class={classes}
+		>
+			<slot />
+		</button>
+	)
+}

@@ -8,6 +8,7 @@
 
 import Button from '../../../ui/Button.astro';
 import site from '../../../../data/site.json';
+import { withBase } from '../../../../utils/paths';
 ---
 
 <section
@@ -50,7 +51,7 @@ import site from '../../../../data/site.json';
 				>Donate Now</Button
 			>
 			<a
-				href='/projects'
+				href={withBase('/projects')}
 				class='inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-primary focus:ring-white'
 			>
 				View Projects

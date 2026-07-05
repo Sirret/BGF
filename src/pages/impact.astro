@@ -1,0 +1,28 @@
+---
+/**
+ * pages/impact.astro
+ * Impact page — imports sections only. Zero design logic or inline classes here.
+ *
+ * Section order:
+ *   1. ImpactHero    — slim branded banner with page title
+ *   2. Statistics    — bold stat numbers (shared stats.json), bg-primary
+ *   3. Testimonials  — beneficiary/volunteer quotes, bg-white
+ *   4. Timeline      — organizational milestones, bg-bg-base
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImpactHero from '../components/sections/page/impact/ImpactHero.astro';
+import Statistics from '../components/sections/page/impact/Statistics.astro';
+import Testimonials from '../components/sections/page/impact/Testimonials.astro';
+import Timeline from '../components/sections/page/impact/Timeline.astro';
+---
+
+<BaseLayout
+	title='Our Impact'
+	description='See the measurable impact of BethGold Foundation — statistics, testimonials, and our journey so far.'
+>
+	<ImpactHero />
+	<Statistics />
+	<Testimonials />
+	<Timeline />
+</BaseLayout>
