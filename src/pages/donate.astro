@@ -1,14 +1,9 @@
 ---
 /**
  * pages/donate.astro
- * Donate page — PLACEHOLDER for Phase 8 (Get Involved).
- * Built now so /donate resolves to a real, on-brand page instead of the
- * generic "Coming Soon" 404 fallback, since Donate is the primary CTA
- * linked from Navbar, Footer, and AboutCallToAction.
- *
- * TODO (Phase 8): replace placeholder bank / mobile money details below
- * with real values — ideally sourced from a donate.json data file once
- * DonateInfo content is finalized, matching the about.json pattern.
+ * Donate page — content sourced from donate.json (see src/data/donate.json).
+ * Bank/mobile money values are still placeholders there — update the JSON,
+ * not this file, once real details are ready.
  *
  * Section order:
  *   1. PageHero      — slim branded banner
@@ -21,7 +16,7 @@ import PageHero from '@components/ui/PageHero.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
 import site from '@data/site.json';
-import { withBase } from '@components/utils/paths';
+import donate from '@data/donate.json';
 ---
 
 <BaseLayout
@@ -29,18 +24,18 @@ import { withBase } from '@components/utils/paths';
 	description={`Support ${site.org.name} — help us empower communities through education, health, and community development.`}
 >
 	<PageHero
-		title='Support Our Work'
-		subtitle='Every contribution helps us reach more communities.'
-		breadcrumb='Donate'
+		title={donate.hero.title}
+		subtitle={donate.hero.subtitle}
+		breadcrumb={donate.hero.breadcrumb}
 	/>
 
 	<!-- Ways to Give — bg-white -->
 	<section class='bg-white py-24'>
 		<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
 			<SectionHeading
-				label='Ways to Give'
-				title='Choose How You Like to Donate'
-				subtitle='Your support directly funds our education, health, and community programs.'
+				label={donate.waysToGiveSection.label}
+				title={donate.waysToGiveSection.title}
+				subtitle={donate.waysToGiveSection.subtitle}
 			/>
 
 			<div class='grid grid-cols-1 sm:grid-cols-2 gap-8'>
@@ -51,19 +46,19 @@ import { withBase } from '@components/utils/paths';
 					<span
 						class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
 					>
-						Bank Transfer
+						{donate.waysToGiveSection.bankTransfer.label}
 					</span>
 					<h3 class='font-heading text-xl font-bold text-text-dark'>
-						Direct Bank Donation
+						{donate.waysToGiveSection.bankTransfer.title}
 					</h3>
-					<!-- TODO: replace with real bank details -->
 					<ul
 						class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
 					>
 						<li>
 							<span class='font-semibold text-text-dark'
 								>Bank Name:</span
-							> TBD
+							>
+							{donate.waysToGiveSection.bankTransfer.bankName}
 						</li>
 						<li>
 							<span class='font-semibold text-text-dark'
@@ -74,12 +69,17 @@ import { withBase } from '@components/utils/paths';
 						<li>
 							<span class='font-semibold text-text-dark'
 								>Account Number:</span
-							> TBD
+							>
+							{
+								donate.waysToGiveSection.bankTransfer
+									.accountNumber
+							}
 						</li>
 						<li>
 							<span class='font-semibold text-text-dark'
 								>Swift Code:</span
-							> TBD
+							>
+							{donate.waysToGiveSection.bankTransfer.swiftCode}
 						</li>
 					</ul>
 				</div>
@@ -91,25 +91,25 @@ import { withBase } from '@components/utils/paths';
 					<span
 						class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
 					>
-						Mobile Money
+						{donate.waysToGiveSection.mobileMoney.label}
 					</span>
 					<h3 class='font-heading text-xl font-bold text-text-dark'>
-						Mobile Money Donation
+						{donate.waysToGiveSection.mobileMoney.title}
 					</h3>
-					<!-- TODO: replace with real mobile money details -->
 					<ul
 						class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
 					>
 						<li>
 							<span class='font-semibold text-text-dark'
 								>Provider:</span
-							> TBD
+							>
+							{donate.waysToGiveSection.mobileMoney.provider}
 						</li>
 						<li>
 							<span class='font-semibold text-text-dark'
 								>Number:</span
 							>
-							{site.contact.phone}
+							{donate.waysToGiveSection.mobileMoney.number}
 						</li>
 						<li>
 							<span class='font-semibold text-text-dark'
@@ -122,14 +122,7 @@ import { withBase } from '@components/utils/paths';
 			</div>
 
 			<p class='text-sm text-text-muted text-center max-w-2xl mx-auto'>
-				Have questions about donating, or want a receipt for your
-				contribution?
-				<a
-					href={withBase('/contact')}
-					class='text-accent font-semibold hover:underline'
-					>Contact us</a
-				>
-				— we're happy to help.
+				{donate.waysToGiveSection.helpText}
 			</p>
 		</div>
 	</section>
@@ -140,9 +133,9 @@ import { withBase } from '@components/utils/paths';
 			class='max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-8'
 		>
 			<SectionHeading
-				label='Prefer Another Way?'
-				title='There Are Many Ways to Support Us'
-				subtitle='Financial giving is just one option — volunteering and partnerships make a difference too.'
+				label={donate.otherWaysSection.label}
+				title={donate.otherWaysSection.title}
+				subtitle={donate.otherWaysSection.subtitle}
 			/>
 			<div class='flex flex-wrap justify-center gap-4'>
 				<Button

@@ -1,0 +1,43 @@
+---
+/**
+ * pages/get-involved.astro
+ * Get Involved page — imports sections only. Zero design logic or inline
+ * classes here.
+ *
+ * Section order:
+ *   1. PageHero          — slim branded banner
+ *   2. VolunteerForm     — volunteer sign-up form (bg-white)
+ *   3. DonateInfo        — donate teaser, links to /donate (bg-bg-base)
+ *   4. PartnershipSection — organizations/businesses (bg-white)
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import VolunteerForm from '@components/sections/page/get-involved/VolunteerForm.astro';
+import DonateInfo from '@components/sections/page/get-involved/DonateInfo.astro';
+import PartnershipSection from '@components/sections/page/get-involved/PartnershipSection.astro';
+import content from '@data/get-involved.json';
+import { withBase } from '@components/utils/paths';
+---
+
+<BaseLayout
+	title='Get Involved'
+	description='Volunteer, donate, or partner with BethGold Foundation — there are many ways to help.'
+>
+	<PageHero
+		title={content.hero.title}
+		subtitle={content.hero.subtitle}
+		breadcrumb={content.hero.breadcrumb}
+	/>
+	<VolunteerForm data={content.volunteerSection} />
+	<DonateInfo data={content.donateSection} />
+	<PartnershipSection data={content.partnershipSection} />
+</BaseLayout>
+
+<!-- Shared Web3Forms handler — loaded once here, covers both forms on this
+     page. Do NOT add this script inside VolunteerForm/PartnershipSection
+     themselves — see form-submit.js's comment for why that would double-submit. -->
+<script
+	src={withBase('/scripts/form-submit.js')}
+	is:inline
+></script>

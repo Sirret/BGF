@@ -1,0 +1,31 @@
+{
+	"hero": {
+		"title": "Support Our Work",
+		"subtitle": "Every contribution helps us reach more communities.",
+		"breadcrumb": "Donate"
+	},
+	"waysToGiveSection": {
+		"label": "Ways to Give",
+		"title": "Choose How You'd Like to Donate",
+		"subtitle": "Your support directly funds our education, health, and community programs.",
+		"bankTransfer": {
+			"label": "Bank Transfer",
+			"title": "Direct Bank Donation",
+			"bankName": "TBD",
+			"accountNumber": "TBD",
+			"swiftCode": "TBD"
+		},
+		"mobileMoney": {
+			"label": "Mobile Money",
+			"title": "Mobile Money Donation",
+			"provider": "TBD",
+			"number": "TBD"
+		},
+		"helpText": "Have questions about donating, or want a receipt for your contribution? Contact us — we're happy to help."
+	},
+	"otherWaysSection": {
+		"label": "Prefer Another Way?",
+		"title": "There Are Many Ways to Support Us",
+		"subtitle": "Financial giving is just one option — volunteering and partnerships make a difference too."
+	}
+}

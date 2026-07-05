@@ -1,0 +1,176 @@
+---
+/**
+ * VolunteerForm.astro
+ * Get Involved page — volunteer sign-up form. Submits via Web3Forms
+ * (https://web3forms.com) — free, unlimited submissions, no backend needed,
+ * works on static hosts like GitHub Pages.
+ *
+ * SETUP: replace WEB3FORMS_ACCESS_KEY below with your own key before launch.
+ * Get one free at https://web3forms.com — just needs an email address to
+ * receive submissions at, no account/dashboard required.
+ *
+ * Background: bg-white
+ *
+ * Props: data — volunteerSection object from get-involved.json
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+
+const { data } = Astro.props;
+
+// TODO: replace with your real Web3Forms access key before going live.
+const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-3xl mx-auto px-6 flex flex-col gap-12'>
+		<SectionHeading
+			label={data.label}
+			title={data.title}
+			subtitle={data.subtitle}
+		/>
+
+		<form
+			id='volunteer-form'
+			data-web3form
+			class='flex flex-col gap-6'
+			data-success-message={data.successMessage}
+			data-error-message={data.errorMessage}
+		>
+			<input
+				type='hidden'
+				name='access_key'
+				value={WEB3FORMS_ACCESS_KEY}
+			/>
+			<input
+				type='hidden'
+				name='subject'
+				value='New Volunteer Application — BethGold Foundation'
+			/>
+			<!-- Honeypot spam trap — must stay empty; hidden from real users -->
+			<input
+				type='checkbox'
+				name='botcheck'
+				class='hidden'
+				style='display:none'
+				tabindex='-1'
+				autocomplete='off'
+			/>
+
+			<div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='name'
+						class='text-sm font-semibold text-text-dark'
+						>Full Name</label
+					>
+					<input
+						id='name'
+						name='name'
+						type='text'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+					/>
+				</div>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='email'
+						class='text-sm font-semibold text-text-dark'
+						>Email</label
+					>
+					<input
+						id='email'
+						name='email'
+						type='email'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+					/>
+				</div>
+			</div>
+
+			<div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='interest'
+						class='text-sm font-semibold text-text-dark'
+						>Area of Interest</label
+					>
+					<select
+						id='interest'
+						name='interest'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white'
+					>
+						<option
+							value=''
+							disabled
+							selected
+							>Select an area</option
+						>
+						{
+							data.interestOptions.map((option: string) => (
+								<option value={option}>{option}</option>
+							))
+						}
+					</select>
+				</div>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='availability'
+						class='text-sm font-semibold text-text-dark'
+						>Availability</label
+					>
+					<select
+						id='availability'
+						name='availability'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white'
+					>
+						<option
+							value=''
+							disabled
+							selected
+							>Select availability</option
+						>
+						{
+							data.availabilityOptions.map((option: string) => (
+								<option value={option}>{option}</option>
+							))
+						}
+					</select>
+				</div>
+			</div>
+
+			<div class='flex flex-col gap-2'>
+				<label
+					for='message'
+					class='text-sm font-semibold text-text-dark'
+					>Tell Us About Yourself</label
+				>
+				<textarea
+					id='message'
+					name='message'
+					rows='4'
+					placeholder='Skills, experience, or anything else we should know'
+					class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none'
+				></textarea>
+			</div>
+
+			<Button
+				variant='accent'
+				type='submit'
+				class='w-fit'
+			>
+				{data.submitLabel}
+			</Button>
+
+			<p
+				data-form-status
+				class='text-sm font-semibold hidden'
+				role='status'
+			>
+			</p>
+		</form>
+	</div>
+</section>

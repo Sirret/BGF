@@ -1,0 +1,160 @@
+---
+/**
+ * PartnershipSection.astro
+ * Get Involved page — inquiry form for organizations/businesses wanting to
+ * partner. Submits via Web3Forms — same pattern and shared handler
+ * (form-submit.js) as VolunteerForm.astro. That script is loaded once at
+ * the page level (get-involved.astro), not here — see form-submit.js's
+ * own comment for why loading it per-component would double-submit forms.
+ * Background: bg-white
+ *
+ * Props: data — partnershipSection object from get-involved.json
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import site from '@data/site.json';
+
+const { data } = Astro.props;
+
+// TODO: replace with your real Web3Forms access key before going live.
+// Same key as VolunteerForm.astro — one Web3Forms account covers every
+// form on the site; submissions from each form still arrive as separate
+// emails since each has its own hidden "subject" field.
+const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-3xl mx-auto px-6 flex flex-col gap-12'>
+		<SectionHeading
+			label={data.label}
+			title={data.title}
+			subtitle={data.subtitle}
+		/>
+
+		<div class='flex flex-col gap-4'>
+			{
+				data.paragraphs.map((paragraph: string) => (
+					<p class='font-body text-text-muted leading-relaxed text-center max-w-2xl mx-auto'>
+						{paragraph}
+					</p>
+				))
+			}
+		</div>
+
+		<form
+			id='partnership-form'
+			data-web3form
+			class='flex flex-col gap-6'
+			data-success-message={data.successMessage}
+			data-error-message={data.errorMessage}
+		>
+			<input
+				type='hidden'
+				name='access_key'
+				value={WEB3FORMS_ACCESS_KEY}
+			/>
+			<input
+				type='hidden'
+				name='subject'
+				value='New Partnership Inquiry — BethGold Foundation'
+			/>
+			<!-- Honeypot spam trap — must stay empty; hidden from real users -->
+			<input
+				type='checkbox'
+				name='botcheck'
+				class='hidden'
+				style='display:none'
+				tabindex='-1'
+				autocomplete='off'
+			/>
+
+			<div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='organization'
+						class='text-sm font-semibold text-text-dark'
+						>Organization Name</label
+					>
+					<input
+						id='organization'
+						name='organization'
+						type='text'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+					/>
+				</div>
+				<div class='flex flex-col gap-2'>
+					<label
+						for='partner-name'
+						class='text-sm font-semibold text-text-dark'
+						>Your Name</label
+					>
+					<input
+						id='partner-name'
+						name='name'
+						type='text'
+						required
+						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+					/>
+				</div>
+			</div>
+
+			<div class='flex flex-col gap-2'>
+				<label
+					for='partner-email'
+					class='text-sm font-semibold text-text-dark'
+					>Email</label
+				>
+				<input
+					id='partner-email'
+					name='email'
+					type='email'
+					required
+					class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+				/>
+			</div>
+
+			<div class='flex flex-col gap-2'>
+				<label
+					for='partner-message'
+					class='text-sm font-semibold text-text-dark'
+					>How Would You Like to Partner With Us?</label
+				>
+				<textarea
+					id='partner-message'
+					name='message'
+					rows='4'
+					required
+					placeholder='Tell us about your organization and what kind of partnership you have in mind'
+					class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none'
+				></textarea>
+			</div>
+
+			<Button
+				variant='outline'
+				type='submit'
+				class='w-fit'
+			>
+				{data.submitLabel}
+			</Button>
+
+			<p
+				data-form-status
+				class='text-sm font-semibold hidden'
+				role='status'
+			>
+			</p>
+
+			<p class='text-xs text-text-muted'>
+				Prefer email? Reach us directly at{' '}
+				<a
+					href={`mailto:${site.contact.email}?subject=Partnership Inquiry`}
+					class='text-accent font-semibold hover:underline'
+				>
+					{site.contact.email}
+				</a>
+			</p>
+		</form>
+	</div>
+</section>

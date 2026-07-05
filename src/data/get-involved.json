@@ -1,0 +1,43 @@
+{
+	"hero": {
+		"title": "Get Involved",
+		"subtitle": "There are many ways to stand with us — give your time, your skills, or your network.",
+		"breadcrumb": "Get Involved"
+	},
+	"volunteerSection": {
+		"label": "Volunteer",
+		"title": "Join Our Team of Volunteers",
+		"subtitle": "Tell us a bit about yourself and how you'd like to help — we'll be in touch.",
+		"submitLabel": "Submit Application",
+		"successMessage": "Thank you! Your application has been received — we'll be in touch soon.",
+		"errorMessage": "Something went wrong sending your application. Please try again or email us directly.",
+		"interestOptions": [
+			"Education Programs",
+			"Health Outreach",
+			"Community Development",
+			"Events & Fundraising",
+			"Administrative Support",
+			"Other"
+		],
+		"availabilityOptions": ["Weekdays", "Weekends", "Evenings", "Flexible"]
+	},
+	"donateSection": {
+		"label": "Give",
+		"title": "Prefer to Give Financially?",
+		"subtitle": "Your donation funds real programmes, right now.",
+		"ctaLabel": "See Ways to Donate",
+		"ctaHref": "/donate"
+	},
+	"partnershipSection": {
+		"label": "Partner With Us",
+		"title": "Organizations & Businesses",
+		"subtitle": "We collaborate with NGOs, businesses, and institutions who share our mission.",
+		"paragraphs": [
+			"Partnering with BethGold Foundation means joining a network committed to measurable, lasting community impact. Whether through in-kind donations, co-funded programmes, or skilled-volunteer placements, we tailor every partnership to what your organization can offer and what our communities need.",
+			"We're proud to work alongside businesses and institutions that share our belief that ability lives in everyone — and we'd welcome the chance to explore what we could build together."
+		],
+		"submitLabel": "Send Inquiry",
+		"successMessage": "Thank you! We've received your inquiry and will be in touch soon.",
+		"errorMessage": "Something went wrong sending your inquiry. Please try again or email us directly."
+	}
+}
