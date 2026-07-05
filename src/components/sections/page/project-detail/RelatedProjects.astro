@@ -1,0 +1,63 @@
+---
+/**
+ * RelatedProjects.astro
+ * Individual project page — up to 3 other projects, same category prioritized
+ * (falls back to any other project so the section never renders near-empty).
+ * Background: bg-bg-base
+ *
+ * Props:
+ *   currentSlug — slug of the project being viewed (excluded from results)
+ *   category    — current project's category, used to prioritize matches
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Card from '@components/ui/Card.astro';
+import allProjects from '@data/projects.json';
+
+interface Project {
+	title: string;
+	slug: string;
+	category: string;
+	status: 'completed' | 'ongoing';
+	image: string;
+	description: string;
+	impact: string;
+}
+
+const { currentSlug, category } = Astro.props;
+
+const others = (allProjects as Project[]).filter(
+	(p) => p && typeof p.slug === 'string' && p.slug !== currentSlug,
+);
+const sameCategory = others.filter((p) => p.category === category);
+const rest = others.filter((p) => p.category !== category);
+const related = [...sameCategory, ...rest].slice(0, 3);
+---
+
+{
+	related.length > 0 && (
+		<section class='bg-bg-base py-24'>
+			<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
+				<SectionHeading
+					label='Keep Exploring'
+					title='Related Projects'
+				/>
+				<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+					{related.map((project) => (
+						<Card
+							layout='vertical'
+							image={project.image}
+							imageAlt={project.title}
+							title={project.title}
+							category={project.category}
+							status={project.status}
+							description={project.description}
+							impact={project.impact}
+							href={`/projects/${project.slug}`}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}

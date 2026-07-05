@@ -1,0 +1,48 @@
+---
+/**
+ * pages/projects/[slug].astro
+ * Individual project detail page — statically generated for every valid
+ * entry in projects.json. Fixes the previously-dead /projects/{slug} links
+ * used by every project Card across the site (homepage Featured Projects
+ * and the Projects page grid both link here).
+ *
+ * Section order:
+ *   1. ProjectDetailHero    — breadcrumb, category/status badges, title, meta
+ *   2. ProjectDetailContent — cover image, description, impact, gallery, facts sidebar, downloads
+ *   3. RelatedProjects      — up to 3 other projects, same category first
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ProjectDetailHero from '@components/sections/page/project-detail/ProjectDetailHero.astro';
+import ProjectDetailContent from '@components/sections/page/project-detail/ProjectDetailContent.astro';
+import RelatedProjects from '@components/sections/page/project-detail/RelatedProjects.astro';
+import allProjects from '@data/projects.json';
+
+export function getStaticPaths() {
+	// Same guard as ProjectGrid.astro — drop any stray entry missing a slug/title
+	// rather than let it generate a broken route.
+	return (allProjects as any[])
+		.filter(
+			(p) =>
+				p && typeof p.slug === 'string' && typeof p.title === 'string',
+		)
+		.map((project) => ({
+			params: { slug: project.slug },
+			props: { project },
+		}));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+	title={project.title}
+	description={project.description}
+>
+	<ProjectDetailHero project={project} />
+	<ProjectDetailContent project={project} />
+	<RelatedProjects
+		currentSlug={project.slug}
+		category={project.category}
+	/>
+</BaseLayout>
