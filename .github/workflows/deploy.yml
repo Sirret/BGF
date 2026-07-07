@@ -10,12 +10,12 @@ permissions:
     pages: write
     id-token: write
 
-environment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
+concurrency:
+    group: "pages"
+    cancel-in-progress: false
 
 jobs:
-    deploy:
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout your repository
@@ -24,6 +24,13 @@ jobs:
             - name: Install, build, and upload your site
               uses: withastro/action@v3
 
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/configure-pages@v5
+              uses: actions/deploy-pages@v4
