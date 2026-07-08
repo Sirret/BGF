@@ -9,6 +9,7 @@
 
 import site from '@data/site.json';
 import { withBase } from '@components/utils/paths';
+import Button from '@components/ui/Button.astro';
 
 const navLinks = [
 	{ label: 'Home', href: '/' },
@@ -16,6 +17,7 @@ const navLinks = [
 	{ label: 'Projects', href: '/projects' },
 	{ label: 'Impact', href: '/impact' },
 	{ label: 'Get Involved', href: '/get-involved' },
+	{ label: 'Gallery', href: '/gallery' },
 	{ label: 'News', href: '/news' },
 	{ label: 'Contact', href: '/contact' },
 ];
@@ -68,12 +70,13 @@ const currentPath = Astro.url.pathname;
 		<!-- Right side: Donate + Hamburger -->
 		<div class='flex items-center gap-3'>
 			<!-- Donate — always visible -->
-			<a
-				href={withBase('/donate')}
-				class='inline-flex items-center justify-center font-heading font-semibold rounded-full px-5 py-2.5 text-sm bg-accent text-white hover:bg-accent-dark transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2'
+			<Button
+				href='/donate'
+				variant='accent'
+				size='sm'
 			>
 				Donate Now
-			</a>
+			</Button>
 
 			<!-- Hamburger button — mobile only -->
 			<button
@@ -141,12 +144,14 @@ const currentPath = Astro.url.pathname;
 			}
 
 			<div class='border-t border-border mt-3 pt-3'>
-				<a
-					href={withBase('/donate')}
-					class='inline-flex w-full items-center justify-center font-heading font-semibold rounded-full px-6 py-3 text-base bg-accent text-white hover:bg-accent-dark transition-all duration-200'
+				<Button
+					href='/donate'
+					variant='accent'
+					size='md'
+					class='w-full'
 				>
 					Donate Now
-				</a>
+				</Button>
 			</div>
 		</nav>
 	</div>

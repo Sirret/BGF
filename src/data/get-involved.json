@@ -2,7 +2,8 @@
 	"hero": {
 		"title": "Get Involved",
 		"subtitle": "There are many ways to stand with us — give your time, your skills, or your network.",
-		"breadcrumb": "Get Involved"
+		"breadcrumb": "Get Involved",
+		"backgroundImage": "/images/hero-bg.jpg"
 	},
 	"volunteerSection": {
 		"label": "Volunteer",

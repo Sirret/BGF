@@ -1,69 +1,68 @@
 ---
 /**
- * ProjectGrid.astro
- * Projects page — full grid of all projects with a client-side category filter.
- * Reads from projects.json — records missing a slug/title are dropped (guards
- * against stray non-project entries in the data file).
+ * NewsGrid.astro
+ * News page — full grid of all articles with a client-side category filter.
+ * Reads from news.json — records missing a slug/title are dropped (guards
+ * against stray non-article entries in the data file).
  * Background: bg-white
  *
  * Backend note: when API ready, replace import with:
- * const projects = await fetch('/api/projects').then(r => r.json())
+ * const news = await fetch('/api/news').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allProjects from '@data/projects.json';
+import allNews from '@data/news.json';
 import { withBase } from '@components/utils/paths';
 import { hasStringFields } from '@components/utils/validate';
 
-interface ProjectImage {
+interface NewsImage {
 	src: string;
 	alt: string;
 }
 
-interface ProjectFile {
-	name: string;
-	url: string;
-	type: string;
-}
-
-interface Project {
+interface Article {
 	title: string;
 	slug: string;
 	category: string;
-	status: 'completed' | 'ongoing';
+	date: string;
+	author: string;
 	image: string;
-	// Optional — populated for individual project detail pages (not rendered in this grid yet).
-	images?: ProjectImage[];
-	files?: ProjectFile[];
-	description: string;
-	impact: string;
-	location?: string;
-	date?: string;
+	images?: NewsImage[];
+	excerpt: string;
+	content: string[];
 	featured?: boolean;
 }
 
-const projects = (allProjects as Project[]).filter((p) =>
-	hasStringFields<Project>(p, ['title', 'slug']),
+const news = (allNews as Article[]).filter((n) =>
+	hasStringFields<Article>(n, ['title', 'slug']),
 );
 
 // Unique categories, in first-seen order, for the filter bar
-const categories = [...new Set(projects.map((p) => p.category))];
+const categories = [...new Set(news.map((n) => n.category))];
+
+function formatDate(date: string) {
+	return new Date(date).toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
+}
 ---
 
 <section class='bg-white py-24'>
 	<div class='max-w-7xl mx-auto px-6'>
 		<SectionHeading
-			label='Our Work'
-			title='All Projects'
-			subtitle='Browse every programme we have delivered — filter by focus area to find what matters most to you.'
+			label='Latest Updates'
+			title='News & Announcements'
+			subtitle='Programme launches, partnerships, and stories from the communities we work alongside.'
 		/>
 
 		<!-- Filter bar -->
 		<div
 			class='flex flex-wrap justify-center gap-3 mt-12'
 			role='group'
-			aria-label='Filter projects by category'
+			aria-label='Filter news by category'
 		>
 			<button
 				type='button'
@@ -93,21 +92,20 @@ const categories = [...new Set(projects.map((p) => p.category))];
 			id='project-grid'
 		>
 			{
-				projects.map((project) => (
+				news.map((article) => (
 					<div
 						class='project-card'
-						data-category={project.category}
+						data-category={article.category}
 					>
 						<Card
 							layout='vertical'
-							image={project.image}
-							imageAlt={project.title}
-							title={project.title}
-							category={project.category}
-							status={project.status}
-							description={project.description}
-							impact={project.impact}
-							href={`/projects/${project.slug}`}
+							image={article.image}
+							imageAlt={article.title}
+							title={article.title}
+							category={article.category}
+							description={article.excerpt}
+							impact={`Published ${formatDate(article.date)}`}
+							href={`/news/${article.slug}`}
 						/>
 					</div>
 				))
@@ -119,7 +117,7 @@ const categories = [...new Set(projects.map((p) => p.category))];
 			id='project-empty-state'
 			class='hidden text-center text-text-muted font-body mt-16'
 		>
-			No projects found in this category yet.
+			No news found in this category yet.
 		</p>
 	</div>
 </section>

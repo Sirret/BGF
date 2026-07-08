@@ -1,0 +1,17 @@
+---
+/**
+ * GalleryHero.astro
+ * Thin shell — passes gallery page hero copy to the shared PageHero component.
+ * No dedicated gallery-hero JSON exists (gallery.json is an array of photo
+ * records), so hero copy lives here directly. To change it, edit this file.
+ */
+
+import PageHero from '@components/ui/PageHero.astro';
+---
+
+<PageHero
+	title='Gallery'
+	subtitle='A look at the programmes, people, and communities behind our work.'
+	breadcrumb='Gallery'
+	backgroundImage='/images/about/about-hero.jpg'
+/>

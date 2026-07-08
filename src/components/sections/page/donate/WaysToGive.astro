@@ -1,0 +1,112 @@
+---
+/**
+ * WaysToGive.astro
+ * Donate page — bank transfer + mobile money detail cards.
+ * Reads from donate.json (see src/data/donate.json). Bank/mobile money
+ * values are still placeholders there — update the JSON, not this file,
+ * once real details are ready.
+ * Background: bg-white
+ *
+ * Props:
+ *   data    — waysToGiveSection object from donate.json
+ *   orgName — organization name, shown as the account/registered name
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+
+const { data, orgName } = Astro.props;
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
+		<SectionHeading
+			label={data.label}
+			title={data.title}
+			subtitle={data.subtitle}
+		/>
+
+		<div class='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+			<!-- Bank Transfer -->
+			<div
+				class='bg-white rounded-2xl shadow-sm border border-border p-8 flex flex-col gap-4'
+			>
+				<span
+					class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
+				>
+					{data.bankTransfer.label}
+				</span>
+				<h3 class='font-heading text-xl font-bold text-text-dark'>
+					{data.bankTransfer.title}
+				</h3>
+				<ul
+					class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
+				>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Bank Name:</span
+						>
+						{data.bankTransfer.bankName}
+					</li>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Account Name:</span
+						>
+						{orgName}
+					</li>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Account Number:</span
+						>
+						{data.bankTransfer.accountNumber}
+					</li>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Swift Code:</span
+						>
+						{data.bankTransfer.swiftCode}
+					</li>
+				</ul>
+			</div>
+
+			<!-- Mobile Money -->
+			<div
+				class='bg-white rounded-2xl shadow-sm border border-border p-8 flex flex-col gap-4'
+			>
+				<span
+					class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
+				>
+					{data.mobileMoney.label}
+				</span>
+				<h3 class='font-heading text-xl font-bold text-text-dark'>
+					{data.mobileMoney.title}
+				</h3>
+				<ul
+					class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
+				>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Provider:</span
+						>
+						{data.mobileMoney.provider}
+					</li>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Number:</span
+						>
+						{data.mobileMoney.number}
+					</li>
+					<li>
+						<span class='font-semibold text-text-dark'
+							>Registered Name:</span
+						>
+						{orgName}
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<p class='text-sm text-text-muted text-center max-w-2xl mx-auto'>
+			{data.helpText}
+		</p>
+	</div>
+</section>

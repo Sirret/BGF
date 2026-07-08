@@ -1,0 +1,39 @@
+---
+/**
+ * OtherWaysCTA.astro
+ * Donate page — fallback CTA pointing to Volunteer and Contact for people
+ * who don't want to give financially.
+ * Background: bg-bg-base
+ *
+ * Props: data — otherWaysSection object from donate.json
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+
+const { data } = Astro.props;
+---
+
+<section class='bg-bg-base py-24'>
+	<div
+		class='max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-8'
+	>
+		<SectionHeading
+			label={data.label}
+			title={data.title}
+			subtitle={data.subtitle}
+		/>
+		<div class='flex flex-wrap justify-center gap-4'>
+			<Button
+				variant='accent'
+				href='/get-involved'
+				>Volunteer With Us</Button
+			>
+			<Button
+				variant='outline'
+				href='/contact'
+				>Get in Touch</Button
+			>
+		</div>
+	</div>
+</section>

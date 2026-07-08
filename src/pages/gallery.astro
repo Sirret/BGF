@@ -1,0 +1,22 @@
+---
+/**
+ * pages/gallery.astro
+ * Gallery page — imports sections only. Zero design logic or inline classes here.
+ *
+ * Section order:
+ *   1. GalleryHero — slim branded banner with page title
+ *   2. GalleryGrid — all photos with client-side category filter
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import GalleryHero from '@components/sections/page/gallery/GalleryHero.astro';
+import GalleryGrid from '@components/sections/page/gallery/GalleryGrid.astro';
+---
+
+<BaseLayout
+	title='Gallery'
+	description='Browse photos from BethGold Foundation programmes, events, and the communities we work alongside.'
+>
+	<GalleryHero />
+	<GalleryGrid />
+</BaseLayout>

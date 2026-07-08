@@ -17,11 +17,11 @@ import site from '@data/site.json';
 
 const { data } = Astro.props;
 
-// TODO: replace with your real Web3Forms access key before going live.
-// Same key as VolunteerForm.astro — one Web3Forms account covers every
-// form on the site; submissions from each form still arrive as separate
-// emails since each has its own hidden "subject" field.
-const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+// Access key is centralized in site.json (forms.web3formsAccessKey) — one
+// Web3Forms account covers every form on the site; submissions from each
+// form still arrive as separate emails since each has its own hidden
+// "subject" field.
+const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 ---
 
 <section class='bg-white py-24'>

@@ -1,0 +1,72 @@
+---
+/**
+ * RelatedNews.astro
+ * Individual news article page — up to 3 other articles, same category
+ * prioritized, falling back to the most recent other articles so the
+ * section never renders near-empty.
+ * Background: bg-bg-base
+ *
+ * Props:
+ *   currentSlug — slug of the article being viewed (excluded from results)
+ *   category    — current article's category, used to prioritize matches
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Card from '@components/ui/Card.astro';
+import allNews from '@data/news.json';
+
+interface Article {
+	title: string;
+	slug: string;
+	category: string;
+	date: string;
+	image: string;
+	excerpt: string;
+}
+
+const { currentSlug, category } = Astro.props;
+
+function formatDate(date: string) {
+	return new Date(date).toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
+}
+
+const others = (allNews as Article[]).filter(
+	(n) => n && typeof n.slug === 'string' && n.slug !== currentSlug,
+);
+const sameCategory = others.filter((n) => n.category === category);
+const rest = others
+	.filter((n) => n.category !== category)
+	.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const related = [...sameCategory, ...rest].slice(0, 3);
+---
+
+{
+	related.length > 0 && (
+		<section class='bg-bg-base py-24'>
+			<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
+				<SectionHeading
+					label='Keep Reading'
+					title='Related News'
+				/>
+				<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+					{related.map((article) => (
+						<Card
+							layout='vertical'
+							image={article.image}
+							imageAlt={article.title}
+							title={article.title}
+							category={article.category}
+							description={article.excerpt}
+							impact={`Published ${formatDate(article.date)}`}
+							href={`/news/${article.slug}`}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}

@@ -1,69 +1,53 @@
 ---
 /**
- * ProjectGrid.astro
- * Projects page — full grid of all projects with a client-side category filter.
- * Reads from projects.json — records missing a slug/title are dropped (guards
- * against stray non-project entries in the data file).
+ * GalleryGrid.astro
+ * Gallery page — full grid of photos with a client-side category filter.
+ * Reads from gallery.json.
  * Background: bg-white
  *
+ * Reuses public/scripts/project-filter.js unmodified — its selectors
+ * (.project-filter-btn / .project-card / #project-empty-state) are hardcoded
+ * literals, not project-specific, so this grid intentionally keeps the same
+ * class/id names rather than duplicating the script under new names.
+ *
  * Backend note: when API ready, replace import with:
- * const projects = await fetch('/api/projects').then(r => r.json())
+ * const gallery = await fetch('/api/gallery').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allProjects from '@data/projects.json';
+import allGallery from '@data/gallery.json';
 import { withBase } from '@components/utils/paths';
 import { hasStringFields } from '@components/utils/validate';
 
-interface ProjectImage {
-	src: string;
-	alt: string;
-}
-
-interface ProjectFile {
-	name: string;
-	url: string;
-	type: string;
-}
-
-interface Project {
-	title: string;
-	slug: string;
+interface Photo {
 	category: string;
-	status: 'completed' | 'ongoing';
 	image: string;
-	// Optional — populated for individual project detail pages (not rendered in this grid yet).
-	images?: ProjectImage[];
-	files?: ProjectFile[];
-	description: string;
-	impact: string;
-	location?: string;
-	date?: string;
-	featured?: boolean;
+	alt: string;
+	caption?: string;
 }
 
-const projects = (allProjects as Project[]).filter((p) =>
-	hasStringFields<Project>(p, ['title', 'slug']),
+const gallery = (allGallery as Photo[]).filter((p) =>
+	hasStringFields<Photo>(p, ['image', 'category']),
 );
 
 // Unique categories, in first-seen order, for the filter bar
-const categories = [...new Set(projects.map((p) => p.category))];
+const categories = [...new Set(gallery.map((p) => p.category))];
 ---
 
 <section class='bg-white py-24'>
 	<div class='max-w-7xl mx-auto px-6'>
 		<SectionHeading
-			label='Our Work'
-			title='All Projects'
-			subtitle='Browse every programme we have delivered — filter by focus area to find what matters most to you.'
+			label='Photo Gallery'
+			title='Moments From Our Work'
+			subtitle='Browse photos from our programmes, events, and community — filter by category to explore.'
 		/>
 
 		<!-- Filter bar -->
 		<div
 			class='flex flex-wrap justify-center gap-3 mt-12'
 			role='group'
-			aria-label='Filter projects by category'
+			aria-label='Filter gallery by category'
 		>
 			<button
 				type='button'
@@ -89,25 +73,22 @@ const categories = [...new Set(projects.map((p) => p.category))];
 
 		<!-- Grid -->
 		<div
-			class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16'
+			class='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-16'
 			id='project-grid'
 		>
 			{
-				projects.map((project) => (
+				gallery.map((photo) => (
 					<div
 						class='project-card'
-						data-category={project.category}
+						data-category={photo.category}
 					>
 						<Card
 							layout='vertical'
-							image={project.image}
-							imageAlt={project.title}
-							title={project.title}
-							category={project.category}
-							status={project.status}
-							description={project.description}
-							impact={project.impact}
-							href={`/projects/${project.slug}`}
+							image={photo.image}
+							imageAlt={photo.alt}
+							category={photo.category}
+							description={photo.caption}
+							descriptionClass='text-text-muted text-center'
 						/>
 					</div>
 				))
@@ -119,7 +100,7 @@ const categories = [...new Set(projects.map((p) => p.category))];
 			id='project-empty-state'
 			class='hidden text-center text-text-muted font-body mt-16'
 		>
-			No projects found in this category yet.
+			No photos found in this category yet.
 		</p>
 	</div>
 </section>

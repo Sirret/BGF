@@ -1,7 +1,7 @@
 ---
 /**
- * VolunteerForm.astro
- * Get Involved page — volunteer sign-up form. Submits via Web3Forms
+ * ContactForm.astro
+ * Contact page — message form. Submits via Web3Forms
  * (https://web3forms.com) — free, unlimited submissions, no backend needed,
  * works on static hosts like GitHub Pages.
  *
@@ -11,9 +11,9 @@
  * Get one free at https://web3forms.com — just needs an email address to
  * receive submissions at, no account/dashboard required.
  *
- * Background: bg-white
+ * Background: bg-bg-base
  *
- * Props: data — volunteerSection object from get-involved.json
+ * Props: data — formSection object from contact.json
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
@@ -25,7 +25,7 @@ const { data } = Astro.props;
 const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 ---
 
-<section class='bg-white py-24'>
+<section class='bg-bg-base py-24'>
 	<div class='max-w-3xl mx-auto px-6 flex flex-col gap-12'>
 		<SectionHeading
 			label={data.label}
@@ -34,7 +34,7 @@ const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 		/>
 
 		<form
-			id='volunteer-form'
+			id='contact-form'
 			data-web3form
 			class='flex flex-col gap-6'
 			data-success-message={data.successMessage}
@@ -48,7 +48,7 @@ const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 			<input
 				type='hidden'
 				name='subject'
-				value='New Volunteer Application — BethGold Foundation'
+				value='New Contact Message — BethGold Foundation'
 			/>
 			<!-- Honeypot spam trap — must stay empty; hidden from real users -->
 			<input
@@ -72,7 +72,7 @@ const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 						name='name'
 						type='text'
 						required
-						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+						class='border border-border rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary'
 					/>
 				</div>
 				<div class='flex flex-col gap-2'>
@@ -86,61 +86,8 @@ const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 						name='email'
 						type='email'
 						required
-						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+						class='border border-border rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary'
 					/>
-				</div>
-			</div>
-
-			<div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-				<div class='flex flex-col gap-2'>
-					<label
-						for='interest'
-						class='text-sm font-semibold text-text-dark'
-						>Area of Interest</label
-					>
-					<select
-						id='interest'
-						name='interest'
-						required
-						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white'
-					>
-						<option
-							value=''
-							disabled
-							selected
-							>Select an area</option
-						>
-						{
-							data.interestOptions.map((option: string) => (
-								<option value={option}>{option}</option>
-							))
-						}
-					</select>
-				</div>
-				<div class='flex flex-col gap-2'>
-					<label
-						for='availability'
-						class='text-sm font-semibold text-text-dark'
-						>Availability</label
-					>
-					<select
-						id='availability'
-						name='availability'
-						required
-						class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white'
-					>
-						<option
-							value=''
-							disabled
-							selected
-							>Select availability</option
-						>
-						{
-							data.availabilityOptions.map((option: string) => (
-								<option value={option}>{option}</option>
-							))
-						}
-					</select>
 				</div>
 			</div>
 
@@ -148,14 +95,15 @@ const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 				<label
 					for='message'
 					class='text-sm font-semibold text-text-dark'
-					>Tell Us About Yourself</label
+					>Message</label
 				>
 				<textarea
 					id='message'
 					name='message'
-					rows='4'
-					placeholder='Skills, experience, or anything else we should know'
-					class='border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none'
+					rows='5'
+					required
+					placeholder='How can we help?'
+					class='border border-border rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary resize-none'
 				></textarea>
 			</div>
 

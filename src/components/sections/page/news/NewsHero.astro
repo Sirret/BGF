@@ -1,0 +1,17 @@
+---
+/**
+ * NewsHero.astro
+ * Thin shell — passes news page hero copy to the shared PageHero component.
+ * No dedicated news-hero JSON exists (news.json is an array of article
+ * records), so hero copy lives here directly. To change it, edit this file.
+ */
+
+import PageHero from '@components/ui/PageHero.astro';
+---
+
+<PageHero
+	title='News & Updates'
+	subtitle="Stay up to date with our latest programmes, partnerships, and community stories."
+	breadcrumb='News'
+	backgroundImage='/images/about/about-hero.jpg'
+/>

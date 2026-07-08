@@ -1,0 +1,44 @@
+---
+/**
+ * pages/news/[slug].astro
+ * Individual news article page — statically generated for every valid
+ * entry in news.json.
+ *
+ * Section order:
+ *   1. NewsDetailHero    — breadcrumb, category badge, title, meta
+ *   2. NewsDetailContent — cover image, body, optional gallery, facts sidebar
+ *   3. RelatedNews       — up to 3 other articles, same category first
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsDetailHero from '@components/sections/page/news-detail/NewsDetailHero.astro';
+import NewsDetailContent from '@components/sections/page/news-detail/NewsDetailContent.astro';
+import RelatedNews from '@components/sections/page/news-detail/RelatedNews.astro';
+import allNews from '@data/news.json';
+import { hasStringFields } from '@components/utils/validate';
+
+export function getStaticPaths() {
+	// Same guard as NewsGrid.astro — drop any stray entry missing a slug/title
+	// rather than let it generate a broken route.
+	return (allNews as unknown[])
+		.filter((n) => hasStringFields(n as Record<string, unknown>, ['slug', 'title']))
+		.map((article: any) => ({
+			params: { slug: article.slug },
+			props: { article },
+		}));
+}
+
+const { article } = Astro.props;
+---
+
+<BaseLayout
+	title={article.title}
+	description={article.excerpt}
+>
+	<NewsDetailHero article={article} />
+	<NewsDetailContent article={article} />
+	<RelatedNews
+		currentSlug={article.slug}
+		category={article.category}
+	/>
+</BaseLayout>

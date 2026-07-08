@@ -1,0 +1,20 @@
+{
+	"hero": {
+		"title": "Contact Us",
+		"subtitle": "Have a question, a partnership idea, or want to get involved? We'd love to hear from you.",
+		"breadcrumb": "Contact"
+	},
+	"infoSection": {
+		"label": "Get In Touch",
+		"title": "Reach Out Directly",
+		"subtitle": "Prefer email, a phone call, or social media? Choose whatever works best for you."
+	},
+	"formSection": {
+		"label": "Send a Message",
+		"title": "Send Us a Message",
+		"subtitle": "Fill out the form below and our team will get back to you as soon as possible.",
+		"submitLabel": "Send Message",
+		"successMessage": "Thank you! Your message has been received — we'll be in touch soon.",
+		"errorMessage": "Something went wrong sending your message. Please try again or email us directly."
+	}
+}

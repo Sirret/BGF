@@ -1,7 +1,8 @@
 ---
 /**
  * pages/donate.astro
- * Donate page — content sourced from donate.json (see src/data/donate.json).
+ * Donate page — imports sections only. Zero design logic or inline
+ * classes here. Content sourced from donate.json (see src/data/donate.json).
  * Bank/mobile money values are still placeholders there — update the JSON,
  * not this file, once real details are ready.
  *
@@ -13,8 +14,8 @@
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
-import SectionHeading from '@components/ui/SectionHeading.astro';
-import Button from '@components/ui/Button.astro';
+import WaysToGive from '@components/sections/page/donate/WaysToGive.astro';
+import OtherWaysCTA from '@components/sections/page/donate/OtherWaysCTA.astro';
 import site from '@data/site.json';
 import donate from '@data/donate.json';
 ---
@@ -27,128 +28,11 @@ import donate from '@data/donate.json';
 		title={donate.hero.title}
 		subtitle={donate.hero.subtitle}
 		breadcrumb={donate.hero.breadcrumb}
+		backgroundImage={donate.hero.backgroundImage}
 	/>
-
-	<!-- Ways to Give — bg-white -->
-	<section class='bg-white py-24'>
-		<div class='max-w-7xl mx-auto px-6 flex flex-col gap-16'>
-			<SectionHeading
-				label={donate.waysToGiveSection.label}
-				title={donate.waysToGiveSection.title}
-				subtitle={donate.waysToGiveSection.subtitle}
-			/>
-
-			<div class='grid grid-cols-1 sm:grid-cols-2 gap-8'>
-				<!-- Bank Transfer -->
-				<div
-					class='bg-white rounded-2xl shadow-sm border border-border p-8 flex flex-col gap-4'
-				>
-					<span
-						class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
-					>
-						{donate.waysToGiveSection.bankTransfer.label}
-					</span>
-					<h3 class='font-heading text-xl font-bold text-text-dark'>
-						{donate.waysToGiveSection.bankTransfer.title}
-					</h3>
-					<ul
-						class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
-					>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Bank Name:</span
-							>
-							{donate.waysToGiveSection.bankTransfer.bankName}
-						</li>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Account Name:</span
-							>
-							{site.org.name}
-						</li>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Account Number:</span
-							>
-							{
-								donate.waysToGiveSection.bankTransfer
-									.accountNumber
-							}
-						</li>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Swift Code:</span
-							>
-							{donate.waysToGiveSection.bankTransfer.swiftCode}
-						</li>
-					</ul>
-				</div>
-
-				<!-- Mobile Money -->
-				<div
-					class='bg-white rounded-2xl shadow-sm border border-border p-8 flex flex-col gap-4'
-				>
-					<span
-						class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'
-					>
-						{donate.waysToGiveSection.mobileMoney.label}
-					</span>
-					<h3 class='font-heading text-xl font-bold text-text-dark'>
-						{donate.waysToGiveSection.mobileMoney.title}
-					</h3>
-					<ul
-						class='text-sm text-text-muted leading-relaxed flex flex-col gap-1'
-					>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Provider:</span
-							>
-							{donate.waysToGiveSection.mobileMoney.provider}
-						</li>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Number:</span
-							>
-							{donate.waysToGiveSection.mobileMoney.number}
-						</li>
-						<li>
-							<span class='font-semibold text-text-dark'
-								>Registered Name:</span
-							>
-							{site.org.name}
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<p class='text-sm text-text-muted text-center max-w-2xl mx-auto'>
-				{donate.waysToGiveSection.helpText}
-			</p>
-		</div>
-	</section>
-
-	<!-- Other Ways to Help — bg-bg-base, soft transition before footer -->
-	<section class='bg-bg-base py-24'>
-		<div
-			class='max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-8'
-		>
-			<SectionHeading
-				label={donate.otherWaysSection.label}
-				title={donate.otherWaysSection.title}
-				subtitle={donate.otherWaysSection.subtitle}
-			/>
-			<div class='flex flex-wrap justify-center gap-4'>
-				<Button
-					variant='accent'
-					href='/get-involved'
-					>Volunteer With Us</Button
-				>
-				<Button
-					variant='outline'
-					href='/contact'
-					>Get in Touch</Button
-				>
-			</div>
-		</div>
-	</section>
+	<WaysToGive
+		data={donate.waysToGiveSection}
+		orgName={site.org.name}
+	/>
+	<OtherWaysCTA data={donate.otherWaysSection} />
 </BaseLayout>

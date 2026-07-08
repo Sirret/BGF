@@ -2,7 +2,8 @@
 	"hero": {
 		"title": "Support Our Work",
 		"subtitle": "Every contribution helps us reach more communities.",
-		"breadcrumb": "Donate"
+		"breadcrumb": "Donate",
+		"backgroundImage": "/images/hero-bg.jpg"
 	},
 	"waysToGiveSection": {
 		"label": "Ways to Give",

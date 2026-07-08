@@ -1,0 +1,137 @@
+---
+/**
+ * NewsDetailContent.astro
+ * Individual news article page — main content: cover image, body copy,
+ * optional photo gallery, and an article-facts sidebar.
+ * Background: bg-white
+ *
+ * Props:
+ *   article — a single article object from news.json
+ */
+
+import Button from '@components/ui/Button.astro';
+import { withBase } from '@components/utils/paths';
+
+const { article } = Astro.props;
+
+const formattedDate = article.date
+	? new Date(article.date).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})
+	: null;
+
+const hasGallery = Array.isArray(article.images) && article.images.length > 0;
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16'>
+		<!-- Main column -->
+		<div class='lg:col-span-2 flex flex-col gap-10'>
+			<!-- Cover image -->
+			<div
+				class='w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-md'
+			>
+				<img
+					src={withBase(article.image)}
+					alt={article.title}
+					class='w-full h-full object-cover'
+					loading='lazy'
+				/>
+			</div>
+
+			<!-- Body -->
+			<div class='flex flex-col gap-5'>
+				{
+					article.content.map((paragraph: string) => (
+						<p class='font-body text-text-muted leading-relaxed text-base'>
+							{paragraph}
+						</p>
+					))
+				}
+			</div>
+
+			<!-- Gallery -->
+			{
+				hasGallery && (
+					<div class='flex flex-col gap-5'>
+						<h2 class='font-heading text-2xl font-bold text-text-dark'>
+							Gallery
+						</h2>
+						<div class='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+							{article.images.map(
+								(img: { src: string; alt: string }) => (
+									<div class='h-40 rounded-xl overflow-hidden'>
+										<img
+											src={withBase(img.src)}
+											alt={img.alt}
+											class='w-full h-full object-cover hover:scale-105 transition-transform duration-200'
+											loading='lazy'
+										/>
+									</div>
+								),
+							)}
+						</div>
+					</div>
+				)
+			}
+		</div>
+
+		<!-- Sidebar -->
+		<aside class='flex flex-col gap-6'>
+			<div
+				class='bg-bg-base rounded-2xl border border-border p-8 flex flex-col gap-6'
+			>
+				<h3 class='font-heading text-lg font-bold text-text-dark'>
+					Article Details
+				</h3>
+
+				<dl class='flex flex-col gap-4 text-sm'>
+					<div class='flex justify-between gap-4'>
+						<dt class='text-text-muted'>Category</dt>
+						<dd class='font-semibold text-text-dark text-right'>
+							{article.category}
+						</dd>
+					</div>
+					{
+						article.author && (
+							<div class='flex justify-between gap-4'>
+								<dt class='text-text-muted'>Author</dt>
+								<dd class='font-semibold text-text-dark text-right'>
+									{article.author}
+								</dd>
+							</div>
+						)
+					}
+					{
+						formattedDate && (
+							<div class='flex justify-between gap-4'>
+								<dt class='text-text-muted'>Published</dt>
+								<dd class='font-semibold text-text-dark text-right'>
+									{formattedDate}
+								</dd>
+							</div>
+						)
+					}
+				</dl>
+
+				<!-- CTAs -->
+				<div class='flex flex-col gap-3 border-t border-border pt-6'>
+					<Button
+						variant='accent'
+						href='/donate'
+					>
+						Support This Work
+					</Button>
+					<Button
+						variant='outline'
+						href='/news'
+					>
+						← Back to All News
+					</Button>
+				</div>
+			</div>
+		</aside>
+	</div>
+</section>

@@ -17,16 +17,14 @@ import ProjectDetailHero from '@components/sections/page/project-detail/ProjectD
 import ProjectDetailContent from '@components/sections/page/project-detail/ProjectDetailContent.astro';
 import RelatedProjects from '@components/sections/page/project-detail/RelatedProjects.astro';
 import allProjects from '@data/projects.json';
+import { hasStringFields } from '@components/utils/validate';
 
 export function getStaticPaths() {
 	// Same guard as ProjectGrid.astro — drop any stray entry missing a slug/title
 	// rather than let it generate a broken route.
-	return (allProjects as any[])
-		.filter(
-			(p) =>
-				p && typeof p.slug === 'string' && typeof p.title === 'string',
-		)
-		.map((project) => ({
+	return (allProjects as unknown[])
+		.filter((p) => hasStringFields(p as Record<string, unknown>, ['slug', 'title']))
+		.map((project: any) => ({
 			params: { slug: project.slug },
 			props: { project },
 		}));

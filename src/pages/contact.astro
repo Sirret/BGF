@@ -1,0 +1,40 @@
+---
+/**
+ * pages/contact.astro
+ * Contact page — imports sections only. Zero design logic or inline classes here.
+ *
+ * Section order:
+ *   1. PageHero    — slim branded banner
+ *   2. ContactInfo — direct contact details + social links (bg-white)
+ *   3. ContactForm — Web3Forms message form (bg-bg-base)
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import ContactInfo from '@components/sections/page/contact/ContactInfo.astro';
+import ContactForm from '@components/sections/page/contact/ContactForm.astro';
+import content from '@data/contact.json';
+import { withBase } from '@components/utils/paths';
+---
+
+<BaseLayout
+	title='Contact'
+	description="Get in touch with BethGold Foundation — questions, partnership ideas, or ways to get involved."
+>
+	<PageHero
+		title={content.hero.title}
+		subtitle={content.hero.subtitle}
+		breadcrumb={content.hero.breadcrumb}
+		backgroundImage='/images/about/about-hero.jpg'
+	/>
+	<ContactInfo data={content.infoSection} />
+	<ContactForm data={content.formSection} />
+</BaseLayout>
+
+<!-- Web3Forms handler — loaded once here. Do NOT add this script inside
+     ContactForm itself — see form-submit.js's comment for why that would
+     double-submit. -->
+<script
+	src={withBase('/scripts/form-submit.js')}
+	is:inline
+></script>

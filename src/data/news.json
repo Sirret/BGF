@@ -1,0 +1,100 @@
+[
+	{
+		"title": "BethGold Foundation Launches New Youth Empowerment Cohort",
+		"slug": "youth-empowerment-cohort-launch",
+		"category": "Announcement",
+		"date": "2026-02-10",
+		"author": "BethGold Foundation Team",
+		"image": "/images/projects/project-4.jpg",
+		"images": [
+			{
+				"src": "/images/team/team-1.jpg",
+				"alt": "Facilitator leading a workshop session"
+			},
+			{
+				"src": "/images/projects/project-4.jpg",
+				"alt": "Youth cohort group photo"
+			}
+		],
+		"excerpt": "We're opening applications for our third youth empowerment cohort, expanding vocational training to two new communities.",
+		"content": [
+			"BethGold Foundation is proud to announce the launch of its third Youth Empowerment cohort, building on the success of the two previous intakes that trained over 150 young people in vocational skills.",
+			"This cohort will expand into two new communities, offering the same hands-on curriculum in trades, digital literacy, and small-business fundamentals that has helped past graduates find stable income."
+		],
+		"featured": true
+	},
+	{
+		"title": "Partnership Announcement: Expanding Medical Outreach",
+		"slug": "medical-outreach-partnership-announcement",
+		"category": "Press Release",
+		"date": "2025-11-22",
+		"author": "BethGold Foundation Team",
+		"image": "/images/projects/project-2.jpg",
+		"images": [],
+		"excerpt": "A new partnership with a regional health provider will double the reach of our free medical outreach programme in 2026.",
+		"content": [
+			"BethGold Foundation has signed a partnership agreement with a regional health provider to double the reach of its free medical outreach programme in the coming year.",
+			"The partnership brings additional clinicians and medication supplies to communities currently underserved by existing outreach routes."
+		],
+		"featured": true
+	},
+	{
+		"title": "Recap: Community Development Open Day",
+		"slug": "community-development-open-day-recap",
+		"category": "Event",
+		"date": "2025-09-05",
+		"author": "BethGold Foundation Team",
+		"image": "/images/projects/project-5.jpg",
+		"images": [
+			{
+				"src": "/images/about/our-story.jpg",
+				"alt": "Community members at the open day"
+			}
+		],
+		"excerpt": "Community members, volunteers, and partners came together for a day of workshops, tours, and conversation about what's next.",
+		"content": [
+			"Last month's Community Development Open Day brought together residents, volunteers, and partner organizations for a full day of programme tours, skills workshops, and open conversation about priorities for 2026.",
+			"Thank you to everyone who attended — your feedback is already shaping how we plan next year's infrastructure projects."
+		],
+		"featured": false
+	},
+	{
+		"title": "School Materials Donation Reaches 500 Students",
+		"slug": "school-materials-donation-milestone",
+		"category": "Announcement",
+		"date": "2025-07-18",
+		"author": "BethGold Foundation Team",
+		"image": "/images/projects/project-1.jpg",
+		"images": [
+			{
+				"src": "/images/projects/project-1-detail-1.jpg",
+				"alt": "Students unpacking school supplies"
+			},
+			{
+				"src": "/images/projects/project-1-detail-2.jpg",
+				"alt": "Volunteers sorting donated materials"
+			}
+		],
+		"excerpt": "Our School Materials Donation programme has now supplied books, uniforms, and stationery to over 500 students this year.",
+		"content": [
+			"We're celebrating a milestone: over 500 students have received school materials through our ongoing donation programme this year alone.",
+			"None of this would be possible without our volunteers and donors — thank you for helping keep children in school and ready to learn."
+		],
+		"featured": false
+	},
+	{
+		"title": "Ramadan Food Distribution Prepares for This Year's Drive",
+		"slug": "ramadan-food-distribution-prep",
+		"category": "Event",
+		"date": "2025-05-02",
+		"author": "BethGold Foundation Team",
+		"image": "/images/projects/project-3.jpg",
+		"images": [],
+		"excerpt": "Planning is underway for this year's Ramadan Food Distribution — here's how you can help before the drive begins.",
+		"content": [
+			"Our team is preparing for this year's Ramadan Food Distribution, which has provided essential food packages to hundreds of families in past years.",
+			"Volunteers and donors interested in supporting this year's drive can reach out through our Get Involved page."
+		],
+		"featured": false
+	}
+]

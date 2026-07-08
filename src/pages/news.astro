@@ -1,0 +1,22 @@
+---
+/**
+ * pages/news.astro
+ * News page — imports sections only. Zero design logic or inline classes here.
+ *
+ * Section order:
+ *   1. NewsHero — slim branded banner with page title
+ *   2. NewsGrid — all articles with client-side category filter
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsHero from '@components/sections/page/news/NewsHero.astro';
+import NewsGrid from '@components/sections/page/news/NewsGrid.astro';
+---
+
+<BaseLayout
+	title='News & Updates'
+	description='Stay up to date with the latest programmes, partnerships, and community stories from BethGold Foundation.'
+>
+	<NewsHero />
+	<NewsGrid />
+</BaseLayout>
