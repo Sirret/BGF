@@ -11,6 +11,7 @@ import FocusAreas from '@components/sections/page/index/FocusAreas.astro';
 import FeaturedProjects from '@components/sections/page/index/FeaturedProjects.astro';
 import ImpactStats from '@components/sections/page/index/ImpactStats.astro';
 import CallToAction from '@components/sections/page/index/CallToAction.astro';
+import home from '@data/home.json';
 ---
 
 <BaseLayout
@@ -18,9 +19,9 @@ import CallToAction from '@components/sections/page/index/CallToAction.astro';
 	description='BethGold Foundation — In Every Disability, There Is Ability. Empowering communities through education, health, and development.'
 >
 	<Hero />
-	<AboutSummary />
+	<AboutSummary data={home.aboutSummary} />
 	<FocusAreas />
 	<FeaturedProjects />
 	<ImpactStats />
-	<CallToAction />
+	<CallToAction data={home.callToAction} />
 </BaseLayout>

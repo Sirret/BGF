@@ -4,11 +4,15 @@
  * Final homepage CTA — get involved section.
  * Two columns: text + buttons left, community image right.
  * Background: bg-bg-base. Stacks on mobile, image below.
+ *
+ * Props: data — callToAction object from home.json
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
 import { withBase } from '@components/utils/paths';
+
+const { data } = Astro.props;
 ---
 
 <section class='bg-bg-base py-24'>
@@ -19,41 +23,31 @@ import { withBase } from '@components/utils/paths';
 		<div class='flex flex-col gap-6'>
 			<SectionHeading
 				align='left'
-				label='Get Involved'
-				title='Ready to Make a Difference?'
-				subtitle='Whether you donate, volunteer, or partner with us — your contribution changes lives.'
+				label={data.label}
+				title={data.title}
+				subtitle={data.subtitle}
 			/>
 
 			<p class='font-body text-text-muted leading-relaxed'>
-				Join our growing community of changemakers. Every act of
-				generosity — big or small — helps us reach more people, run more
-				programmes, and build stronger communities.
+				{data.paragraph}
 			</p>
 
 			<div class='flex flex-wrap gap-4'>
-				<Button
-					variant='accent'
-					href='/donate'
-					>Donate Now</Button
-				>
-				<Button
-					variant='outline'
-					href='/get-involved'
-					>Volunteer</Button
-				>
-				<Button
-					variant='ghost'
-					href='/partner'
-					>Partner With Us →</Button
-				>
+				{
+					data.buttons.map((button: { label: string; href: string; variant: string }) => (
+						<Button variant={button.variant} href={button.href}>
+							{button.label}
+						</Button>
+					))
+				}
 			</div>
 		</div>
 
 		<!-- Right: Image -->
 		<div>
 			<img
-				src={withBase('/images/cta-community.jpg')}
-				alt='Community members supported by BethGold Foundation'
+				src={withBase(data.image)}
+				alt={data.imageAlt}
 				class='rounded-2xl shadow-lg object-cover w-full h-96'
 				loading='lazy'
 			/>

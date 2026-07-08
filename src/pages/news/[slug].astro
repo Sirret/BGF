@@ -15,17 +15,29 @@ import NewsDetailHero from '@components/sections/page/news-detail/NewsDetailHero
 import NewsDetailContent from '@components/sections/page/news-detail/NewsDetailContent.astro';
 import RelatedNews from '@components/sections/page/news-detail/RelatedNews.astro';
 import allNews from '@data/news.json';
-import { hasStringFields } from '@components/utils/validate';
+import { hasStringFields, findDuplicates } from '@components/utils/validate';
 
 export function getStaticPaths() {
 	// Same guard as NewsGrid.astro — drop any stray entry missing a slug/title
 	// rather than let it generate a broken route.
-	return (allNews as unknown[])
-		.filter((n) => hasStringFields(n as Record<string, unknown>, ['slug', 'title']))
-		.map((article: any) => ({
-			params: { slug: article.slug },
-			props: { article },
-		}));
+	const valid = (allNews as unknown[]).filter((n) =>
+		hasStringFields(n as Record<string, unknown>, ['slug', 'title']),
+	) as { slug: string; title: string }[];
+
+	// A duplicate slug makes Astro silently render only the first match and
+	// drop the second entry's content with no build failure — fail loudly
+	// instead so a bad news.json edit can't ship unnoticed.
+	const duplicateSlugs = findDuplicates(valid.map((n) => n.slug));
+	if (duplicateSlugs.length > 0) {
+		throw new Error(
+			`news.json has duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix news.json before building.`,
+		);
+	}
+
+	return valid.map((article: any) => ({
+		params: { slug: article.slug },
+		props: { article },
+	}));
 }
 
 const { article } = Astro.props;
@@ -39,6 +51,6 @@ const { article } = Astro.props;
 	<NewsDetailContent article={article} />
 	<RelatedNews
 		currentSlug={article.slug}
-		category={article.category}
+		type={article.type}
 	/>
 </BaseLayout>

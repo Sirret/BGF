@@ -13,6 +13,7 @@
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import MissionCard from '@components/ui/MissionCard.astro';
 import about from '@data/about.json';
+import { getIcon } from '@components/utils/icons';
 
 const { mission, vision, coreValues } = about;
 ---
@@ -34,14 +35,14 @@ const { mission, vision, coreValues } = about;
         label={mission.label}
         title={mission.heading}
         description={mission.description}
-        icon={mission.icon}
+        icon={getIcon(mission.icon)}
       />
       <MissionCard
         variant='default'
         label={vision.label}
         title={vision.heading}
         description={vision.description}
-        icon={vision.icon}
+        icon={getIcon(vision.icon)}
       />
     </div>
 
@@ -57,7 +58,7 @@ const { mission, vision, coreValues } = about;
           <div class='bg-white border border-border rounded-2xl p-6 flex items-start gap-5 shadow-sm hover:shadow-md transition-shadow duration-200'>
             <!-- Icon — small, top-left -->
             <div class='w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 text-accent mt-0.5'>
-              <Fragment set:html={value.icon} />
+              <Fragment set:html={getIcon(value.icon)} />
             </div>
             <!-- Text -->
             <div class='flex flex-col gap-1.5'>

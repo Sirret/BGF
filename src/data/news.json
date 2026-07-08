@@ -2,7 +2,7 @@
 	{
 		"title": "BethGold Foundation Launches New Youth Empowerment Cohort",
 		"slug": "youth-empowerment-cohort-launch",
-		"category": "Announcement",
+		"type": "Announcement",
 		"date": "2026-02-10",
 		"author": "BethGold Foundation Team",
 		"image": "/images/projects/project-4.jpg",
@@ -26,7 +26,7 @@
 	{
 		"title": "Partnership Announcement: Expanding Medical Outreach",
 		"slug": "medical-outreach-partnership-announcement",
-		"category": "Press Release",
+		"type": "Press Release",
 		"date": "2025-11-22",
 		"author": "BethGold Foundation Team",
 		"image": "/images/projects/project-2.jpg",
@@ -41,7 +41,7 @@
 	{
 		"title": "Recap: Community Development Open Day",
 		"slug": "community-development-open-day-recap",
-		"category": "Event",
+		"type": "Event",
 		"date": "2025-09-05",
 		"author": "BethGold Foundation Team",
 		"image": "/images/projects/project-5.jpg",
@@ -61,7 +61,7 @@
 	{
 		"title": "School Materials Donation Reaches 500 Students",
 		"slug": "school-materials-donation-milestone",
-		"category": "Announcement",
+		"type": "Announcement",
 		"date": "2025-07-18",
 		"author": "BethGold Foundation Team",
 		"image": "/images/projects/project-1.jpg",
@@ -85,7 +85,7 @@
 	{
 		"title": "Ramadan Food Distribution Prepares for This Year's Drive",
 		"slug": "ramadan-food-distribution-prep",
-		"category": "Event",
+		"type": "Event",
 		"date": "2025-05-02",
 		"author": "BethGold Foundation Team",
 		"image": "/images/projects/project-3.jpg",

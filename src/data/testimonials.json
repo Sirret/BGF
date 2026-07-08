@@ -1,23 +1,27 @@
 [
 	{
+		"id": "fatou-jallow",
 		"quote": "The school materials program changed everything for my children. They finally had the books and supplies they needed to keep up in class.",
 		"author": "Fatou Jallow",
 		"role": "Parent, School Materials Donation beneficiary",
 		"location": "Banjul, Gambia"
 	},
 	{
+		"id": "momodou-ceesay",
 		"quote": "Volunteering with BethGold showed me how much of a difference a single afternoon of teamwork can make in a community that's been overlooked.",
 		"author": "Momodou Ceesay",
 		"role": "Volunteer, Community Development Initiative",
 		"location": "Serrekunda, Gambia"
 	},
 	{
+		"id": "isatou-sanneh",
 		"quote": "The medical outreach team treated my mother with so much dignity and care. We didn't think we could afford a checkup this year.",
 		"author": "Isatou Sanneh",
 		"role": "Community member, Medical Outreach Program",
 		"location": "Brikama, Gambia"
 	},
 	{
+		"id": "lamin-touray",
 		"quote": "The vocational training gave me real, usable skills. I've since started my own small tailoring business.",
 		"author": "Lamin Touray",
 		"role": "Graduate, Youth Empowerment Training",

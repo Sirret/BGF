@@ -15,6 +15,7 @@ import Card from '@components/ui/Card.astro';
 import allNews from '@data/news.json';
 import { withBase } from '@components/utils/paths';
 import { hasStringFields } from '@components/utils/validate';
+import { formatDate } from '@components/utils/dates';
 
 interface NewsImage {
 	src: string;
@@ -24,7 +25,7 @@ interface NewsImage {
 interface Article {
 	title: string;
 	slug: string;
-	category: string;
+	type: string;
 	date: string;
 	author: string;
 	image: string;
@@ -38,16 +39,8 @@ const news = (allNews as Article[]).filter((n) =>
 	hasStringFields<Article>(n, ['title', 'slug']),
 );
 
-// Unique categories, in first-seen order, for the filter bar
-const categories = [...new Set(news.map((n) => n.category))];
-
-function formatDate(date: string) {
-	return new Date(date).toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	});
-}
+// Unique types, in first-seen order, for the filter bar
+const types = [...new Set(news.map((n) => n.type))];
 ---
 
 <section class='bg-white py-24'>
@@ -62,7 +55,7 @@ function formatDate(date: string) {
 		<div
 			class='flex flex-wrap justify-center gap-3 mt-12'
 			role='group'
-			aria-label='Filter news by category'
+			aria-label='Filter news by type'
 		>
 			<button
 				type='button'
@@ -73,14 +66,14 @@ function formatDate(date: string) {
 				All
 			</button>
 			{
-				categories.map((category) => (
+				types.map((type) => (
 					<button
 						type='button'
 						class='project-filter-btn px-5 py-2 rounded-full text-sm font-heading font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200'
-						data-filter={category}
+						data-filter={type}
 						aria-pressed='false'
 					>
-						{category}
+						{type}
 					</button>
 				))
 			}
@@ -95,16 +88,16 @@ function formatDate(date: string) {
 				news.map((article) => (
 					<div
 						class='project-card'
-						data-category={article.category}
+						data-category={article.type}
 					>
 						<Card
 							layout='vertical'
 							image={article.image}
 							imageAlt={article.title}
 							title={article.title}
-							category={article.category}
+							category={article.type}
 							description={article.excerpt}
-							impact={`Published ${formatDate(article.date)}`}
+							impact={formatDate(article.date) ? `Published ${formatDate(article.date)}` : undefined}
 							href={`/news/${article.slug}`}
 						/>
 					</div>

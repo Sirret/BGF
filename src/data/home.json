@@ -1,0 +1,25 @@
+{
+	"aboutSummary": {
+		"label": "Who We Are",
+		"title": "Committed to Changing Lives",
+		"subtitle": "BethGold Foundation is a registered NGO dedicated to uplifting individuals with disabilities and underserved communities through education, health, and empowerment.",
+		"paragraph": "We believe that in every disability there is ability. Our programs are designed to remove barriers, build dignity, and create lasting change — one person, one family, one community at a time.",
+		"image": "/images/about-community.jpg",
+		"imageAlt": "BethGold Foundation community members",
+		"ctaLabel": "Learn More About Us",
+		"ctaHref": "/about"
+	},
+	"callToAction": {
+		"label": "Get Involved",
+		"title": "Ready to Make a Difference?",
+		"subtitle": "Whether you donate, volunteer, or partner with us — your contribution changes lives.",
+		"paragraph": "Join our growing community of changemakers. Every act of generosity — big or small — helps us reach more people, run more programmes, and build stronger communities.",
+		"image": "/images/cta-community.jpg",
+		"imageAlt": "Community members supported by BethGold Foundation",
+		"buttons": [
+			{ "label": "Donate Now", "href": "/donate", "variant": "accent" },
+			{ "label": "Volunteer", "href": "/get-involved", "variant": "outline" },
+			{ "label": "Partner With Us →", "href": "/partner", "variant": "ghost" }
+		]
+	}
+}

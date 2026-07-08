@@ -17,17 +17,29 @@ import ProjectDetailHero from '@components/sections/page/project-detail/ProjectD
 import ProjectDetailContent from '@components/sections/page/project-detail/ProjectDetailContent.astro';
 import RelatedProjects from '@components/sections/page/project-detail/RelatedProjects.astro';
 import allProjects from '@data/projects.json';
-import { hasStringFields } from '@components/utils/validate';
+import { hasStringFields, findDuplicates } from '@components/utils/validate';
 
 export function getStaticPaths() {
 	// Same guard as ProjectGrid.astro — drop any stray entry missing a slug/title
 	// rather than let it generate a broken route.
-	return (allProjects as unknown[])
-		.filter((p) => hasStringFields(p as Record<string, unknown>, ['slug', 'title']))
-		.map((project: any) => ({
-			params: { slug: project.slug },
-			props: { project },
-		}));
+	const valid = (allProjects as unknown[]).filter((p) =>
+		hasStringFields(p as Record<string, unknown>, ['slug', 'title']),
+	) as { slug: string; title: string }[];
+
+	// A duplicate slug makes Astro silently render only the first match and
+	// drop the second entry's content with no build failure — fail loudly
+	// instead so a bad projects.json edit can't ship unnoticed.
+	const duplicateSlugs = findDuplicates(valid.map((p) => p.slug));
+	if (duplicateSlugs.length > 0) {
+		throw new Error(
+			`projects.json has duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix projects.json before building.`,
+		);
+	}
+
+	return valid.map((project: any) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
 }
 
 const { project } = Astro.props;

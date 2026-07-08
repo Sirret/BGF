@@ -1,47 +1,40 @@
 ---
 /**
  * RelatedNews.astro
- * Individual news article page — up to 3 other articles, same category
+ * Individual news article page — up to 3 other articles, same type
  * prioritized, falling back to the most recent other articles so the
  * section never renders near-empty.
  * Background: bg-bg-base
  *
  * Props:
  *   currentSlug — slug of the article being viewed (excluded from results)
- *   category    — current article's category, used to prioritize matches
+ *   type        — current article's type, used to prioritize matches
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
 import allNews from '@data/news.json';
+import { formatDate, toSortableTimestamp } from '@components/utils/dates';
 
 interface Article {
 	title: string;
 	slug: string;
-	category: string;
+	type: string;
 	date: string;
 	image: string;
 	excerpt: string;
 }
 
-const { currentSlug, category } = Astro.props;
-
-function formatDate(date: string) {
-	return new Date(date).toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	});
-}
+const { currentSlug, type } = Astro.props;
 
 const others = (allNews as Article[]).filter(
 	(n) => n && typeof n.slug === 'string' && n.slug !== currentSlug,
 );
-const sameCategory = others.filter((n) => n.category === category);
+const sameType = others.filter((n) => n.type === type);
 const rest = others
-	.filter((n) => n.category !== category)
-	.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-const related = [...sameCategory, ...rest].slice(0, 3);
+	.filter((n) => n.type !== type)
+	.sort((a, b) => toSortableTimestamp(b.date) - toSortableTimestamp(a.date));
+const related = [...sameType, ...rest].slice(0, 3);
 ---
 
 {
@@ -59,9 +52,9 @@ const related = [...sameCategory, ...rest].slice(0, 3);
 							image={article.image}
 							imageAlt={article.title}
 							title={article.title}
-							category={article.category}
+							category={article.type}
 							description={article.excerpt}
-							impact={`Published ${formatDate(article.date)}`}
+							impact={formatDate(article.date) ? `Published ${formatDate(article.date)}` : undefined}
 							href={`/news/${article.slug}`}
 						/>
 					))}

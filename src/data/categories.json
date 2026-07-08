@@ -1,0 +1,50 @@
+[
+	{
+		"name": "Education",
+		"title": "Education",
+		"description": "Providing school materials, scholarships, and learning support to students in underserved communities.",
+		"icon": "graduation-cap",
+		"anchor": "education",
+		"featured": true
+	},
+	{
+		"name": "Health",
+		"title": "Health",
+		"description": "Delivering free medical outreach, health screenings, and medication support to vulnerable families.",
+		"icon": "heart",
+		"anchor": "health",
+		"featured": true
+	},
+	{
+		"name": "Community Development",
+		"title": "Community Development",
+		"description": "Supporting infrastructure, resources, and capacity building in underserved communities.",
+		"icon": "building",
+		"anchor": "community",
+		"featured": true
+	},
+	{
+		"name": "Empowerment",
+		"title": "Women & Youth Empowerment",
+		"description": "Running skills training, mentorship, and vocational workshops for women and young people.",
+		"icon": "user-group",
+		"anchor": "empowerment",
+		"featured": true
+	},
+	{
+		"name": "Charity & Outreach",
+		"title": "Charity & Outreach",
+		"description": "Distributing food packages, relief aid, and essentials to families in need throughout the year.",
+		"icon": "chat-bubble",
+		"anchor": "charity",
+		"featured": true
+	},
+	{
+		"name": "Team",
+		"title": "Team",
+		"description": "Photos of the people behind our programmes.",
+		"icon": "user-group",
+		"anchor": "team",
+		"featured": false
+	}
+]

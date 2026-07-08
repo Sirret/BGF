@@ -1,59 +1,69 @@
 [
 	{
+		"id": "education-1",
 		"category": "Education",
 		"image": "/images/projects/project-1.jpg",
 		"alt": "Students receiving school material donations",
 		"caption": "School Materials Donation"
 	},
 	{
+		"id": "education-2",
 		"category": "Education",
 		"image": "/images/projects/project-1-detail-1.jpg",
 		"alt": "Students unpacking school supplies",
 		"caption": "Unpacking New Supplies"
 	},
 	{
+		"id": "health-1",
 		"category": "Health",
 		"image": "/images/projects/project-2.jpg",
 		"alt": "Volunteer doctor examining a patient",
 		"caption": "Medical Outreach Program"
 	},
 	{
+		"id": "charity-outreach-1",
 		"category": "Charity & Outreach",
 		"image": "/images/projects/project-3.jpg",
 		"alt": "Volunteers distributing food packages",
 		"caption": "Ramadan Food Distribution"
 	},
 	{
+		"id": "empowerment-1",
 		"category": "Empowerment",
 		"image": "/images/projects/project-4.jpg",
 		"alt": "Youth participants in a training session",
 		"caption": "Youth Empowerment Training"
 	},
 	{
+		"id": "community-development-1",
 		"category": "Community Development",
 		"image": "/images/projects/project-5.jpg",
 		"alt": "Community members at a development project site",
 		"caption": "Community Development Initiative"
 	},
 	{
+		"id": "community-development-2",
 		"category": "Community Development",
 		"image": "/images/about/our-story.jpg",
 		"alt": "Community members gathered outdoors",
 		"caption": "Our Story in the Community"
 	},
 	{
+		"id": "community-development-3",
 		"category": "Community Development",
 		"image": "/images/about/cta-community.jpg",
 		"alt": "Community gathering event",
 		"caption": "Community Gathering"
 	},
 	{
+		"id": "team-1",
 		"category": "Team",
 		"image": "/images/team/team-1.jpg",
 		"alt": "BethGold Foundation team member portrait",
 		"caption": "Meet Our Team"
 	},
 	{
+		"id": "team-2",
 		"category": "Team",
 		"image": "/images/team/team-2.jpg",
 		"alt": "BethGold Foundation team member portrait",

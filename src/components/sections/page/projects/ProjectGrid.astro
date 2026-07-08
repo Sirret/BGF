@@ -13,8 +13,9 @@
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
 import allProjects from '@data/projects.json';
+import allCategories from '@data/categories.json';
 import { withBase } from '@components/utils/paths';
-import { hasStringFields } from '@components/utils/validate';
+import { hasStringFields, assertKnownCategories } from '@components/utils/validate';
 
 interface ProjectImage {
 	src: string;
@@ -49,6 +50,11 @@ const projects = (allProjects as Project[]).filter((p) =>
 
 // Unique categories, in first-seen order, for the filter bar
 const categories = [...new Set(projects.map((p) => p.category))];
+
+// A category not listed in categories.json is almost always a typo — catch
+// it at build time instead of letting it silently become its own orphan
+// filter button.
+assertKnownCategories(categories, allCategories.map((c) => c.name), 'projects.json');
 ---
 
 <section class='bg-white py-24'>

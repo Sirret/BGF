@@ -9,11 +9,19 @@
  *   data-web3form                — marks the form for this handler
  *   data-success-message="..."   — shown on successful submission
  *   data-error-message="..."     — shown on failure
+ *   data-fallback-email="..."    — optional; shown alongside the error
+ *                                  message so a visitor isn't left with no
+ *                                  way to reach out if the submission fails
  * Plus a status element inside the form: <p data-form-status></p>
  *
  * Loaded once per page (not once per form component) — attaching this
  * script more than once would bind duplicate listeners and double-submit
  * every form on the page.
+ *
+ * Every failure path (rejected by Web3Forms, or the fetch/parse throwing)
+ * logs to the console — this is the only lead-capture path this site has
+ * (donations/volunteering/partnerships all funnel through these forms), so
+ * a failure here should never be invisible.
  */
 
 document.querySelectorAll('form[data-web3form]').forEach((form) => {
@@ -27,9 +35,11 @@ document.querySelectorAll('form[data-web3form]').forEach((form) => {
 		const successMessage =
 			form.dataset.successMessage ||
 			'Thank you! Your message has been received.';
+		const fallbackEmail = form.dataset.fallbackEmail;
 		const errorMessage =
-			form.dataset.errorMessage ||
-			'Something went wrong. Please try again.';
+			(form.dataset.errorMessage ||
+				'Something went wrong. Please try again.') +
+			(fallbackEmail ? ` You can also reach us directly at ${fallbackEmail}.` : '');
 
 		if (submitBtn) {
 			submitBtn.disabled = true;
@@ -43,6 +53,10 @@ document.querySelectorAll('form[data-web3form]').forEach((form) => {
 				body: formData,
 			});
 			const result = await response.json();
+
+			if (!result.success) {
+				console.error('[form-submit] Web3Forms rejected submission:', result);
+			}
 
 			if (statusEl) {
 				statusEl.classList.remove(
@@ -60,6 +74,7 @@ document.querySelectorAll('form[data-web3form]').forEach((form) => {
 
 			if (result.success) form.reset();
 		} catch (err) {
+			console.error('[form-submit] submission failed:', err);
 			if (statusEl) {
 				statusEl.classList.remove('hidden');
 				statusEl.classList.add('text-red-600');
