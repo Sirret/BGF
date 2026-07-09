@@ -6,7 +6,13 @@
  * page re-implementing its own ad-hoc filter.
  */
 
-export function hasStringFields<T extends Record<string, unknown>>(
+// Bound is `object`, not `Record<string, unknown>` — the latter requires an
+// explicit string index signature, which plain `interface`/`type` shapes
+// (Project, Photo, Article, future Sanity query-result types, ...) never
+// have. `object` accepts those directly; do not tighten this back to
+// `Record<string, unknown>`, every closed interface call site would fail to
+// compile again.
+export function hasStringFields<T extends object>(
 	item: unknown,
 	fields: (keyof T)[],
 ): item is T {
