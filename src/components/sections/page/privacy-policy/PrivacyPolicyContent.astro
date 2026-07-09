@@ -1,0 +1,84 @@
+---
+/**
+ * PrivacyPolicyContent.astro
+ * Privacy Policy page — single continuous legal document, not the site's
+ * usual alternating-background marketing sections. Reads section content
+ * from privacy-policy.json; contact details in the final section are
+ * pulled live from site.json so they never drift out of sync.
+ * Background: bg-white
+ *
+ * Props: data — privacy-policy.json (lastUpdated + sections)
+ */
+
+import site from '@data/site.json';
+
+interface Section {
+	heading: string;
+	paragraphs?: string[];
+	list?: string[];
+	closingParagraphs?: string[];
+}
+
+const { data } = Astro.props;
+const sections: Section[] = data.sections;
+
+const formattedLastUpdated = new Date(data.lastUpdated).toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-3xl mx-auto px-6 flex flex-col gap-10'>
+		<p class='text-sm text-text-muted italic'>
+			Last updated: {formattedLastUpdated}
+		</p>
+
+		{
+			sections.map((section) => (
+				<div class='flex flex-col gap-4'>
+					<h2 class='font-heading text-2xl font-bold text-text-dark'>
+						{section.heading}
+					</h2>
+
+					{section.paragraphs?.map((paragraph) => (
+						<p class='font-body text-text-muted leading-relaxed'>
+							{paragraph}
+						</p>
+					))}
+
+					{section.list && (
+						<ul class='list-disc pl-6 flex flex-col gap-2 font-body text-text-muted leading-relaxed'>
+							{section.list.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					)}
+
+					{section.closingParagraphs?.map((paragraph) => (
+						<p class='font-body text-text-muted leading-relaxed'>
+							{paragraph}
+						</p>
+					))}
+				</div>
+			))
+		}
+
+		<!-- Contact details pulled live from site.json — never duplicated here -->
+		<div class='flex flex-col gap-2 bg-bg-base border border-border rounded-2xl p-6'>
+			<span class='font-heading font-semibold text-text-dark'>
+				{site.org.name}
+			</span>
+			<a
+				href={`mailto:${site.contact.email}`}
+				class='text-accent font-semibold hover:underline w-fit'
+			>
+				{site.contact.email}
+			</a>
+			<span class='font-body text-sm text-text-muted'>
+				{site.contact.address}
+			</span>
+		</div>
+	</div>
+</section>

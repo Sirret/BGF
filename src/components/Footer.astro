@@ -335,6 +335,13 @@ const year = new Date().getFullYear();
 			>
 				&copy; 2019 - {year}
 				{site.org.name}. {site.org.registered}. All rights reserved.
+				<span aria-hidden='true'>·</span>
+				<a
+					href={withBase('/privacy-policy')}
+					class='hover:text-accent transition-colors duration-200 underline underline-offset-2'
+				>
+					Privacy Policy
+				</a>
 			</p>
 			<p
 				class='font-body text-xs text-footer-text/60 text-center sm:text-right'
