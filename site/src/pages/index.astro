@@ -11,7 +11,9 @@ import FocusAreas from '@components/sections/page/index/FocusAreas.astro';
 import FeaturedProjects from '@components/sections/page/index/FeaturedProjects.astro';
 import ImpactStats from '@components/sections/page/index/ImpactStats.astro';
 import CallToAction from '@components/sections/page/index/CallToAction.astro';
-import home from '@data/home.json';
+import { getHomePage } from '@lib/sanity/queries';
+
+const home = await getHomePage();
 ---
 
 <BaseLayout

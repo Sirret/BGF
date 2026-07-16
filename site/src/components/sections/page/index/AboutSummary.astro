@@ -4,14 +4,15 @@
  * Two-column about snapshot — text left, image right.
  * Background: bg-white. Stacks vertically on mobile.
  *
- * Props: data — aboutSummary object from home.json
+ * Props: data — aboutSummary object from homePage
  */
 
 import Button from '@components/ui/Button.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import { withBase } from '@components/utils/paths';
+import { urlFor } from '@lib/sanity/image';
 
 const { data } = Astro.props;
+const imageUrl = urlFor(data.image).width(900).height(700).fit('crop').auto('format').url();
 ---
 
 <section class='bg-white py-24'>
@@ -43,8 +44,8 @@ const { data } = Astro.props;
 		<!-- Right: Image -->
 		<div class='order-first lg:order-last'>
 			<img
-				src={withBase(data.image)}
-				alt={data.imageAlt}
+				src={imageUrl}
+				alt={data.image.alt}
 				class='rounded-2xl shadow-md object-cover w-full h-96 lg:h-full'
 				loading='lazy'
 			/>

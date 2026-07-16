@@ -5,7 +5,7 @@
  * (https://web3forms.com) — free, unlimited submissions, no backend needed,
  * works on static hosts like GitHub Pages.
  *
- * SETUP: this form's access key is centralized in site.json
+ * SETUP: this form's access key is centralized in Sanity siteSettings
  * (forms.web3formsAccessKey) — every Web3Forms-powered form on the site
  * reads from there, so replace it in that one place before launch.
  * Get one free at https://web3forms.com — just needs an email address to
@@ -13,15 +13,16 @@
  *
  * Background: bg-white
  *
- * Props: data — volunteerSection object from get-involved.json
+ * Props: data — volunteerSection object from getInvolvedPage
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
 
 const { data } = Astro.props;
+const site = await getSiteSettings();
 
 const WEB3FORMS_ACCESS_KEY = site.forms.web3formsAccessKey;
 ---

@@ -2,16 +2,21 @@
 /**
  * NewsHero.astro
  * Thin shell — passes news page hero copy to the shared PageHero component.
- * No dedicated news-hero JSON exists (news.json is an array of article
- * records), so hero copy lives here directly. To change it, edit this file.
+ * No dedicated news-hero document exists (newsArticle is a collection of
+ * article records), so hero copy lives here directly; the background image
+ * reuses aboutPage's hero image rather than duplicating a Sanity asset.
+ * To change the copy, edit this file.
  */
 
 import PageHero from '@components/ui/PageHero.astro';
+import { getAboutPage } from '@lib/sanity/queries';
+
+const about = await getAboutPage();
 ---
 
 <PageHero
 	title='News & Updates'
 	subtitle="Stay up to date with our latest programmes, partnerships, and community stories."
 	breadcrumb='News'
-	backgroundImage='/images/about/about-hero.jpg'
+	backgroundImage={about.hero.backgroundImage}
 />

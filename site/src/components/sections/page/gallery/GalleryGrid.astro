@@ -2,43 +2,24 @@
 /**
  * GalleryGrid.astro
  * Gallery page — full grid of photos with a client-side category filter.
- * Reads from gallery.json.
+ * Reads from Sanity `galleryPhoto` documents.
  * Background: bg-white
  *
  * Reuses public/scripts/project-filter.js unmodified — its selectors
  * (.project-filter-btn / .project-card / #project-empty-state) are hardcoded
  * literals, not project-specific, so this grid intentionally keeps the same
  * class/id names rather than duplicating the script under new names.
- *
- * Backend note: when API ready, replace import with:
- * const gallery = await fetch('/api/gallery').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allGallery from '@data/gallery.json';
-import allCategories from '@data/categories.json';
+import { getAllGalleryPhotos } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
-import { hasStringFields, assertKnownCategories } from '@components/utils/validate';
 
-interface Photo {
-	category: string;
-	image: string;
-	alt: string;
-	caption?: string;
-}
+const gallery = await getAllGalleryPhotos();
 
-const gallery = (allGallery as Photo[]).filter((p) =>
-	hasStringFields<Photo>(p, ['image', 'category']),
-);
-
-// Unique categories, in first-seen order, for the filter bar
-const categories = [...new Set(gallery.map((p) => p.category))];
-
-// A category not listed in categories.json is almost always a typo — catch
-// it at build time instead of letting it silently become its own orphan
-// filter button.
-assertKnownCategories(categories, allCategories.map((c) => c.name), 'gallery.json');
+// Unique category names, in first-seen order, for the filter bar
+const categories = [...new Set(gallery.map((p) => p.category.name))];
 ---
 
 <section class='bg-white py-24'>
@@ -86,13 +67,12 @@ assertKnownCategories(categories, allCategories.map((c) => c.name), 'gallery.jso
 				gallery.map((photo) => (
 					<div
 						class='project-card'
-						data-category={photo.category}
+						data-category={photo.category.name}
 					>
 						<Card
 							layout='vertical'
 							image={photo.image}
-							imageAlt={photo.alt}
-							category={photo.category}
+							category={photo.category.name}
 							description={photo.caption}
 							descriptionClass='text-text-muted text-center'
 						/>

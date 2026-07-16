@@ -2,12 +2,15 @@
 /**
  * Footer.astro
  * Dark footer — bg-footer-bg (#1a1a2e), footer-text color.
- * Reads ALL content from site.json — zero hardcoded values.
+ * Reads ALL content from Sanity siteSettings — zero hardcoded values.
  * 4-column desktop, 2-column tablet, stacked mobile.
  */
 
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
+import { urlFor } from '@lib/sanity/image';
 import { withBase } from '@components/utils/paths';
+
+const site = await getSiteSettings();
 
 const quickLinks = [
 	{ label: 'Home', href: '/' },
@@ -41,7 +44,7 @@ const year = new Date().getFullYear();
 					class='flex items-center gap-3'
 				>
 					<img
-						src={withBase(site.org.logo)}
+						src={urlFor(site.org.logo).width(96).height(96).fit('max').auto('format').url()}
 						alt={`${site.org.name} logo`}
 						class='h-12 w-auto object-contain logo-invert'
 					/>

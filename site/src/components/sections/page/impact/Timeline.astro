@@ -2,18 +2,15 @@
 /**
  * Timeline.astro
  * Impact page — vertical timeline of organizational milestones.
- * Reads timeline.json (kept separate from impact.json since this is repeatable
- * list content, same category as team.json).
+ * Reads `timelineEvent` documents (kept separate from impactPage since this
+ * is repeatable list content, same category as teamMember).
  * Background: bg-bg-base
- *
- * Backend note: when API ready, replace import with:
- * const timeline = await fetch('/api/timeline').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import timeline from '@data/timeline.json';
-import impact from '@data/impact.json';
+import { getAllTimelineEvents, getImpactPage } from '@lib/sanity/queries';
 
+const [timeline, impact] = await Promise.all([getAllTimelineEvents(), getImpactPage()]);
 const { timelineSection } = impact;
 ---
 

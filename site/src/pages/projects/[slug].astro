@@ -1,10 +1,10 @@
 ---
 /**
  * pages/projects/[slug].astro
- * Individual project detail page — statically generated for every valid
- * entry in projects.json. Fixes the previously-dead /projects/{slug} links
- * used by every project Card across the site (homepage Featured Projects
- * and the Projects page grid both link here).
+ * Individual project detail page — statically generated for every `project`
+ * document in Sanity. Fixes the previously-dead /projects/{slug} links used
+ * by every project Card across the site (homepage Featured Projects and the
+ * Projects page grid both link here).
  *
  * Section order:
  *   1. ProjectDetailHero    — breadcrumb, category/status badges, title, meta
@@ -16,27 +16,26 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ProjectDetailHero from '@components/sections/page/project-detail/ProjectDetailHero.astro';
 import ProjectDetailContent from '@components/sections/page/project-detail/ProjectDetailContent.astro';
 import RelatedProjects from '@components/sections/page/project-detail/RelatedProjects.astro';
-import allProjects from '@data/projects.json';
-import { hasStringFields, findDuplicates } from '@components/utils/validate';
+import { getAllProjects } from '@lib/sanity/queries';
+import { findDuplicates } from '@components/utils/validate';
 
-export function getStaticPaths() {
-	// Same guard as ProjectGrid.astro — drop any stray entry missing a slug/title
-	// rather than let it generate a broken route.
-	const valid = (allProjects as unknown[]).filter((p) =>
-		hasStringFields(p as Record<string, unknown>, ['slug', 'title']),
-	) as { slug: string; title: string }[];
+export async function getStaticPaths() {
+	// The full document shape is needed here, not a slug-only list — Astro.props
+	// receives the whole object at build time, no separate per-page fetch.
+	const projects = await getAllProjects();
 
 	// A duplicate slug makes Astro silently render only the first match and
 	// drop the second entry's content with no build failure — fail loudly
-	// instead so a bad projects.json edit can't ship unnoticed.
-	const duplicateSlugs = findDuplicates(valid.map((p) => p.slug));
+	// instead so a bad Sanity edit can't ship unnoticed. Sanity does not
+	// enforce cross-document slug uniqueness on its own.
+	const duplicateSlugs = findDuplicates(projects.map((p) => p.slug));
 	if (duplicateSlugs.length > 0) {
 		throw new Error(
-			`projects.json has duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix projects.json before building.`,
+			`Sanity has project documents with duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix in Studio before building.`,
 		);
 	}
 
-	return valid.map((project: any) => ({
+	return projects.map((project) => ({
 		params: { slug: project.slug },
 		props: { project },
 	}));
@@ -53,6 +52,6 @@ const { project } = Astro.props;
 	<ProjectDetailContent project={project} />
 	<RelatedProjects
 		currentSlug={project.slug}
-		category={project.category}
+		category={project.category.name}
 	/>
 </BaseLayout>

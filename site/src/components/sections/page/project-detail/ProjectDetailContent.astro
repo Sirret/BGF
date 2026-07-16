@@ -6,12 +6,12 @@
  * Background: bg-white
  *
  * Props:
- *   project — a single project object from projects.json
+ *   project — a single project document from Sanity
  */
 
 import Button from '@components/ui/Button.astro';
-import { withBase } from '@components/utils/paths';
 import { formatDate } from '@components/utils/dates';
+import { urlFor } from '@lib/sanity/image';
 
 const { project } = Astro.props;
 
@@ -27,6 +27,10 @@ const statusLabel: Record<string, string> = {
 
 const formattedDate = formatDate(project.date);
 
+const coverImageUrl = project.image
+	? urlFor(project.image).width(1200).height(700).fit('crop').auto('format').url()
+	: undefined;
+
 const hasGallery = Array.isArray(project.images) && project.images.length > 0;
 const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 ---
@@ -40,7 +44,7 @@ const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 				class='w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-md'
 			>
 				<img
-					src={withBase(project.image)}
+					src={coverImageUrl}
 					alt={project.title}
 					class='w-full h-full object-cover'
 					loading='lazy'
@@ -80,10 +84,10 @@ const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 						</h2>
 						<div class='grid grid-cols-2 sm:grid-cols-3 gap-4'>
 							{project.images.map(
-								(img: { src: string; alt: string }) => (
+								(img: any) => (
 									<div class='h-40 rounded-xl overflow-hidden'>
 										<img
-											src={withBase(img.src)}
+											src={urlFor(img).width(400).height(300).fit('crop').auto('format').url()}
 											alt={img.alt}
 											class='w-full h-full object-cover hover:scale-105 transition-transform duration-200'
 											loading='lazy'
@@ -110,7 +114,7 @@ const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 					<div class='flex justify-between gap-4'>
 						<dt class='text-text-muted'>Category</dt>
 						<dd class='font-semibold text-text-dark text-right'>
-							{project.category}
+							{project.category.name}
 						</dd>
 					</div>
 					{
@@ -158,13 +162,9 @@ const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 								Downloads
 							</span>
 							{project.files.map(
-								(file: {
-									name: string;
-									url: string;
-									type: string;
-								}) => (
+								(file: { name: string; url: string }) => (
 									<a
-										href={withBase(file.url)}
+										href={file.url}
 										target='_blank'
 										rel='noopener noreferrer'
 										class='flex items-center gap-2 text-sm font-semibold text-primary hover:underline'

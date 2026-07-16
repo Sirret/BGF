@@ -2,16 +2,21 @@
 /**
  * ProjectHero.astro
  * Thin shell — passes projects page hero copy to the shared PageHero component.
- * No dedicated projects-hero JSON exists (projects.json is an array of project
- * records), so hero copy lives here directly. To change it, edit this file.
+ * No dedicated projects-hero document exists (project is a collection of
+ * project records), so hero copy lives here directly; the background image
+ * reuses aboutPage's hero image rather than duplicating a Sanity asset.
+ * To change the copy, edit this file.
  */
 
 import PageHero from '@components/ui/PageHero.astro';
+import { getAboutPage } from '@lib/sanity/queries';
+
+const about = await getAboutPage();
 ---
 
 <PageHero
 	title='Our Projects'
 	subtitle='Every initiative below reflects a community we have worked alongside — past efforts completed and programmes still underway.'
 	breadcrumb='Our Projects'
-	backgroundImage='/images/about/about-hero.jpg'
+	backgroundImage={about.hero.backgroundImage}
 />

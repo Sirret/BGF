@@ -8,8 +8,10 @@
  */
 
 import BaseLayout from '@layouts/BaseLayout.astro';
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
+
+const site = await getSiteSettings();
 ---
 
 <BaseLayout

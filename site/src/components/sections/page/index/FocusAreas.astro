@@ -4,37 +4,37 @@
  * 5-column grid of focus area cards with icons.
  * Background: bg-bg-base. Uses Card (vertical, no image) + slot for icon.
  *
- * Content comes from src/data/categories.json — only entries with
- * `featured: true` show up here (categories.json also backs the Projects
- * page filter bar; not every category deserves a homepage spotlight card).
- * Edit categories.json, not this file, to change title/description/icon.
+ * Content comes from Sanity `category` documents — only entries with
+ * `featured: true` show up here (categories also back the Projects page
+ * filter bar; not every category deserves a homepage spotlight card).
+ * Edit categories in Studio, not this file, to change title/description/icon.
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro'
 import Card from '@components/ui/Card.astro'
-import categories from '@data/categories.json'
-import allProjects from '@data/projects.json'
+import { getFeaturedCategories, getUsedProjectCategoryNames } from '@lib/sanity/queries'
 import { getIcon } from '@components/utils/icons'
 
-const areas = categories.filter((c) => c.featured)
+const [areas, usedCategoryNames] = await Promise.all([
+  getFeaturedCategories(),
+  getUsedProjectCategoryNames(),
+])
 
 // Build-time checks — a category rename/typo used to break this deep link
 // silently (the /projects#<anchor> hash would just do nothing). Fail loudly
 // instead so it can't ship unnoticed.
-const realCategories = [...new Set((allProjects as { category: string }[]).map((p) => p.category))]
-
 for (const area of areas) {
   if (!area.name.toLowerCase().startsWith(area.anchor.toLowerCase())) {
     throw new Error(
-      `categories.json: "${area.name}"'s anchor "${area.anchor}" doesn't match the start of its own name — the /projects#${area.anchor} deep link would silently fail to filter.`,
+      `category "${area.name}"'s anchor "${area.anchor}" doesn't match the start of its own name — the /projects#${area.anchor} deep link would silently fail to filter.`,
     )
   }
-  if (!realCategories.includes(area.name)) {
+  if (!usedCategoryNames.includes(area.name)) {
     throw new Error(
-      `categories.json: "${area.name}" is marked featured but no project in projects.json uses that category.`,
+      `category "${area.name}" is marked featured but no project references it.`,
     )
   }
-  getIcon(area.icon) // throws on an unregistered icon name
+  getIcon(area.icon!) // throws on an unregistered icon name
 }
 ---
 

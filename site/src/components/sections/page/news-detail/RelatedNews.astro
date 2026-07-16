@@ -13,23 +13,13 @@
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allNews from '@data/news.json';
+import { getAllNews } from '@lib/sanity/queries';
 import { formatDate, toSortableTimestamp } from '@components/utils/dates';
-
-interface Article {
-	title: string;
-	slug: string;
-	type: string;
-	date: string;
-	image: string;
-	excerpt: string;
-}
 
 const { currentSlug, type } = Astro.props;
 
-const others = (allNews as Article[]).filter(
-	(n) => n && typeof n.slug === 'string' && n.slug !== currentSlug,
-);
+const allNews = await getAllNews();
+const others = allNews.filter((n) => n.slug !== currentSlug);
 const sameType = others.filter((n) => n.type === type);
 const rest = others
 	.filter((n) => n.type !== type)

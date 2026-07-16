@@ -2,7 +2,7 @@
 /**
  * MissionVision.astro
  * About page — Mission, Vision, and Core Values section.
- * All content pulled from src/data/about.json — edit there, not here.
+ * All content pulled from Sanity aboutPage — edit there, not here.
  * Background: bg-bg-base
  *
  * Mission  → MissionCard variant="primary" (blue)
@@ -12,9 +12,10 @@
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import MissionCard from '@components/ui/MissionCard.astro';
-import about from '@data/about.json';
+import { getAboutPage } from '@lib/sanity/queries';
 import { getIcon } from '@components/utils/icons';
 
+const about = await getAboutPage();
 const { mission, vision, coreValues } = about;
 ---
 

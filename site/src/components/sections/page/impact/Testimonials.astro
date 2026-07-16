@@ -2,18 +2,15 @@
 /**
  * Testimonials.astro
  * Impact page — grid of quote cards from beneficiaries, volunteers, and community members.
- * Reads testimonials.json (kept separate from impact.json since this is repeatable
- * list content, same category as team.json).
+ * Reads `testimonial` documents (kept separate from impactPage since this is
+ * repeatable list content, same category as teamMember).
  * Background: bg-white
- *
- * Backend note: when API ready, replace import with:
- * const testimonials = await fetch('/api/testimonials').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import testimonials from '@data/testimonials.json';
-import impact from '@data/impact.json';
+import { getAllTestimonials, getImpactPage } from '@lib/sanity/queries';
 
+const [testimonials, impact] = await Promise.all([getAllTestimonials(), getImpactPage()]);
 const { testimonialsSection } = impact;
 ---
 

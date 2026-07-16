@@ -2,16 +2,21 @@
 /**
  * GalleryHero.astro
  * Thin shell — passes gallery page hero copy to the shared PageHero component.
- * No dedicated gallery-hero JSON exists (gallery.json is an array of photo
- * records), so hero copy lives here directly. To change it, edit this file.
+ * No dedicated gallery-hero document exists (galleryPhoto is a collection of
+ * photo records), so hero copy lives here directly; the background image
+ * reuses aboutPage's hero image rather than duplicating a Sanity asset.
+ * To change the copy, edit this file.
  */
 
 import PageHero from '@components/ui/PageHero.astro';
+import { getAboutPage } from '@lib/sanity/queries';
+
+const about = await getAboutPage();
 ---
 
 <PageHero
 	title='Gallery'
 	subtitle='A look at the programmes, people, and communities behind our work.'
 	breadcrumb='Gallery'
-	backgroundImage='/images/about/about-hero.jpg'
+	backgroundImage={about.hero.backgroundImage}
 />

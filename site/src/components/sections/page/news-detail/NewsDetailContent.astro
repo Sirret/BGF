@@ -6,16 +6,21 @@
  * Background: bg-white
  *
  * Props:
- *   article — a single article object from news.json
+ *   article — a single article document from Sanity (content is Portable Text)
  */
 
 import Button from '@components/ui/Button.astro';
-import { withBase } from '@components/utils/paths';
+import { PortableText } from 'astro-portabletext';
 import { formatDate } from '@components/utils/dates';
+import { urlFor } from '@lib/sanity/image';
 
 const { article } = Astro.props;
 
 const formattedDate = formatDate(article.date);
+
+const coverImageUrl = article.image
+	? urlFor(article.image).width(1200).height(700).fit('crop').auto('format').url()
+	: undefined;
 
 const hasGallery = Array.isArray(article.images) && article.images.length > 0;
 const hasContent = Array.isArray(article.content) && article.content.length > 0;
@@ -30,22 +35,20 @@ const hasContent = Array.isArray(article.content) && article.content.length > 0;
 				class='w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-md'
 			>
 				<img
-					src={withBase(article.image)}
+					src={coverImageUrl}
 					alt={article.title}
 					class='w-full h-full object-cover'
 					loading='lazy'
 				/>
 			</div>
 
-			<!-- Body -->
+			<!-- Body — Portable Text; default block rendering inherits the
+			     container's text/font classes (color, font-family, line-height,
+			     and font-size are all CSS-inherited properties). -->
 			{
 				hasContent && (
-					<div class='flex flex-col gap-5'>
-						{article.content.map((paragraph: string) => (
-							<p class='font-body text-text-muted leading-relaxed text-base'>
-								{paragraph}
-							</p>
-						))}
+					<div class='flex flex-col gap-5 font-body text-text-muted leading-relaxed text-base'>
+						<PortableText value={article.content} />
 					</div>
 				)
 			}
@@ -59,10 +62,10 @@ const hasContent = Array.isArray(article.content) && article.content.length > 0;
 						</h2>
 						<div class='grid grid-cols-2 sm:grid-cols-3 gap-4'>
 							{article.images.map(
-								(img: { src: string; alt: string }) => (
+								(img: any) => (
 									<div class='h-40 rounded-xl overflow-hidden'>
 										<img
-											src={withBase(img.src)}
+											src={urlFor(img).width(400).height(300).fit('crop').auto('format').url()}
 											alt={img.alt}
 											class='w-full h-full object-cover hover:scale-105 transition-transform duration-200'
 											loading='lazy'

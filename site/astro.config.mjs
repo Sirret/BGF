@@ -33,6 +33,7 @@ export default defineConfig({
 				'@pages': '/src/pages',
 				'@data': '/src/data',
 				'@styles': '/src/styles',
+				'@lib': '/src/lib',
 			},
 		},
 	},

@@ -13,8 +13,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
 import ContactInfo from '@components/sections/page/contact/ContactInfo.astro';
 import ContactForm from '@components/sections/page/contact/ContactForm.astro';
-import content from '@data/contact.json';
+import { getContactPage } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
+
+const content = await getContactPage();
 ---
 
 <BaseLayout
@@ -25,7 +27,7 @@ import { withBase } from '@components/utils/paths';
 		title={content.hero.title}
 		subtitle={content.hero.subtitle}
 		breadcrumb={content.hero.breadcrumb}
-		backgroundImage='/images/about/about-hero.jpg'
+		backgroundImage={content.hero.backgroundImage}
 	/>
 	<ContactInfo data={content.infoSection} />
 	<ContactForm data={content.formSection} />

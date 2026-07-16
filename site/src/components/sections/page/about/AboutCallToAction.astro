@@ -2,16 +2,18 @@
 /**
  * AboutCallToAction.astro
  * About page — closing CTA section.
- * All content pulled from src/data/about.json — edit there, not here.
+ * All content pulled from Sanity aboutPage — edit there, not here.
  * Background: bg-bg-base
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
-import about from '@data/about.json';
-import { withBase } from '@components/utils/paths';
+import { getAboutPage } from '@lib/sanity/queries';
+import { urlFor } from '@lib/sanity/image';
 
+const about = await getAboutPage();
 const { cta } = about;
+const ctaImageUrl = urlFor(cta.image).width(800).height(650).fit('crop').auto('format').url();
 ---
 
 <section class='bg-bg-base py-24'>
@@ -48,8 +50,8 @@ const { cta } = about;
 		<!-- Right: Image -->
 		<div class='w-full h-80 lg:h-96'>
 			<img
-				src={withBase(cta.image)}
-				alt={cta.imageAlt}
+				src={ctaImageUrl}
+				alt={cta.image.alt}
 				class='w-full h-full object-cover rounded-2xl shadow-lg'
 				loading='lazy'
 			/>

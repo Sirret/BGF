@@ -2,9 +2,9 @@
 /**
  * pages/donate.astro
  * Donate page — imports sections only. Zero design logic or inline
- * classes here. Content sourced from donate.json (see src/data/donate.json).
- * Bank/mobile money values are still placeholders there — update the JSON,
- * not this file, once real details are ready.
+ * classes here. Content sourced from Sanity donatePage. Bank/mobile money
+ * values are still placeholders there — update them in Studio, not this
+ * file, once real details are ready.
  *
  * Section order:
  *   1. PageHero      — slim branded banner
@@ -16,8 +16,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
 import WaysToGive from '@components/sections/page/donate/WaysToGive.astro';
 import OtherWaysCTA from '@components/sections/page/donate/OtherWaysCTA.astro';
-import site from '@data/site.json';
-import donate from '@data/donate.json';
+import { getSiteSettings, getDonatePage } from '@lib/sanity/queries';
+
+const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
 ---
 
 <BaseLayout

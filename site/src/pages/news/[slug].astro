@@ -1,8 +1,8 @@
 ---
 /**
  * pages/news/[slug].astro
- * Individual news article page — statically generated for every valid
- * entry in news.json.
+ * Individual news article page — statically generated for every `newsArticle`
+ * document in Sanity.
  *
  * Section order:
  *   1. NewsDetailHero    — breadcrumb, category badge, title, meta
@@ -14,27 +14,26 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import NewsDetailHero from '@components/sections/page/news-detail/NewsDetailHero.astro';
 import NewsDetailContent from '@components/sections/page/news-detail/NewsDetailContent.astro';
 import RelatedNews from '@components/sections/page/news-detail/RelatedNews.astro';
-import allNews from '@data/news.json';
-import { hasStringFields, findDuplicates } from '@components/utils/validate';
+import { getAllNews } from '@lib/sanity/queries';
+import { findDuplicates } from '@components/utils/validate';
 
-export function getStaticPaths() {
-	// Same guard as NewsGrid.astro — drop any stray entry missing a slug/title
-	// rather than let it generate a broken route.
-	const valid = (allNews as unknown[]).filter((n) =>
-		hasStringFields(n as Record<string, unknown>, ['slug', 'title']),
-	) as { slug: string; title: string }[];
+export async function getStaticPaths() {
+	// The full document shape is needed here, not a slug-only list — Astro.props
+	// receives the whole object at build time, no separate per-page fetch.
+	const news = await getAllNews();
 
 	// A duplicate slug makes Astro silently render only the first match and
 	// drop the second entry's content with no build failure — fail loudly
-	// instead so a bad news.json edit can't ship unnoticed.
-	const duplicateSlugs = findDuplicates(valid.map((n) => n.slug));
+	// instead so a bad Sanity edit can't ship unnoticed. Sanity does not
+	// enforce cross-document slug uniqueness on its own.
+	const duplicateSlugs = findDuplicates(news.map((n) => n.slug));
 	if (duplicateSlugs.length > 0) {
 		throw new Error(
-			`news.json has duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix news.json before building.`,
+			`Sanity has newsArticle documents with duplicate slug(s): ${duplicateSlugs.join(', ')}. Slugs must be unique — fix in Studio before building.`,
 		);
 	}
 
-	return valid.map((article: any) => ({
+	return news.map((article) => ({
 		params: { slug: article.slug },
 		props: { article },
 	}));

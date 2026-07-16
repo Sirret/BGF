@@ -3,12 +3,14 @@
  * Hero.astro
  * Full-viewport hero section.
  * Background: community image with bg-primary/70 overlay (deep blue, not black).
- * Reads org data from site.json for tagline, subline.
+ * Reads org data from Sanity siteSettings for tagline, subline.
  */
 
 import Button from '@components/ui/Button.astro';
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
+
+const site = await getSiteSettings();
 ---
 
 <section

@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"jsx": "react-jsx",
+		"strict": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"types": ["node"]
+	},
+	"include": ["./sanity.config.ts", "./sanity.cli.ts", "./schemaTypes/**/*.ts", "./scripts/**/*.ts"]
+}

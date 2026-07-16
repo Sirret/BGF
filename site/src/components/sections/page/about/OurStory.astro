@@ -2,17 +2,19 @@
 /**
  * OurStory.astro
  * About page — "Our Story" section.
- * All text and image content pulled from src/data/about.json — edit there, not here.
+ * All text and image content pulled from Sanity aboutPage — edit there, not here.
  * Layout: text left, image right (stacks on mobile).
  * Background: bg-white
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
-import about from '@data/about.json';
-import { withBase } from '@components/utils/paths';
+import { getAboutPage } from '@lib/sanity/queries';
+import { urlFor } from '@lib/sanity/image';
 
+const about = await getAboutPage();
 const { story } = about;
+const storyImageUrl = urlFor(story.image).width(900).height(700).fit('crop').auto('format').url();
 ---
 
 <section class='bg-white py-24'>
@@ -44,8 +46,8 @@ const { story } = about;
 		<!-- Right: Image -->
 		<div class='w-full h-96 lg:h-[520px]'>
 			<img
-				src={withBase(story.image)}
-				alt={story.imageAlt}
+				src={storyImageUrl}
+				alt={story.image.alt}
 				class='w-full h-full object-cover rounded-2xl shadow-md'
 				loading='lazy'
 			/>

@@ -2,8 +2,8 @@
 /**
  * pages/privacy-policy.astro
  * Privacy Policy page — imports sections only. Zero design logic or inline
- * classes here. Content sourced from privacy-policy.json — edit there, not
- * here, to change the policy text.
+ * classes here. Content sourced from Sanity privacyPolicyPage — edit there,
+ * not here, to change the policy text.
  *
  * Section order:
  *   1. PageHero              — slim branded banner
@@ -13,8 +13,9 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
 import PrivacyPolicyContent from '@components/sections/page/privacy-policy/PrivacyPolicyContent.astro';
-import privacyPolicy from '@data/privacy-policy.json';
-import site from '@data/site.json';
+import { getPrivacyPolicyPage, getSiteSettings } from '@lib/sanity/queries';
+
+const [privacyPolicy, site] = await Promise.all([getPrivacyPolicyPage(), getSiteSettings()]);
 ---
 
 <BaseLayout

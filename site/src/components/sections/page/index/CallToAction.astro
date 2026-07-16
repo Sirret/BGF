@@ -5,14 +5,15 @@
  * Two columns: text + buttons left, community image right.
  * Background: bg-bg-base. Stacks on mobile, image below.
  *
- * Props: data — callToAction object from home.json
+ * Props: data — callToAction object from homePage
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
-import { withBase } from '@components/utils/paths';
+import { urlFor } from '@lib/sanity/image';
 
 const { data } = Astro.props;
+const imageUrl = urlFor(data.image).width(800).height(650).fit('crop').auto('format').url();
 ---
 
 <section class='bg-bg-base py-24'>
@@ -46,8 +47,8 @@ const { data } = Astro.props;
 		<!-- Right: Image -->
 		<div>
 			<img
-				src={withBase(data.image)}
-				alt={data.imageAlt}
+				src={imageUrl}
+				alt={data.image.alt}
 				class='rounded-2xl shadow-lg object-cover w-full h-96'
 				loading='lazy'
 			/>

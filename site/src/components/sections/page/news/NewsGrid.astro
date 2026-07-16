@@ -2,42 +2,17 @@
 /**
  * NewsGrid.astro
  * News page — full grid of all articles with a client-side category filter.
- * Reads from news.json — records missing a slug/title are dropped (guards
- * against stray non-article entries in the data file).
+ * Reads from Sanity `newsArticle` documents.
  * Background: bg-white
- *
- * Backend note: when API ready, replace import with:
- * const news = await fetch('/api/news').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allNews from '@data/news.json';
+import { getAllNews } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
-import { hasStringFields } from '@components/utils/validate';
 import { formatDate } from '@components/utils/dates';
 
-interface NewsImage {
-	src: string;
-	alt: string;
-}
-
-interface Article {
-	title: string;
-	slug: string;
-	type: string;
-	date: string;
-	author: string;
-	image: string;
-	images?: NewsImage[];
-	excerpt: string;
-	content: string[];
-	featured?: boolean;
-}
-
-const news = (allNews as Article[]).filter((n) =>
-	hasStringFields<Article>(n, ['title', 'slug']),
-);
+const news = await getAllNews();
 
 // Unique types, in first-seen order, for the filter bar
 const types = [...new Set(news.map((n) => n.type))];

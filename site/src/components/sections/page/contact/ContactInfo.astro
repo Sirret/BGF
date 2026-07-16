@@ -2,17 +2,18 @@
 /**
  * ContactInfo.astro
  * Contact page — direct contact details + social links. Reads ALL values
- * from site.json (single source of truth — same as Footer.astro), never
- * hardcoded. Icon markup reused from Footer.astro's Contact column/social row.
+ * from Sanity siteSettings (single source of truth — same as Footer.astro),
+ * never hardcoded. Icon markup reused from Footer.astro's Contact column/social row.
  * Background: bg-white
  *
- * Props: data — infoSection object from contact.json (label/title/subtitle only)
+ * Props: data — infoSection object from contactPage (label/title/subtitle only)
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
 
 const { data } = Astro.props;
+const site = await getSiteSettings();
 
 // Icon shapes reused verbatim from Footer.astro's social row — only the
 // href values (from site.json) differ per page.

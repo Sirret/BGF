@@ -2,59 +2,21 @@
 /**
  * ProjectGrid.astro
  * Projects page — full grid of all projects with a client-side category filter.
- * Reads from projects.json — records missing a slug/title are dropped (guards
- * against stray non-project entries in the data file).
+ * Reads from Sanity `project` documents.
  * Background: bg-white
- *
- * Backend note: when API ready, replace import with:
- * const projects = await fetch('/api/projects').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
-import allProjects from '@data/projects.json';
-import allCategories from '@data/categories.json';
+import { getAllProjects } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
-import { hasStringFields, assertKnownCategories } from '@components/utils/validate';
 
-interface ProjectImage {
-	src: string;
-	alt: string;
-}
+const projects = await getAllProjects();
 
-interface ProjectFile {
-	name: string;
-	url: string;
-	type: string;
-}
-
-interface Project {
-	title: string;
-	slug: string;
-	category: string;
-	status: 'completed' | 'ongoing';
-	image: string;
-	// Optional — populated for individual project detail pages (not rendered in this grid yet).
-	images?: ProjectImage[];
-	files?: ProjectFile[];
-	description: string;
-	impact: string;
-	location?: string;
-	date?: string;
-	featured?: boolean;
-}
-
-const projects = (allProjects as Project[]).filter((p) =>
-	hasStringFields<Project>(p, ['title', 'slug']),
-);
-
-// Unique categories, in first-seen order, for the filter bar
-const categories = [...new Set(projects.map((p) => p.category))];
-
-// A category not listed in categories.json is almost always a typo — catch
-// it at build time instead of letting it silently become its own orphan
-// filter button.
-assertKnownCategories(categories, allCategories.map((c) => c.name), 'projects.json');
+// Unique category names, in first-seen order, for the filter bar. Filtering
+// (project-filter.js) matches on category `name`, not `title` — keep these
+// consistent with FocusAreas.astro's anchor-matching, which is also name-based.
+const categories = [...new Set(projects.map((p) => p.category.name))];
 ---
 
 <section class='bg-white py-24'>
@@ -102,14 +64,14 @@ assertKnownCategories(categories, allCategories.map((c) => c.name), 'projects.js
 				projects.map((project) => (
 					<div
 						class='project-card'
-						data-category={project.category}
+						data-category={project.category.name}
 					>
 						<Card
 							layout='vertical'
 							image={project.image}
 							imageAlt={project.title}
 							title={project.title}
-							category={project.category}
+							category={project.category.name}
 							status={project.status}
 							description={project.description}
 							impact={project.impact}

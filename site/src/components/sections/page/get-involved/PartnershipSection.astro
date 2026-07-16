@@ -8,17 +8,18 @@
  * own comment for why loading it per-component would double-submit forms.
  * Background: bg-white
  *
- * Props: data — partnershipSection object from get-involved.json
+ * Props: data — partnershipSection object from getInvolvedPage
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
 import { withBase } from '@components/utils/paths';
 
 const { data } = Astro.props;
+const site = await getSiteSettings();
 
-// Access key is centralized in site.json (forms.web3formsAccessKey) — one
+// Access key is centralized in siteSettings (forms.web3formsAccessKey) — one
 // Web3Forms account covers every form on the site; submissions from each
 // form still arrive as separate emails since each has its own hidden
 // "subject" field.

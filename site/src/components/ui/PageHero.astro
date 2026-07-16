@@ -5,36 +5,41 @@
  * Full-width background image with bg-primary/75 blue overlay.
  * NOT full-screen — uses py-32 to give consistent height across pages.
  *
- * Props (all passed from page-specific JSON via the page file):
+ * Props:
  *   title           — main page heading
  *   subtitle        — optional tagline or short description beneath heading
  *   breadcrumb      — label shown in breadcrumb trail (e.g. "About Us")
- *   backgroundImage — path to hero image (e.g. "/images/about/hero.jpg")
+ *   backgroundImage — a Sanity `imageWithAlt` field value, or undefined
  *
- * CSP note: backgroundImage is resolved to a pre-declared CSS class (see
- * global.css .bg-hero-*) instead of an inline style="" attribute, so this
- * component never emits inline styles. Adding a new hero image means adding
- * one .bg-hero-xxx rule in global.css and one entry in bgClassMap below.
+ * CSP note: the background URL is applied client-side via the CSSOM
+ * (public/scripts/hero-bg.js), not an inline style="" attribute — same
+ * "no inline styles" discipline as StatBlock.astro's chart-bars.js. No
+ * backgroundImage renders a plain bg-primary panel instead of silently
+ * falling back to another page's image.
  */
 
+import { urlFor } from '@lib/sanity/image';
 import { withBase } from '@components/utils/paths';
+import type { SanityImage } from '@lib/sanity/queries';
 
-const {
-	title,
-	subtitle,
-	breadcrumb,
-	backgroundImage = '/images/hero-bg.jpg', // fallback to homepage hero if no image set
-} = Astro.props;
+interface Props {
+	title: string;
+	subtitle?: string;
+	breadcrumb?: string;
+	backgroundImage?: SanityImage;
+}
 
-const bgClassMap: Record<string, string> = {
-	'/images/hero-bg.jpg': 'bg-hero-home',
-	'/images/about/about-hero.jpg': 'bg-hero-about',
-};
+const { title, subtitle, breadcrumb, backgroundImage } = Astro.props;
 
-const bgClass = bgClassMap[backgroundImage] ?? 'bg-hero-home';
+const heroBgUrl = backgroundImage
+	? `url(${urlFor(backgroundImage).width(1920).height(700).fit('crop').auto('format').url()})`
+	: undefined;
 ---
 
-<section class={`relative bg-cover bg-center bg-no-repeat py-32 ${bgClass}`}>
+<section
+	class='relative bg-cover bg-center bg-no-repeat py-32 bg-primary'
+	data-hero-bg-url={heroBgUrl}
+>
 	<div class='absolute inset-0 bg-primary/75'></div>
 
 	<div
@@ -73,3 +78,9 @@ const bgClass = bgClassMap[backgroundImage] ?? 'bg-hero-home';
 		}
 	</div>
 </section>
+
+<!-- External, non-processed script — CSP: script-src 'self' works with zero exceptions -->
+<script
+	src={withBase('/scripts/hero-bg.js')}
+	is:inline
+></script>

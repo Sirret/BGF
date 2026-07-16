@@ -2,19 +2,16 @@
 /**
  * Statistics.astro
  * Impact page — bold impact numbers on solid deep-blue background.
- * Reads shared stats.json (same source as homepage ImpactStats.astro) and
- * this page's own section heading copy from impact.json.
+ * Reads shared `stat` documents (same source as homepage ImpactStats.astro)
+ * and this page's own section heading copy from Sanity impactPage.
  * Background: bg-primary — this page's one reserved statistical section.
- *
- * Backend note: when API ready, replace import with:
- * const stats = await fetch('/api/stats').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import StatBlock from '@components/ui/StatBlock.astro';
-import stats from '@data/stats.json';
-import impact from '@data/impact.json';
+import { getAllStats, getImpactPage } from '@lib/sanity/queries';
 
+const [stats, impact] = await Promise.all([getAllStats(), getImpactPage()]);
 const { statsSection } = impact;
 ---
 

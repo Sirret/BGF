@@ -1,12 +1,13 @@
 ---
 /**
  * AboutHero.astro
- * Thin shell — reads hero config from about.json and passes it to the shared PageHero component.
- * To change the title, subtitle, image or breadcrumb: edit src/data/about.json only.
+ * Thin shell — reads hero config from Sanity aboutPage and passes it to the shared PageHero component.
  */
 
 import PageHero from '@components/ui/PageHero.astro';
-import about from '@data/about.json';
+import { getAboutPage } from '@lib/sanity/queries';
+
+const about = await getAboutPage();
 ---
 
 <PageHero

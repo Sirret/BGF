@@ -2,21 +2,16 @@
 /**
  * FeaturedProjects.astro
  * Displays the 3 featured projects as horizontal cards.
- * Reads from projects.json — filters featured === true, slices to 3.
+ * Reads from Sanity `project` documents — featured === true, limit 3.
  * Background: bg-white.
- *
- * Backend note: when API ready, replace import with:
- * const projects = await fetch('/api/projects?featured=true').then(r => r.json())
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Card from '@components/ui/Card.astro';
 import Button from '@components/ui/Button.astro';
-import allProjects from '@data/projects.json';
+import { getFeaturedProjects } from '@lib/sanity/queries';
 
-const projects = allProjects
-	.filter((p: any) => p.featured === true)
-	.slice(0, 3);
+const projects = await getFeaturedProjects(3);
 ---
 
 <section class='bg-white py-24'>
@@ -29,13 +24,13 @@ const projects = allProjects
 
 		<div class='flex flex-col gap-6 mt-16 max-w-4xl mx-auto'>
 			{
-				projects.map((project: any) => (
+				projects.map((project) => (
 					<Card
 						layout='horizontal'
 						image={project.image}
 						imageAlt={project.title}
 						title={project.title}
-						category={project.category}
+						category={project.category.name}
 						status={project.status}
 						description={project.description}
 						impact={project.impact}

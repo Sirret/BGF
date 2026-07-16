@@ -2,23 +2,32 @@
 /**
  * NewsDetailHero.astro
  * Individual news article page — slim branded banner, same visual language as
- * PageHero.astro (bg-hero-about, bg-primary/75 overlay — reused intentionally,
- * see PageHero for the CSP-safe .bg-hero-* class pattern), plus article-specific
- * category badge and a date/author meta row that PageHero doesn't support.
+ * PageHero.astro (dynamic Sanity background image applied client-side via
+ * public/scripts/hero-bg.js, bg-primary/75 overlay — reused intentionally),
+ * plus article-specific category badge and a date/author meta row that
+ * PageHero doesn't support.
  *
  * Props:
- *   article — a single article object from news.json
+ *   article — a single article document from Sanity
  */
 
 import { withBase } from '@components/utils/paths';
 import { formatDate } from '@components/utils/dates';
+import { urlFor } from '@lib/sanity/image';
 
 const { article } = Astro.props;
 
 const formattedDate = formatDate(article.date);
+
+const heroBgUrl = article.image
+	? `url(${urlFor(article.image).width(1920).height(700).fit('crop').auto('format').url()})`
+	: undefined;
 ---
 
-<section class='relative bg-cover bg-center bg-no-repeat py-32 bg-hero-about'>
+<section
+	class='relative bg-cover bg-center bg-no-repeat py-32 bg-primary'
+	data-hero-bg-url={heroBgUrl}
+>
 	<div class='absolute inset-0 bg-primary/75'></div>
 
 	<div
@@ -109,3 +118,9 @@ const formattedDate = formatDate(article.date);
 		</div>
 	</div>
 </section>
+
+<!-- External, non-processed script — CSP: script-src 'self' works with zero exceptions -->
+<script
+	src={withBase('/scripts/hero-bg.js')}
+	is:inline
+></script>

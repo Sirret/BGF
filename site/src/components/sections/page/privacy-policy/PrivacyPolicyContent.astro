@@ -3,14 +3,16 @@
  * PrivacyPolicyContent.astro
  * Privacy Policy page — single continuous legal document, not the site's
  * usual alternating-background marketing sections. Reads section content
- * from privacy-policy.json; contact details in the final section are
- * pulled live from site.json so they never drift out of sync.
+ * from privacyPolicyPage; contact details in the final section are
+ * pulled live from siteSettings so they never drift out of sync.
  * Background: bg-white
  *
- * Props: data — privacy-policy.json (lastUpdated + sections)
+ * Props: data — privacyPolicyPage (lastUpdated + sections)
  */
 
-import site from '@data/site.json';
+import { getSiteSettings } from '@lib/sanity/queries';
+
+const site = await getSiteSettings();
 
 interface Section {
 	heading: string;

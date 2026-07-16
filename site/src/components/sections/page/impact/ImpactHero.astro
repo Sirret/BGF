@@ -1,16 +1,18 @@
 ---
 /**
  * ImpactHero.astro
- * Thin shell — reads hero config from impact.json and passes it to the shared PageHero component.
- * To change the title, subtitle or breadcrumb: edit src/data/impact.json only.
+ * Thin shell — reads hero config from Sanity impactPage and passes it to the shared PageHero component.
  */
 
 import PageHero from '@components/ui/PageHero.astro';
-import impact from '@data/impact.json';
+import { getImpactPage } from '@lib/sanity/queries';
+
+const impact = await getImpactPage();
 ---
 
 <PageHero
   title={impact.hero.title}
   subtitle={impact.hero.subtitle}
   breadcrumb={impact.hero.breadcrumb}
+  backgroundImage={impact.hero.backgroundImage}
 />
