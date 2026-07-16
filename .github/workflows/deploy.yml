@@ -26,6 +26,13 @@ jobs:
               with:
                   path: ./site
                   node-version: "22"
+              env:
+                  # Not secrets — the projectId/dataset are already embedded in the
+                  # public client bundle regardless. No .env file exists in CI (it's
+                  # gitignored), so these must be set here or the build queries Sanity
+                  # with an undefined project.
+                  PUBLIC_SANITY_PROJECT_ID: "9izf3au6"
+                  PUBLIC_SANITY_DATASET: "production"
 
     deploy:
         needs: build
