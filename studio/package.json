@@ -8,7 +8,8 @@
 		"start": "sanity start",
 		"build": "sanity build",
 		"deploy": "sanity deploy",
-		"seed": "tsx scripts/seed.ts"
+		"seed": "tsx scripts/seed.ts",
+		"setup-webhook": "tsx scripts/setup-webhook.ts"
 	},
 	"dependencies": {
 		"@sanity/vision": "^6.4.0",

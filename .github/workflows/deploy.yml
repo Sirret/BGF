@@ -4,6 +4,10 @@ on:
     push:
         branches: [main]
     workflow_dispatch:
+    # Fired by a Sanity webhook (see studio/) whenever content is published,
+    # so the static build picks up new content without a code push.
+    repository_dispatch:
+        types: [sanity-content-published]
 
 permissions:
     contents: read
