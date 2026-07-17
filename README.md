@@ -27,18 +27,11 @@ npm run dev
 
 Both apps read Sanity project settings from env vars — copy `.env.example` to `.env` in each folder. Real project: ID `9izf3au6`, dataset `production` (see https://www.sanity.io/manage). `.env` is gitignored in both folders, so a fresh clone needs these filled in before `npm run dev` can talk to the real project — placeholder values still let both apps boot locally without them.
 
-## Deploying `site/` to Netlify
+## Deploying `site/`
 
-Not yet set up (no Netlify account/site exists yet) — once you create one, connect this repo with:
+Deploys to **GitHub Pages** via `.github/workflows/deploy.yml` on every push to `main`, plus a `repository_dispatch` trigger fired by a Sanity webhook whenever content is published in Studio (see `studio/scripts/setup-webhook.ts`) — so a rebuild happens automatically on both a code change and a content change, no manual step either way.
 
-- **Base directory:** `site`
-- **Build command:** `npm run build`
-- **Publish directory:** `site/dist`
-- **Environment variables:** `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET`
-
-**Before that switch is live**, `site/astro.config.mjs` still has `base: '/BGF'` and `site: 'https://sirret.github.io'` — settings specific to the current GitHub Pages deployment. Once Netlify is the real deploy target, update those to `base: '/'` and `site: '<your-netlify-url>'`, otherwise every internal link will be wrongly prefixed with `/BGF` on Netlify. At that point `.github/workflows/deploy.yml` (the GitHub Pages workflow) should also be disabled or removed so the two don't fight over which is "production."
-
-This is also the point where the Web3Forms → Netlify Forms migration (see `site/CLAUDE.md`) becomes unblocked, since Netlify Forms only works when Netlify itself builds the site.
+A move to Netlify was considered at one point (to unblock a Netlify Forms migration) but that plan was dropped — forms stay on Web3Forms permanently (see `site/CLAUDE.md`), and GitHub Pages is the permanent deploy target. Don't reintroduce Netlify hosting/deploy config unless explicitly asked again.
 
 ## Deploying `studio/`
 
