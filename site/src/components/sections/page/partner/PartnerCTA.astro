@@ -1,0 +1,31 @@
+---
+/**
+ * PartnerCTA.astro
+ * Partner page — closing CTA pointing to the existing partnership inquiry
+ * form on Get Involved (#partnership anchor) rather than duplicating a form.
+ * Background: bg-bg-base
+ *
+ * Props: data — cta object from partnerPage {label,title,subtitle,ctaLabel,ctaHref}
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+
+const { data } = Astro.props;
+---
+
+<section class='bg-bg-base py-24'>
+	<div class='max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-8'>
+		<SectionHeading
+			label={data.label}
+			title={data.title}
+			subtitle={data.subtitle}
+		/>
+		<Button
+			variant='accent'
+			href={data.ctaHref}
+		>
+			{data.ctaLabel}
+		</Button>
+	</div>
+</section>

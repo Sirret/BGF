@@ -13,6 +13,7 @@ import donatePage from './documents/donatePage'
 import getInvolvedPage from './documents/getInvolvedPage'
 import impactPage from './documents/impactPage'
 import privacyPolicyPage from './documents/privacyPolicyPage'
+import partnerPage from './documents/partnerPage'
 
 import category from './documents/category'
 import project from './documents/project'
@@ -38,6 +39,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	getInvolvedPage,
 	impactPage,
 	privacyPolicyPage,
+	partnerPage,
 	// collection documents
 	category,
 	project,
@@ -60,4 +62,5 @@ export const SINGLETON_TYPES = [
 	'getInvolvedPage',
 	'impactPage',
 	'privacyPolicyPage',
+	'partnerPage',
 ] as const

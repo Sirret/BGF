@@ -112,6 +112,7 @@ export const getDonatePage = () => sanityClient.fetch(groq`*[_type == "donatePag
 export const getGetInvolvedPage = () => sanityClient.fetch(groq`*[_type == "getInvolvedPage"][0]`);
 export const getImpactPage = () => sanityClient.fetch(groq`*[_type == "impactPage"][0]`);
 export const getPrivacyPolicyPage = () => sanityClient.fetch(groq`*[_type == "privacyPolicyPage"][0]`);
+export const getPartnerPage = () => sanityClient.fetch(groq`*[_type == "partnerPage"][0]`);
 
 // ---------------------------------------------------------------------------
 // Categories

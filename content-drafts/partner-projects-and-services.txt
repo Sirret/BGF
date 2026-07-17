@@ -1,0 +1,61 @@
+SOURCE: Message from coworker (WhatsApp-style), received 2026-07-17.
+STATUS: Not yet built into the site. Captured here as raw source material only.
+
+OPEN QUESTION FOR NEXT PROMPT — where this content actually goes:
+- The 5 "Projects" below (DRIP, Campaign for an Inclusive Society, EduAbility,
+  GreenAbility, Discovery Award) read like real flagship programmes — likely
+  candidates to become real `project` documents in Sanity, probably replacing
+  the current placeholder/dummy projects (School Materials Donation, Medical
+  Outreach Program, etc.) that were seeded from the original template JSON.
+- The "Services & Consultancy" list doesn't fit the existing `project` schema
+  (no status/category/impact-metric shape) — this is the kind of content that
+  was likely meant for the still-unbuilt `/partner` page (see Footer's
+  deferred /partner link, documented in site/CLAUDE.md and memory as
+  intentionally unbuilt "until real partner content exists" — this may be
+  exactly that real content arriving).
+- Needs a decision next prompt: build out `/partner` as a real page using the
+  services list, and decide whether the 5 projects replace the placeholder
+  projects.json-derived content or get added alongside it.
+
+--- RAW MESSAGE CONTENT BELOW (verbatim) ---
+
+Hello Bro,
+Hope you are doing well...
+Kindly include this in the website as
+Our Projects and services.
+
+1. Disability Rights Initiative Project (DRIP)
+
+A flagship advocacy programme dedicated to promoting and protecting the rights of persons with disabilities. DRIP works with government institutions, civil society, the private sector, and communities to advance disability-inclusive policies, strengthen the implementation of disability laws, and create an inclusive society where everyone can participate equally.
+
+2. Campaign for an Inclusive Society
+
+A nationwide awareness and advocacy campaign that challenges stigma, promotes accessibility, and fosters equal opportunities for persons with disabilities through public education, community engagement, and strategic partnerships.
+
+3. EduAbility (Through Scholarship)
+
+An education support initiative that provides scholarships, educational resources, and mentorship for children and young people with disabilities, ensuring they have access to quality education and opportunities to succeed.
+
+4. GreenAbility
+
+A sustainable development programme that empowers persons with disabilities through climate-smart agriculture, green entrepreneurship, environmental conservation, and livelihood opportunities that promote economic independence.
+
+5. Discovery Award
+
+A platform that identifies, recognizes, and promotes innovative grassroots solutions developed by and for persons with disabilities. The initiative showcases practical, affordable innovations that improve accessibility, independence, and inclusion across Africa.
+
+Our Services & Consultancy
+
+We provide expert consultancy and capacity-building services in:
+
+1. Disability Inclusion in the Workplace
+2. Disability Inclusion Policy Development
+3. Accessibility Audits and Universal Design
+4. Disability Awareness and Sensitization Training
+5. Inclusive Human Resource Practices
+6. Inclusive Education and Community Development
+7. Disability-Inclusive Project Design and Monitoring
+8. Advocacy, Research, and Policy Advisory
+9. Organizational Capacity Building on Disability Inclusion
+
+We partner with governments, businesses, development agencies, NGOs, educational institutions, and community organizations to create inclusive environments where everyone has the opportunity to thrive.

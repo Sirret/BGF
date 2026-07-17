@@ -12,6 +12,7 @@ const SINGLETON_TITLES: Record<string, string> = {
 	getInvolvedPage: 'Get Involved Page',
 	impactPage: 'Impact Page',
 	privacyPolicyPage: 'Privacy Policy Page',
+	partnerPage: 'Partner Page',
 }
 
 export default defineConfig({

@@ -1,0 +1,45 @@
+---
+/**
+ * pages/partner.astro
+ * Partner page — imports sections only. Zero design logic or inline classes
+ * here. Content sourced from Sanity partnerPage.
+ *
+ * Section order:
+ *   1. PageHero            — slim branded banner
+ *   2. PartnerProgrammes   — flagship programmes (bg-bg-base)
+ *   3. PartnerServices     — consultancy checklist + partners blurb (bg-white)
+ *   4. PartnerCTA          — links to the existing partnership form on
+ *                            /get-involved#partnership (bg-bg-base)
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import PartnerProgrammes from '@components/sections/page/partner/PartnerProgrammes.astro';
+import PartnerServices from '@components/sections/page/partner/PartnerServices.astro';
+import PartnerCTA from '@components/sections/page/partner/PartnerCTA.astro';
+import { getSiteSettings, getPartnerPage } from '@lib/sanity/queries';
+
+const [site, partner] = await Promise.all([getSiteSettings(), getPartnerPage()]);
+---
+
+<BaseLayout
+	title='Partner With Us'
+	description={`Partner with ${site.org.name} — explore our flagship programmes and consultancy services for organizations, businesses, and institutions.`}
+>
+	<PageHero
+		title={partner.hero.title}
+		subtitle={partner.hero.subtitle}
+		breadcrumb={partner.hero.breadcrumb}
+		backgroundImage={partner.hero.backgroundImage}
+	/>
+	<PartnerProgrammes
+		heading={partner.programmesSection}
+		programmes={partner.programmes}
+	/>
+	<PartnerServices
+		heading={partner.servicesSection}
+		services={partner.services}
+		blurb={partner.partnersBlurb}
+	/>
+	<PartnerCTA data={partner.cta} />
+</BaseLayout>
