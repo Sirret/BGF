@@ -28,3 +28,9 @@ pnpm-debug.log*
 
 # local Claude notes
 CLAUDE.md
+
+# local zip exports
+*.zip
+
+# raw personal data exports (Facebook, etc.) — not for version control
+reference/

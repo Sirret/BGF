@@ -78,9 +78,14 @@ const formattedLastUpdated = new Date(data.lastUpdated).toLocaleDateString('en-U
 			>
 				{site.contact.email}
 			</a>
-			<span class='font-body text-sm text-text-muted'>
-				{site.contact.address}
-			</span>
+			{
+				/* hidden until a real one is set in Studio (siteSettings.contact.address) */
+				site.contact.address && (
+					<span class='font-body text-sm text-text-muted'>
+						{site.contact.address}
+					</span>
+				)
+			}
 		</div>
 	</div>
 </section>
