@@ -33,6 +33,16 @@ const coverImageUrl = project.image
 
 const hasGallery = Array.isArray(project.images) && project.images.length > 0;
 const hasFiles = Array.isArray(project.files) && project.files.length > 0;
+
+// description is free text — paragraphs are separated by a blank line so the
+// detail page (the one place that shows the full write-up) renders them as
+// distinct <p> tags instead of one run-together block.
+const descriptionParagraphs = (project.description ?? '')
+	.split(/\n\s*\n/)
+	.map((p: string) => p.trim())
+	.filter(Boolean);
+
+const impacts = Array.isArray(project.impacts) ? project.impacts : [];
 ---
 
 <section class='bg-white py-24'>
@@ -56,21 +66,29 @@ const hasFiles = Array.isArray(project.files) && project.files.length > 0;
 				<h2 class='font-heading text-2xl font-bold text-text-dark'>
 					About This Project
 				</h2>
-				<p class='font-body text-text-muted leading-relaxed text-base'>
-					{project.description}
-				</p>
+				<div class='flex flex-col gap-4'>
+					{descriptionParagraphs.map((paragraph: string) => (
+						<p class='font-body text-text-muted leading-relaxed text-base'>
+							{paragraph}
+						</p>
+					))}
+				</div>
 			</div>
 
 			<!-- Impact -->
 			{
-				project.impact && (
+				impacts.length > 0 && (
 					<div class='bg-bg-base border-l-4 border-accent rounded-xl p-6'>
 						<span class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'>
 							Impact
 						</span>
-						<p class='font-heading text-lg font-bold text-text-dark mt-2'>
-							{project.impact}
-						</p>
+						<ul class='list-none flex flex-col gap-3 mt-3'>
+							{impacts.map((item: string) => (
+								<li class='font-body text-text-dark leading-relaxed'>
+									{item}
+								</li>
+							))}
+						</ul>
 					</div>
 				)
 			}

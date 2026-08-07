@@ -32,8 +32,9 @@ export interface Project {
 	image?: SanityImage;
 	images?: SanityImage[];
 	files?: ProjectFile[];
+	subline?: string;
 	description?: string;
-	impact?: string;
+	impacts?: string[];
 	location?: string;
 	date?: string;
 	featured?: boolean;

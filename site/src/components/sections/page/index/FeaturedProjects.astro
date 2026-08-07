@@ -32,8 +32,8 @@ const projects = await getFeaturedProjects(3);
 						title={project.title}
 						category={project.category.name}
 						status={project.status}
-						description={project.description}
-						impact={project.impact}
+						description={project.subline}
+						impact={project.impacts?.[0]}
 						href={`/projects/${project.slug}`}
 					/>
 				))
