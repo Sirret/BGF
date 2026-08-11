@@ -35,5 +35,8 @@ const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
 		data={donate.waysToGiveSection}
 		orgName={site.org.name}
 	/>
-	<OtherWaysCTA data={donate.otherWaysSection} />
+	<OtherWaysCTA
+		data={donate.otherWaysSection}
+		activeCampaign={site.activeCampaign}
+	/>
 </BaseLayout>

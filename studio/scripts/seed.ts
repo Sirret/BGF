@@ -159,8 +159,9 @@ interface ProjectJson {
 	image: string
 	images: { src: string; alt: string }[]
 	files: { name: string; url: string; type: string }[]
+	subline: string
 	description: string
-	impact: string
+	impacts: string[]
 	location: string
 	date: string
 	featured: boolean
@@ -186,8 +187,9 @@ async function seedProjects(categoryIds: Map<string, string>) {
 			image: await imageWithAlt(p.image, p.title),
 			images: images.filter(Boolean),
 			files,
+			subline: p.subline,
 			description: p.description,
-			impact: p.impact,
+			impacts: p.impacts,
 			location: p.location,
 			date: p.date,
 			featured: p.featured,
@@ -335,8 +337,11 @@ async function seedTimeline() {
 	console.log('Seeding timeline events...')
 	const timeline = await readJson<TimelineJson[]>('timeline.json')
 	for (const event of timeline) {
+		// Keyed by title, not year — the real timeline has multiple events
+		// landing in the same year (e.g. two 2023 entries, two 2024 entries),
+		// which would collide and silently overwrite under a year-based id.
 		await client.createOrReplace({
-			_id: `timelineEvent-${event.year}`,
+			_id: `timelineEvent-${slugify(event.title)}`,
 			_type: 'timelineEvent',
 			year: event.year,
 			title: event.title,
@@ -477,6 +482,25 @@ async function seedGetInvolvedPage() {
 	})
 }
 
+async function seedPartnerPage() {
+	console.log('Seeding partner page...')
+	const partner = await readJson<any>('partnerPage.json')
+	await client.createOrReplace({
+		_id: 'partnerPage',
+		_type: 'partnerPage',
+		hero: {
+			...partner.hero,
+			backgroundImage: await imageWithAlt(partner.hero.backgroundImage, partner.hero.title),
+		},
+		programmesSection: partner.programmesSection,
+		programmes: partner.programmes.map((p: any) => ({ ...p, _key: randomUUID() })),
+		servicesSection: partner.servicesSection,
+		services: partner.services,
+		partnersBlurb: partner.partnersBlurb,
+		cta: partner.cta,
+	})
+}
+
 async function seedImpactPage() {
 	console.log('Seeding impact page...')
 	const impact = await readJson<any>('impact.json')
@@ -525,6 +549,7 @@ async function main() {
 	await seedContactPage()
 	await seedDonatePage()
 	await seedGetInvolvedPage()
+	await seedPartnerPage()
 	await seedImpactPage()
 	await seedPrivacyPolicyPage()
 	console.log('Seed complete.')

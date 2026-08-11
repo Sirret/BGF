@@ -175,7 +175,19 @@ export const getFeaturedNews = (limit = 3): Promise<NewsArticle[]> =>
 export const getAllGalleryPhotos = (): Promise<GalleryPhoto[]> =>
 	sanityClient.fetch(groq`*[_type == "galleryPhoto"] | order(order asc){ ..., category->{_id, name, title, anchor} }`);
 
-export const getAllStats = (): Promise<Stat[]> => sanityClient.fetch(groq`*[_type == "stat"] | order(order asc)`);
+// "Projects Completed" is computed from the live project count rather than
+// a static Sanity value — everything else on this stat and the other 3
+// stats stays editorial (Studio-controlled). Centralized here so every
+// consumer (ImpactStats.astro, Statistics.astro) picks it up for free.
+export const getAllStats = async (): Promise<Stat[]> => {
+	const stats = await sanityClient.fetch<Stat[]>(groq`*[_type == "stat"] | order(order asc)`);
+	const projectsCompletedStat = stats.find((s) => s._id === 'stat-projects-completed');
+	if (projectsCompletedStat) {
+		const projects = await getAllProjects();
+		projectsCompletedStat.value = `${projects.length}+`;
+	}
+	return stats;
+};
 
 export const getAllTeamMembers = (): Promise<TeamMember[]> =>
 	sanityClient.fetch(groq`*[_type == "teamMember"] | order(order asc)`);

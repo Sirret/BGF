@@ -7,57 +7,16 @@
 		"image": "/images/projects/project-1.jpg",
 		"images": [
 			{ "src": "/images/projects/project-1-detail-1.jpg", "alt": "doctor" },
-    		{ "src": "/images/projects/project-1-detail-2.jpg", "alt": "Doctor and kids" }
+			{ "src": "/images/projects/project-1-detail-2.jpg", "alt": "Doctor and kids" }
 		],
 		"files": [
 			{ "name": "Project Impact Report 2024", "url": "/files/projects/school-materials-report.pdf", "type": "pdf" }
 		],
+		"subline": "Provided books and supplies to students in underserved communities.",
 		"description": "Provided books and supplies to students in underserved communities.",
-		"impact": "500 students received materials across 3 schools.",
+		"impacts": ["500 students received materials across 3 schools."],
 		"location": "City, Country",
 		"date": "2024-03-01",
-		"featured": true
-	},
-	{
-		"title": "Medical Outreach Program",
-		"slug": "medical-outreach-program",
-		"category": "Health",
-		"status": "completed",
-		"image": "/images/projects/project-2.jpg",
-		"images": [],
-		"files": [],
-		"description": "Free health checkups and medication support for vulnerable families.",
-		"impact": "300 people received free medical care.",
-		"location": "City, Country",
-		"date": "2024-06-15",
-		"featured": true
-	},
-	{
-		"title": "Ramadan Food Distribution",
-		"slug": "ramadan-food-distribution",
-		"category": "Charity & Outreach",
-		"status": "completed",
-		"image": "/images/projects/project-3.jpg",
-		"images": [],
-		"files": [],
-		"description": "Provided food packages to vulnerable families during Ramadan.",
-		"impact": "200 families received food packages.",
-		"location": "City, Country",
-		"date": "2024-04-01",
-		"featured": false
-	},
-	{
-		"title": "Youth Empowerment Training",
-		"slug": "youth-empowerment-training",
-		"category": "Empowerment",
-		"status": "ongoing",
-		"image": "/images/projects/project-4.jpg",
-		"images": [],
-		"files": [],
-		"description": "Skills development workshops for young people in rural communities.",
-		"impact": "150 youth trained in vocational skills.",
-		"location": "City, Country",
-		"date": "2024-09-10",
 		"featured": true
 	},
 	{
@@ -66,12 +25,135 @@
 		"category": "Community Development",
 		"status": "ongoing",
 		"image": "/images/projects/project-5.jpg",
-		"images": [],
+		"images": [
+			{ "src": "/images/projects/kmc-mayor-meeting-1.jpg", "alt": "BethGold Foundation executives meeting with the Mayor of Kanifing Municipal Council" },
+			{ "src": "/images/projects/kmc-mayor-meeting-2.jpg", "alt": "BethGold Foundation executives meeting with the Mayor of Kanifing Municipal Council" }
+		],
 		"files": [],
+		"subline": "Infrastructure and resource support for underserved communities.",
 		"description": "Infrastructure and resource support for underserved communities.",
-		"impact": "5 communities directly supported.",
+		"impacts": ["5 communities directly supported."],
 		"location": "City, Country",
 		"date": "2025-01-15",
 		"featured": false
+	},
+	{
+		"title": "Disability Radio Talk Show",
+		"slug": "disability-radio-talk-show",
+		"category": "Charity & Outreach",
+		"status": "ongoing",
+		"image": "/images/gallery/disability-radio-promo.jpg",
+		"images": [
+			{ "src": "/images/projects/disability-radio-session.jpg", "alt": "Disability Radio Talk Show guests live at Radio Veritas 102.9FM" }
+		],
+		"files": [],
+		"subline": "A weekly live radio show on Radio Veritas 102.9FM giving persons with disabilities a platform to challenge stereotypes.",
+		"description": "A weekly live radio program on Radio Veritas 102.9FM, airing every Saturday from 4–5pm, giving persons with disabilities a platform to share their stories and challenge stereotypes. Episodes have covered sickle cell awareness, autism, deaf inclusion, inclusive education, and workplace inclusion, featuring guests with disabilities and partner organizations.",
+		"impacts": [
+			"Weekly live audience across The Gambia via Radio Veritas 102.9FM and the online stream.",
+			"Running every Saturday since at least 2022, featuring guests with disabilities and partner organizations."
+		],
+		"location": "The Gambia",
+		"date": "2022-06-18",
+		"featured": false
+	},
+	{
+		"title": "Rolls & Walks 2.0",
+		"slug": "rolls-and-walks-2-0",
+		"category": "Education",
+		"status": "ongoing",
+		"image": "/images/news/1051960750693004.jpg",
+		"images": [],
+		"files": [],
+		"subline": "A Gambia-wide disability inclusion walk bringing together 400+ students and 100+ adults from 26+ schools.",
+		"description": "In partnership with the Remembering Reuel Foundation, Rolls & Walks 2.0 (7 July 2026) is a disability awareness and inclusion event under the theme \"Everyone Has a Way,\" aiming to bring together over 400 students and 100 adults from more than 26 schools across The Gambia to learn, interact, and celebrate inclusion.",
+		"impacts": [
+			"Fundraising target: GMD 300,000+ for transportation, meals, and participation costs.",
+			"GMD 250 provides water for 10 students.",
+			"GMD 1,000 provides lunch for 5 students.",
+			"GMD 1,500 supports 1 student's participation.",
+			"GMD 5,000 transports 1 school delegation.",
+			"GMD 10,000 makes you a partner Inclusion Champion."
+		],
+		"location": "The Gambia",
+		"date": "2026-07-07",
+		"featured": false
+	},
+	{
+		"title": "Disability Rights Initiative Project (DRIP)",
+		"slug": "drip",
+		"category": "Advocacy & Awareness",
+		"status": "ongoing",
+		"image": "/images/projects/kmc-mayor-meeting-1.jpg",
+		"images": [
+			{ "src": "/images/projects/kmc-mayor-meeting-1.jpg", "alt": "BethGold Foundation advocacy meeting with the Mayor of Kanifing Municipal Council" },
+			{ "src": "/images/projects/kmc-mayor-meeting-2.jpg", "alt": "BethGold Foundation advocacy meeting with the Mayor of Kanifing Municipal Council" }
+		],
+		"files": [],
+		"subline": "A flagship advocacy programme promoting and protecting the rights of persons with disabilities.",
+		"description": "A flagship advocacy programme dedicated to promoting and protecting the rights of persons with disabilities. DRIP works with government institutions, civil society, the private sector, and communities to advance disability-inclusive policies, strengthen the implementation of disability laws, and create an inclusive society where everyone can participate equally.",
+		"impacts": ["Engaged the Kanifing Municipal Council in a formal partnership advancing disability-inclusive treatment and education (November 2023)."],
+		"location": "The Gambia",
+		"date": "2023-11-16",
+		"featured": false
+	},
+	{
+		"title": "Campaign for an Inclusive Society",
+		"slug": "campaign-for-an-inclusive-society",
+		"category": "Advocacy & Awareness",
+		"status": "ongoing",
+		"image": "/images/projects/campaign-inclusive-society-1.jpg",
+		"images": [
+			{ "src": "/images/projects/campaign-inclusive-society-2.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-3.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-4.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-5.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-6.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-7.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-8.jpg", "alt": "Campaign for an Inclusive Society — community engagement" },
+			{ "src": "/images/projects/campaign-inclusive-society-9.jpg", "alt": "Campaign for an Inclusive Society — community engagement" }
+		],
+		"files": [],
+		"subline": "A nationwide awareness campaign challenging stigma and promoting equal opportunities for persons with disabilities.",
+		"description": "A nationwide awareness and advocacy campaign that challenges stigma, promotes accessibility, and fosters equal opportunities for persons with disabilities through public education, community engagement, and strategic partnerships.",
+		"impacts": [
+			"Runs primarily through the weekly Disability Radio Talk Show on Radio Veritas 102.9FM, reaching a national audience.",
+			"Includes public recognition of community advocates, such as honoring Cherno Ceesay's Patriotic Citizens Award 2023 (COIF)."
+		],
+		"location": "The Gambia",
+		"date": "2022-06-18",
+		"featured": true
+	},
+	{
+		"title": "EduAbility (Through Scholarship)",
+		"slug": "eduability",
+		"category": "Advocacy & Awareness",
+		"status": "ongoing",
+		"image": "/images/hero-bg.jpg",
+		"images": [],
+		"files": [],
+		"subline": "An education support initiative providing scholarships and mentorship for children with disabilities.",
+		"description": "An education support initiative that provides scholarships, educational resources, and mentorship for children and young people with disabilities, ensuring they have access to quality education and opportunities to succeed.",
+		"impacts": [],
+		"location": "The Gambia",
+		"date": "2026-07-17",
+		"featured": false,
+		"_TODO": "Placeholder image (hero-bg.jpg) — replace with a real EduAbility programme photo once available."
+	},
+	{
+		"title": "GreenAbility",
+		"slug": "greenability",
+		"category": "Empowerment",
+		"status": "ongoing",
+		"image": "/images/hero-bg.jpg",
+		"images": [],
+		"files": [],
+		"subline": "A sustainable development programme empowering persons with disabilities through green livelihoods.",
+		"description": "A sustainable development programme that empowers persons with disabilities through climate-smart agriculture, green entrepreneurship, environmental conservation, and livelihood opportunities that promote economic independence.",
+		"impacts": [],
+		"location": "The Gambia",
+		"date": "2026-07-17",
+		"featured": false,
+		"_TODO": "Placeholder image (hero-bg.jpg) — replace with a real GreenAbility programme photo once available. Category is 'Empowerment' as the closest existing fit — a judgment call, no dedicated environment/livelihoods category exists."
 	}
 ]

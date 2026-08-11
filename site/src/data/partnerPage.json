@@ -1,0 +1,55 @@
+{
+	"hero": {
+		"title": "Partner With Us",
+		"subtitle": "We collaborate with governments, businesses, and institutions to build a more inclusive society for persons with disabilities.",
+		"breadcrumb": "Partner",
+		"backgroundImage": "/images/hero-bg.jpg"
+	},
+	"programmesSection": {
+		"label": "What We Do",
+		"title": "Our Flagship Programmes",
+		"subtitle": "Four core initiatives driving disability inclusion, education, and sustainable livelihoods."
+	},
+	"programmes": [
+		{
+			"title": "Disability Rights Initiative Project (DRIP)",
+			"description": "A flagship advocacy programme dedicated to promoting and protecting the rights of persons with disabilities. DRIP works with government institutions, civil society, the private sector, and communities to advance disability-inclusive policies, strengthen the implementation of disability laws, and create an inclusive society where everyone can participate equally."
+		},
+		{
+			"title": "Campaign for an Inclusive Society",
+			"description": "A nationwide awareness and advocacy campaign that challenges stigma, promotes accessibility, and fosters equal opportunities for persons with disabilities through public education, community engagement, and strategic partnerships."
+		},
+		{
+			"title": "EduAbility (Through Scholarship)",
+			"description": "An education support initiative that provides scholarships, educational resources, and mentorship for children and young people with disabilities, ensuring they have access to quality education and opportunities to succeed."
+		},
+		{
+			"title": "GreenAbility",
+			"description": "A sustainable development programme that empowers persons with disabilities through climate-smart agriculture, green entrepreneurship, environmental conservation, and livelihood opportunities that promote economic independence."
+		}
+	],
+	"servicesSection": {
+		"label": "Our Expertise",
+		"title": "Services & Consultancy",
+		"subtitle": "We provide expert consultancy and capacity-building services in:"
+	},
+	"services": [
+		"Disability Inclusion in the Workplace",
+		"Disability Inclusion Policy Development",
+		"Accessibility Audits and Universal Design",
+		"Disability Awareness and Sensitization Training",
+		"Inclusive Human Resource Practices",
+		"Inclusive Education and Community Development",
+		"Disability-Inclusive Project Design and Monitoring",
+		"Advocacy, Research, and Policy Advisory",
+		"Organizational Capacity Building on Disability Inclusion"
+	],
+	"partnersBlurb": "We partner with governments, businesses, development agencies, NGOs, educational institutions, and community organizations to create inclusive environments where everyone has the opportunity to thrive. As part of that work, BethGold Foundation also serves as EnAble India's regional coordinating partner for Discovery Award Africa, an annual initiative recognizing grassroots, low-cost innovations created by and for persons with disabilities.",
+	"cta": {
+		"label": "Get In Touch",
+		"title": "Ready to Partner With Us?",
+		"subtitle": "Tell us about your organization and how we can work together to advance disability inclusion.",
+		"ctaLabel": "Start a Partnership Inquiry",
+		"ctaHref": "/get-involved#partnership"
+	}
+}

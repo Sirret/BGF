@@ -12,15 +12,15 @@
 		"bankTransfer": {
 			"label": "Bank Transfer",
 			"title": "Direct Bank Donation",
-			"bankName": "TBD",
-			"accountNumber": "TBD",
+			"bankName": "Access Bank",
+			"accountNumber": "0050110000068",
 			"swiftCode": "TBD"
 		},
 		"mobileMoney": {
 			"label": "Mobile Money",
 			"title": "Mobile Money Donation",
-			"provider": "TBD",
-			"number": "TBD"
+			"provider": "Wave",
+			"number": "3858246"
 		},
 		"helpText": "Have questions about donating, or want a receipt for your contribution? Contact us — we're happy to help."
 	},

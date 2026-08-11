@@ -1,72 +1,51 @@
 [
 	{
-		"id": "education-1",
-		"category": "Education",
-		"image": "/images/projects/project-1.jpg",
-		"alt": "Students receiving school material donations",
-		"caption": "School Materials Donation"
+		"id": "world-white-cane-day",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/world-white-cane-day.jpg",
+		"alt": "World White Cane Day",
+		"caption": "World White Cane Day"
 	},
 	{
-		"id": "education-2",
-		"category": "Education",
-		"image": "/images/projects/project-1-detail-1.jpg",
-		"alt": "Students unpacking school supplies",
-		"caption": "Unpacking New Supplies"
+		"id": "autism-awareness-day",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/autism-awareness-day.jpg",
+		"alt": "International Autism Awareness Day",
+		"caption": "International Autism Awareness Day"
 	},
 	{
-		"id": "health-1",
-		"category": "Health",
-		"image": "/images/projects/project-2.jpg",
-		"alt": "Volunteer doctor examining a patient",
-		"caption": "Medical Outreach Program"
+		"id": "discovery-awards-3-launch",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/discovery-awards-3-launch.jpg",
+		"alt": "Discovery Awards 3.0 Launch",
+		"caption": "Discovery Awards 3.0 Launch"
 	},
 	{
-		"id": "charity-outreach-1",
-		"category": "Charity & Outreach",
-		"image": "/images/projects/project-3.jpg",
-		"alt": "Volunteers distributing food packages",
-		"caption": "Ramadan Food Distribution"
+		"id": "discovery-award-africa-launch",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/discovery-award-africa-launch.jpg",
+		"alt": "Discovery Award Africa Launch",
+		"caption": "Discovery Award Africa Launch"
 	},
 	{
-		"id": "empowerment-1",
-		"category": "Empowerment",
-		"image": "/images/projects/project-4.jpg",
-		"alt": "Youth participants in a training session",
-		"caption": "Youth Empowerment Training"
+		"id": "disability-radio-promo",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/disability-radio-promo.jpg",
+		"alt": "Disability Radio Talk Show",
+		"caption": "Disability Radio Talk Show"
 	},
 	{
-		"id": "community-development-1",
+		"id": "deaf-awareness-month",
+		"category": "Advocacy & Awareness",
+		"image": "/images/gallery/deaf-awareness-month.jpg",
+		"alt": "Deaf Awareness Month",
+		"caption": "Deaf Awareness Month"
+	},
+	{
+		"id": "seasons-greetings",
 		"category": "Community Development",
-		"image": "/images/projects/project-5.jpg",
-		"alt": "Community members at a development project site",
-		"caption": "Community Development Initiative"
-	},
-	{
-		"id": "community-development-2",
-		"category": "Community Development",
-		"image": "/images/about/our-story.jpg",
-		"alt": "Community members gathered outdoors",
-		"caption": "Our Story in the Community"
-	},
-	{
-		"id": "community-development-3",
-		"category": "Community Development",
-		"image": "/images/about/cta-community.jpg",
-		"alt": "Community gathering event",
-		"caption": "Community Gathering"
-	},
-	{
-		"id": "team-1",
-		"category": "Team",
-		"image": "/images/team/team-1.jpg",
-		"alt": "BethGold Foundation team member portrait",
-		"caption": "Meet Our Team"
-	},
-	{
-		"id": "team-2",
-		"category": "Team",
-		"image": "/images/team/team-2.jpg",
-		"alt": "BethGold Foundation team member portrait",
-		"caption": "Meet Our Team"
+		"image": "/images/gallery/seasons-greetings.jpg",
+		"alt": "Season's Greetings from BethGold Foundation",
+		"caption": "Season's Greetings from BethGold Foundation"
 	}
 ]

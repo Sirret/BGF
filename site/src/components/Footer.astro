@@ -170,6 +170,30 @@ const year = new Date().getFullYear();
 							></path>
 						</svg>
 					</a>
+
+					<!-- TikTok -->
+					<a
+						href={site.social.tiktok}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='text-footer-text hover:text-accent transition-colors duration-200'
+						aria-label='TikTok'
+					>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							class='h-5 w-5'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'
+							stroke-width='1.5'
+						>
+							<path
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								d='M21 7.917v4.034a9.948 9.948 0 01-5-1.951v7.5a6.5 6.5 0 11-8-6.326v4.326a2.5 2.5 0 102 0v-14.5h4.083a6.005 6.005 0 004.917 4.917z'
+							></path>
+						</svg>
+					</a>
 				</div>
 			</div>
 			<!-- End Col 1 -->
@@ -334,6 +358,7 @@ const year = new Date().getFullYear();
 			<p
 				class='font-body text-xs text-footer-text text-center sm:text-left'
 			>
+				<!-- TODO: 2019 is unverified — org registered Sept 2023, founding may predate that. Confirm real founding year. -->
 				&copy; 2019 - {year}
 				{site.org.name}. {site.org.registered}. All rights reserved.
 				<span aria-hidden='true'>·</span>

@@ -34,12 +34,26 @@ export default defineType({
 				defineField({ name: 'instagram', type: 'url' }),
 				defineField({ name: 'twitter', type: 'url' }),
 				defineField({ name: 'linkedin', type: 'url' }),
+				defineField({ name: 'tiktok', type: 'url' }),
 			],
 		}),
 		defineField({
 			name: 'forms',
 			type: 'object',
 			fields: [defineField({ name: 'web3formsAccessKey', type: 'string' })],
+		}),
+		defineField({
+			name: 'activeCampaign',
+			title: 'Active Campaign',
+			type: 'object',
+			description: 'Optional current fundraising campaign, shown as a banner on Projects and a smaller card on Donate. Swap out for a future campaign by editing these fields — not tied to any one URL.',
+			fields: [
+				defineField({ name: 'active', type: 'boolean', initialValue: false }),
+				defineField({ name: 'title', type: 'string' }),
+				defineField({ name: 'description', type: 'text' }),
+				defineField({ name: 'url', type: 'url' }),
+				defineField({ name: 'ctaLabel', type: 'string' }),
+			],
 		}),
 	],
 	preview: {

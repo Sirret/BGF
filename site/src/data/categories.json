@@ -13,7 +13,8 @@
 		"description": "Delivering free medical outreach, health screenings, and medication support to vulnerable families.",
 		"icon": "heart",
 		"anchor": "health",
-		"featured": true
+		"featured": false,
+		"_NOTE": "Unfeatured — Medical Outreach Program (the only project in this category) was removed as fabricated content, and FocusAreas.astro's build guard requires every featured category to have at least one linked project."
 	},
 	{
 		"name": "Community Development",
@@ -45,6 +46,14 @@
 		"description": "Photos of the people behind our programmes.",
 		"icon": "user-group",
 		"anchor": "team",
+		"featured": false
+	},
+	{
+		"name": "Advocacy & Awareness",
+		"title": "Advocacy & Awareness",
+		"description": "Public education, media campaigns, and community outreach that challenge disability stereotypes and advance disability rights.",
+		"icon": "flag",
+		"anchor": "advocacy",
 		"featured": false
 	}
 ]

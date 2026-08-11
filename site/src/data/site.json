@@ -4,21 +4,29 @@
 		"tagline": "In Every Disability, There Is Ability",
 		"subline": "Empowering through education, empowerment, health initiatives, and community development",
 		"logo": "/images/logo.jpeg",
-		"registered": "Registered NGO"
+		"registered": "Registered NGO — AG Chambers, Ministry of Justice (Reg. No. 2023/C21573)"
 	},
 	"contact": {
-		"email": "info@bethgoldfoundation.org",
-		"phone": "000 000 0000",
-		"phone2": "000 000 0000",
-		"address": "000 Street Name, City, Country"
+		"email": "bethgold141@gmail.com",
+		"phone": "+220 385 8246",
+		"phone2": "+220 782 5826",
+		"address": ""
 	},
 	"social": {
-		"facebook": "https://facebook.com",
+		"facebook": "https://www.facebook.com/bethgold.charitable",
 		"instagram": "https://instagram.com",
 		"twitter": "https://twitter.com",
-		"linkedin": "https://linkedin.com"
+		"linkedin": "https://linkedin.com",
+		"tiktok": "https://www.tiktok.com/@bethgold.foundation"
 	},
 	"forms": {
 		"web3formsAccessKey": "YOUR_WEB3FORMS_ACCESS_KEY"
+	},
+	"activeCampaign": {
+		"active": true,
+		"title": "Campaign For Quality Inclusive Education For Children with Disabilities",
+		"description": "BethGold Foundation, registered in September 2023 under the AG Chambers, Ministry of Justice (Reg. No. 2023/C21573), is raising funds to support quality inclusive education for children with disabilities. Every share and donation helps this campaign reach its goal.",
+		"url": "https://gofund.me/b3e47775",
+		"ctaLabel": "Donate on GoFundMe"
 	}
 }

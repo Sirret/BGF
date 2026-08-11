@@ -1,0 +1,45 @@
+---
+/**
+ * CampaignBanner.astro
+ * Projects page — optional current-campaign banner between the hero and the
+ * grid. Reads its own data from Sanity siteSettings.activeCampaign so it can
+ * be swapped for a future campaign without touching this page. Renders
+ * nothing when no campaign is active.
+ * Background: bg-white (sits directly above ProjectGrid, same background)
+ */
+
+import { getSiteSettings } from '@lib/sanity/queries';
+
+const site = await getSiteSettings();
+const campaign = site.activeCampaign;
+---
+
+{
+	campaign?.active && (
+		<section class='bg-white pt-16'>
+			<div class='max-w-5xl mx-auto px-6'>
+				<div class='rounded-2xl shadow-sm border border-border bg-bg-base p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6'>
+					<div class='flex flex-col gap-2'>
+						<span class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'>
+							Active Campaign
+						</span>
+						<h2 class='font-heading text-xl sm:text-2xl font-bold text-text-dark'>
+							{campaign.title}
+						</h2>
+						<p class='font-body text-sm text-text-muted leading-relaxed max-w-2xl'>
+							{campaign.description}
+						</p>
+					</div>
+					<a
+						href={campaign.url}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='shrink-0 inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-6 py-3 text-base bg-accent text-white hover:bg-accent-dark focus:ring-accent'
+					>
+						{campaign.ctaLabel}
+					</a>
+				</div>
+			</div>
+		</section>
+	)
+}
