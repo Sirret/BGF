@@ -370,6 +370,7 @@ async function seedSiteSettings() {
 		contact: site.contact,
 		social: site.social,
 		forms: site.forms,
+		activeCampaign: site.activeCampaign,
 	})
 }
 
