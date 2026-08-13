@@ -58,25 +58,21 @@
 		"featured": false
 	},
 	{
-		"title": "Rolls & Walks 2.0",
-		"slug": "rolls-and-walks-2-0",
-		"category": "Education",
+		"title": "Discovery Award Africa",
+		"slug": "discovery-award-africa",
+		"category": "Empowerment",
 		"status": "ongoing",
-		"image": "/images/news/1051960750693004.jpg",
+		"image": "/images/projects/discovery-award-africa.jpg",
 		"images": [],
 		"files": [],
-		"subline": "A Gambia-wide disability inclusion walk bringing together 400+ students and 100+ adults from 26+ schools.",
-		"description": "In partnership with the Remembering Reuel Foundation, Rolls & Walks 2.0 (7 July 2026) is a disability awareness and inclusion event under the theme \"Everyone Has a Way,\" aiming to bring together over 400 students and 100 adults from more than 26 schools across The Gambia to learn, interact, and celebrate inclusion.",
+		"subline": "Coordinating Africa's country partners for the Discovery Awards, recognizing disability-led grassroots innovation.",
+		"description": "BethGold Foundation was appointed by EnAble India to coordinate and mobilize country partners across Africa's disability community for the Discovery Awards, which recognize low- and no-cost grassroots innovations created by persons with disabilities, for persons with disabilities. Run in partnership with EnAble India and Zero Project, part of a global network spanning over 44 countries at launch.",
 		"impacts": [
-			"Fundraising target: GMD 300,000+ for transportation, meals, and participation costs.",
-			"GMD 250 provides water for 10 students.",
-			"GMD 1,000 provides lunch for 5 students.",
-			"GMD 1,500 supports 1 student's participation.",
-			"GMD 5,000 transports 1 school delegation.",
-			"GMD 10,000 makes you a partner Inclusion Champion."
+			"Appointed by EnAble India to coordinate and mobilize country partners across Africa's disability community.",
+			"Part of a global network spanning 44+ countries at launch (July 2025), in partnership with EnAble India and Zero Project."
 		],
-		"location": "The Gambia",
-		"date": "2026-07-07",
+		"location": "Africa-wide, coordinated from The Gambia",
+		"date": "2025-07-13",
 		"featured": false
 	},
 	{
