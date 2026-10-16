@@ -8,58 +8,68 @@ export default defineType({
 		defineField({ name: 'hero', type: 'heroSection' }),
 		defineField({
 			name: 'onlineGiving',
-			title: 'Online Giving (Modem Pay)',
+			title: 'Give Online',
 			type: 'object',
 			description:
-				'The card/mobile-money checkout on the donate page. Amounts are in Gambian Dalasi (GMD) — Modem Pay settles in GMD only.',
+				'The main giving section. It asks one question, "where are you giving from?", because the answer decides the rail: Gambian donors pay through Modem Pay in dalasi, donors abroad go to the GoFundMe campaign, which handles their own currency.',
 			fields: [
 				defineField({ name: 'label', type: 'string' }),
 				defineField({ name: 'title', type: 'string', validation: (r) => r.required() }),
 				defineField({ name: 'subtitle', type: 'text' }),
+
 				defineField({
-					name: 'presetAmounts',
-					title: 'Preset amounts (GMD)',
-					type: 'array',
-					of: [{ type: 'number' }],
+					name: 'local',
+					title: 'Giving from The Gambia (Modem Pay)',
+					type: 'object',
+					fields: [
+						defineField({ name: 'label', type: 'string' }),
+						defineField({ name: 'title', type: 'string' }),
+						defineField({ name: 'description', type: 'text' }),
+						defineField({
+							name: 'presetAmounts',
+							title: 'Preset amounts (GMD)',
+							type: 'array',
+							of: [{ type: 'number' }],
+							description:
+								'Suggested buttons, low to high. These are for donors inside The Gambia, so pitch them in dalasi terms rather than converting from dollars.',
+							validation: (r) => r.unique(),
+						}),
+						defineField({
+							name: 'minAmount',
+							title: 'Minimum amount (GMD)',
+							type: 'number',
+							description: "Modem Pay rejects anything under 10 GMD, so don't go below that.",
+							initialValue: 10,
+							validation: (r) => r.min(10),
+						}),
+						defineField({
+							name: 'currencyNote',
+							type: 'text',
+							description: 'Small print under the amount picker.',
+						}),
+						defineField({
+							name: 'shareLink',
+							title: 'Modem Pay payment link',
+							type: 'url',
+							description:
+								'A reusable Modem Pay link, for WhatsApp, Instagram and QR codes. Also the fallback shown if a visitor has JavaScript disabled. Swap the test link for a live one before launch.',
+						}),
+					],
+				}),
+
+				defineField({
+					name: 'international',
+					title: 'Giving from outside The Gambia (GoFundMe)',
+					type: 'object',
 					description:
-						'Suggested buttons, low to high. Keep the top of the ladder high enough to be meaningful to diaspora donors — 7,500 GMD is only about 100 USD.',
-					validation: (r) => r.unique(),
+						'The button and link come from Site Settings > Active Campaign, so the GoFundMe URL is only ever maintained in one place. If no campaign is active, this whole card is hidden.',
+					fields: [
+						defineField({ name: 'label', type: 'string' }),
+						defineField({ name: 'title', type: 'string' }),
+						defineField({ name: 'description', type: 'text' }),
+					],
 				}),
-				defineField({
-					name: 'minAmount',
-					title: 'Minimum amount (GMD)',
-					type: 'number',
-					description: "Modem Pay rejects anything under 10 GMD, so don't go below that.",
-					initialValue: 10,
-					validation: (r) => r.min(10),
-				}),
-				defineField({
-					name: 'usdRate',
-					title: 'Approx. GMD per 1 USD',
-					type: 'number',
-					description:
-						'Used only to show donors a rough "≈ $X" next to each preset, so international givers can tell what an amount is worth. Leave empty to hide those hints entirely. Re-check it occasionally — the dalasi drifts.',
-					validation: (r) => r.min(1),
-				}),
-				defineField({
-					name: 'rateCheckedOn',
-					title: 'Rate last checked',
-					type: 'date',
-					description: 'Shown to donors so a stale estimate is visibly an estimate.',
-				}),
-				defineField({
-					name: 'currencyNote',
-					type: 'text',
-					description:
-						'Small print under the form. Good place to say charges are in GMD and that a foreign bank may add its own conversion fee.',
-				}),
-				defineField({
-					name: 'shareLink',
-					title: 'Modem Pay payment link',
-					type: 'url',
-					description:
-						'A reusable Modem Pay link. Used for WhatsApp/Instagram/QR codes, and as the fallback if a visitor has JavaScript disabled. Swap the test link for a live one before launch.',
-				}),
+
 				defineField({
 					name: 'successTitle',
 					type: 'string',
@@ -75,33 +85,18 @@ export default defineType({
 			],
 		}),
 		defineField({
-			name: 'waysToGiveSection',
+			name: 'bankTransferSection',
+			title: 'Bank Transfer',
 			type: 'object',
+			description:
+				'A plain reference block, last on the page. Not a call to action: it exists for institutional donors and large gifts that will not go through a checkout.',
 			fields: [
 				defineField({ name: 'label', type: 'string' }),
 				defineField({ name: 'title', type: 'string', validation: (r) => r.required() }),
 				defineField({ name: 'subtitle', type: 'text' }),
-				defineField({
-					name: 'bankTransfer',
-					type: 'object',
-					fields: [
-						defineField({ name: 'label', type: 'string' }),
-						defineField({ name: 'title', type: 'string' }),
-						defineField({ name: 'bankName', type: 'string' }),
-						defineField({ name: 'accountNumber', type: 'string' }),
-						defineField({ name: 'swiftCode', type: 'string' }),
-					],
-				}),
-				defineField({
-					name: 'mobileMoney',
-					type: 'object',
-					fields: [
-						defineField({ name: 'label', type: 'string' }),
-						defineField({ name: 'title', type: 'string' }),
-						defineField({ name: 'provider', type: 'string' }),
-						defineField({ name: 'number', type: 'string' }),
-					],
-				}),
+				defineField({ name: 'bankName', type: 'string' }),
+				defineField({ name: 'accountNumber', type: 'string' }),
+				defineField({ name: 'swiftCode', type: 'string' }),
 				defineField({ name: 'helpText', type: 'text' }),
 			],
 		}),

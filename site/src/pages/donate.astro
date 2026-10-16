@@ -2,21 +2,24 @@
 /**
  * pages/donate.astro
  * Donate page — imports sections only. Zero design logic or inline
- * classes here. Content sourced from Sanity donatePage. Bank/mobile money
- * values are still placeholders there — update them in Studio, not this
- * file, once real details are ready.
+ * classes here. Content sourced from Sanity donatePage.
  *
- * Section order:
+ * The page asks one question and then narrows, rather than offering three
+ * parallel options and leaving the donor to work out which applies to them:
+ *
  *   1. PageHero      — slim branded banner
- *   2. OnlineGiving  — Modem Pay checkout, the primary path (bg-bg-base)
- *   3. WaysToGive    — bank transfer + mobile money details (bg-white)
- *   4. OtherWaysCTA  — volunteer / contact fallback (bg-bg-base)
+ *   2. GiveOnline    — "where are you giving from?" Gambian donors pay via
+ *                      Modem Pay, donors abroad go to GoFundMe (bg-bg-base)
+ *   3. BankTransfer  — plain reference block for institutional gifts, last
+ *                      of the giving methods (bg-white)
+ *   4. OtherWaysCTA  — closes the page on a different intent entirely: how
+ *                      to help without giving money (bg-bg-base)
  */
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
-import OnlineGiving from '@components/sections/page/donate/OnlineGiving.astro';
-import WaysToGive from '@components/sections/page/donate/WaysToGive.astro';
+import GiveOnline from '@components/sections/page/donate/GiveOnline.astro';
+import BankTransfer from '@components/sections/page/donate/BankTransfer.astro';
 import OtherWaysCTA from '@components/sections/page/donate/OtherWaysCTA.astro';
 import { getSiteSettings, getDonatePage } from '@lib/sanity/queries';
 
@@ -33,16 +36,13 @@ const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
 		breadcrumb={donate.hero.breadcrumb}
 		backgroundImage={donate.hero.backgroundImage}
 	/>
-	<OnlineGiving
+	<GiveOnline
 		data={donate.onlineGiving}
 		campaign={site.activeCampaign}
 	/>
-	<WaysToGive
-		data={donate.waysToGiveSection}
+	<BankTransfer
+		data={donate.bankTransferSection}
 		orgName={site.org.name}
 	/>
-	<OtherWaysCTA
-		data={donate.otherWaysSection}
-		activeCampaign={site.activeCampaign}
-	/>
+	<OtherWaysCTA data={donate.otherWaysSection} />
 </BaseLayout>

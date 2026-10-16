@@ -1,0 +1,62 @@
+---
+/**
+ * BankTransfer.astro
+ * Donate page — bank details as a plain reference block, not a call to
+ * action. It exists for institutional donors and large gifts that will not
+ * go through a checkout, so it is deliberately quiet and sits last.
+ *
+ * The manual mobile-money card that used to live here is gone: Modem Pay
+ * covers Wave, QMoney and AfriMoney in GiveOnline.astro, so asking a donor
+ * to copy a number by hand was the slower path to the same place.
+ *
+ * Background: bg-white
+ *
+ * Props:
+ *   data    — donatePage.bankTransferSection
+ *   orgName — organization name, shown as the account name
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+
+const { data, orgName } = Astro.props;
+
+const rows = [
+	['Bank Name', data?.bankName],
+	['Account Name', orgName],
+	['Account Number', data?.accountNumber],
+	['Swift Code', data?.swiftCode],
+].filter(([, value]) => Boolean(value));
+---
+
+<section class='bg-white py-24'>
+	<div class='max-w-2xl mx-auto px-6 flex flex-col items-center gap-10'>
+		<SectionHeading
+			label={data?.label}
+			title={data?.title}
+			subtitle={data?.subtitle}
+		/>
+
+		<dl
+			class='w-full rounded-2xl border border-border bg-bg-base divide-y divide-border'
+		>
+			{
+				rows.map(([label, value]) => (
+					<div class='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-6 py-4'>
+						<dt class='sm:w-44 shrink-0 font-heading text-sm font-semibold text-text-dark'>
+							{label}
+						</dt>
+						<dd class='font-heading text-base text-text-muted break-all'>
+							{value}
+						</dd>
+					</div>
+				))
+			}
+		</dl>
+
+		{
+			data?.helpText && (
+				<p class='text-sm text-text-muted text-center'>{data.helpText}</p>
+			)
+		}
+	</div>
+</section>

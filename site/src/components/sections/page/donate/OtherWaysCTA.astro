@@ -1,21 +1,23 @@
 ---
 /**
  * OtherWaysCTA.astro
- * Donate page — fallback CTA pointing to Volunteer and Contact for people
- * who don't want to give financially, plus an optional active-campaign card
- * (same source/shape as CampaignBanner.astro on Projects — one Sanity field
- * driving both places this campaign appears).
+ * Donate page closer — for people who want to help but not with money.
  * Background: bg-bg-base
  *
+ * The active-campaign card that used to sit here has moved into
+ * GiveOnline.astro, where it is the route for donors outside The Gambia.
+ * Showing the same GoFundMe link twice on one page just made the page read
+ * as three competing asks instead of one path. (CampaignBanner.astro on
+ * /projects still surfaces the campaign in its own right.)
+ *
  * Props:
- *   data           — otherWaysSection object from donate.json
- *   activeCampaign — siteSettings.activeCampaign, renders nothing if inactive
+ *   data — otherWaysSection object from Sanity
  */
 
 import SectionHeading from '@components/ui/SectionHeading.astro';
 import Button from '@components/ui/Button.astro';
 
-const { data, activeCampaign } = Astro.props;
+const { data } = Astro.props;
 ---
 
 <section class='bg-bg-base py-24'>
@@ -39,28 +41,5 @@ const { data, activeCampaign } = Astro.props;
 				>Get in Touch</Button
 			>
 		</div>
-
-		{
-			activeCampaign?.active && (
-				<div class='w-full rounded-2xl border border-border bg-white p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-left'>
-					<div class='flex flex-col gap-1'>
-						<span class='text-xs font-heading font-semibold uppercase tracking-widest text-accent'>
-							Active Campaign
-						</span>
-						<h3 class='font-heading text-base font-bold text-text-dark'>
-							{activeCampaign.title}
-						</h3>
-					</div>
-					<a
-						href={activeCampaign.url}
-						target='_blank'
-						rel='noopener noreferrer'
-						class='shrink-0 inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-6 py-3 text-base border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent'
-					>
-						{activeCampaign.ctaLabel}
-					</a>
-				</div>
-			)
-		}
 	</div>
 </section>
