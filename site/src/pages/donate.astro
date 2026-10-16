@@ -8,12 +8,14 @@
  *
  * Section order:
  *   1. PageHero      — slim branded banner
- *   2. WaysToGive    — bank transfer + mobile money details (bg-white)
- *   3. OtherWaysCTA  — volunteer / contact fallback (bg-bg-base)
+ *   2. OnlineGiving  — Modem Pay checkout, the primary path (bg-bg-base)
+ *   3. WaysToGive    — bank transfer + mobile money details (bg-white)
+ *   4. OtherWaysCTA  — volunteer / contact fallback (bg-bg-base)
  */
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/ui/PageHero.astro';
+import OnlineGiving from '@components/sections/page/donate/OnlineGiving.astro';
 import WaysToGive from '@components/sections/page/donate/WaysToGive.astro';
 import OtherWaysCTA from '@components/sections/page/donate/OtherWaysCTA.astro';
 import { getSiteSettings, getDonatePage } from '@lib/sanity/queries';
@@ -30,6 +32,10 @@ const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
 		subtitle={donate.hero.subtitle}
 		breadcrumb={donate.hero.breadcrumb}
 		backgroundImage={donate.hero.backgroundImage}
+	/>
+	<OnlineGiving
+		data={donate.onlineGiving}
+		campaign={site.activeCampaign}
 	/>
 	<WaysToGive
 		data={donate.waysToGiveSection}

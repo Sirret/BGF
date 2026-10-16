@@ -1,0 +1,231 @@
+---
+/**
+ * OnlineGiving.astro
+ * Donate page — Modem Pay checkout. Donor picks an amount here, then lands on
+ * Modem Pay's hosted page to authorise it (Wave / QMoney / AfriMoney / card).
+ * Background: bg-bg-base
+ *
+ * Why a plain form POST and not the Modem Pay SDK: the SDK needs the secret
+ * key, which needs a server, and this site is a static build. HTML Checkout
+ * takes only the public key, so the whole flow works on GitHub Pages as-is.
+ *
+ * The test/live endpoint is picked off the key prefix rather than a second env
+ * var — a pk_test_ key against the live endpoint (or vice versa) is rejected,
+ * so deriving it removes a way to misconfigure that.
+ *
+ * Props:
+ *   data     — donatePage.onlineGiving
+ *   campaign — siteSettings.activeCampaign, used to tag the payment's metadata
+ */
+
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import { withBase } from '@components/utils/paths';
+
+const { data, campaign } = Astro.props;
+
+const publicKey = import.meta.env.PUBLIC_MODEM_PAY_KEY;
+const isLive = publicKey?.startsWith('pk_live_');
+const endpoint = isLive
+	? 'https://checkout.modempay.com/api/pay'
+	: 'https://test.checkout.modempay.com/api/pay';
+
+// Modem Pay needs absolute return URLs, and this site is served from a
+// subpath — so both the base and the origin have to be baked in.
+const absolute = (path: string) => new URL(withBase(path)!, Astro.site).href;
+
+const minAmount = data?.minAmount ?? 10;
+// Only a starting ladder; whatever is set in Studio wins.
+const presets: number[] = data?.presetAmounts?.length
+	? data.presetAmounts
+	: [250, 1000, 2500, 7500];
+
+const gmd = new Intl.NumberFormat('en-GM', { maximumFractionDigits: 0 });
+
+/** Rough USD value of a GMD amount, for donors with no feel for the dalasi. */
+const approxUsd = (amount: number) => {
+	if (!data?.usdRate) return undefined;
+	const usd = amount / data.usdRate;
+	return `$${usd.toFixed(usd < 20 ? 2 : 0)}`;
+};
+
+const rateChecked = data?.rateCheckedOn
+	? new Date(data.rateCheckedOn).toLocaleDateString('en-GB', {
+			month: 'long',
+			year: 'numeric',
+		})
+	: undefined;
+---
+
+<section
+	class='bg-bg-base py-24'
+	id='give'
+>
+	<div class='max-w-3xl mx-auto px-6 flex flex-col items-center gap-10'>
+		<SectionHeading
+			label={data?.label}
+			title={data?.title}
+			subtitle={data?.subtitle}
+		/>
+
+		{
+			publicKey ? (
+				<form
+					method='POST'
+					action={endpoint}
+					data-donate-form
+					data-min={minAmount}
+					class='w-full flex flex-col gap-6'
+				>
+					<input
+						type='hidden'
+						name='public_key'
+						value={publicKey}
+					/>
+					<input
+						type='hidden'
+						name='currency'
+						value='GMD'
+					/>
+					<input
+						type='hidden'
+						name='return_url'
+						value={absolute('/donate/success')}
+					/>
+					<input
+						type='hidden'
+						name='cancel_url'
+						value={absolute('/donate/cancelled')}
+					/>
+					<input
+						type='hidden'
+						name='metadata'
+						value={campaign?.active ? campaign.title : 'General donation'}
+					/>
+					{/* Set by donate-amount.js from whichever control the donor used. */}
+					<input
+						type='hidden'
+						name='amount'
+						value=''
+						data-amount-field
+					/>
+
+					<fieldset class='flex flex-col gap-3'>
+						<legend class='font-heading text-sm font-semibold text-text-dark mb-2'>
+							Choose an amount
+						</legend>
+						<div class='grid grid-cols-2 sm:grid-cols-4 gap-3'>
+							{presets.map((amount) => (
+								<button
+									type='button'
+									data-amount={amount}
+									aria-pressed='false'
+									class='flex flex-col items-center justify-center gap-0.5 rounded-xl border-2 border-border bg-white px-4 py-4 transition-all duration-200 hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white cursor-pointer'
+								>
+									<span class='font-heading text-lg font-bold'>
+										D{gmd.format(amount)}
+									</span>
+									{approxUsd(amount) && (
+										<span class='text-xs opacity-70'>≈ {approxUsd(amount)}</span>
+									)}
+								</button>
+							))}
+						</div>
+					</fieldset>
+
+					<div class='flex flex-col gap-2'>
+						<label
+							for='custom-amount'
+							class='font-heading text-sm font-semibold text-text-dark'
+						>
+							Or enter your own amount
+						</label>
+						<div class='flex items-center gap-3'>
+							<span class='font-heading text-lg font-bold text-text-muted'>D</span>
+							<input
+								type='number'
+								id='custom-amount'
+								inputmode='numeric'
+								min={minAmount}
+								step='1'
+								placeholder={`${minAmount} or more`}
+								data-custom-amount
+								class='flex-1 rounded-xl border-2 border-border bg-white px-4 py-3 font-heading text-base text-text-dark placeholder:text-text-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2'
+							/>
+						</div>
+					</div>
+
+					<p
+						data-form-status
+						class='hidden text-sm font-semibold'
+						role='status'
+						aria-live='polite'
+					>
+					</p>
+
+					<button
+						type='submit'
+						class='inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-8 py-4 text-lg bg-accent text-white hover:bg-accent-dark focus:ring-accent'
+					>
+						Continue to secure payment
+					</button>
+
+					{!isLive && (
+						<p class='text-center text-xs font-semibold uppercase tracking-widest text-accent'>
+							Test mode — no real money will move
+						</p>
+					)}
+				</form>
+			) : (
+				/* No key at build time (e.g. CI without the env var) — fall back to the
+				   reusable link rather than shipping a form that silently fails. */
+				data?.shareLink && (
+					<a
+						href={data.shareLink}
+						class='inline-flex items-center justify-center font-heading font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer px-8 py-4 text-lg bg-accent text-white hover:bg-accent-dark focus:ring-accent'
+					>
+						Donate now
+					</a>
+				)
+			)
+		}
+
+		{
+			data?.currencyNote && (
+				<p class='text-sm text-text-muted text-center max-w-xl'>{data.currencyNote}</p>
+			)
+		}
+
+		{
+			data?.usdRate && (
+				<p class='text-xs text-text-muted text-center'>
+					Dollar figures are rough guides only — you will be charged in Gambian
+					Dalasi.
+					{rateChecked && ` Rate checked ${rateChecked}.`}
+				</p>
+			)
+		}
+
+		{
+			data?.shareLink && publicKey && (
+				<noscript>
+					<p class='text-sm text-text-muted text-center'>
+						The amount picker needs JavaScript.{' '}
+						<a
+							href={data.shareLink}
+							class='text-accent underline underline-offset-4'
+						>
+							Use our payment link instead
+						</a>
+						.
+					</p>
+				</noscript>
+			)
+		}
+	</div>
+</section>
+
+<script
+	is:inline
+	src={withBase('/scripts/donate-amount.js')}
+	defer
+></script>

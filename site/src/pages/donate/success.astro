@@ -1,0 +1,67 @@
+---
+/**
+ * pages/donate/success.astro
+ * Modem Pay return_url — where a donor lands after authorising a payment.
+ *
+ * Reaching this page means the donor completed Modem Pay's flow, NOT that the
+ * payment settled: a redirect can be replayed or shared. Confirming for real
+ * needs a webhook, which needs a server this static site doesn't have. So the
+ * copy here thanks the donor without asserting the money arrived — the Modem
+ * Pay dashboard remains the record of truth.
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import Button from '@components/ui/Button.astro';
+import { getSiteSettings, getDonatePage } from '@lib/sanity/queries';
+
+const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
+const giving = donate.onlineGiving;
+---
+
+<BaseLayout
+	title='Thank You'
+	description={`Thank you for supporting ${site.org.name}.`}
+	noindex
+>
+	<PageHero
+		title={giving?.successTitle ?? 'Thank you for your gift'}
+		breadcrumb='Donate'
+		backgroundImage={donate.hero.backgroundImage}
+	/>
+
+	<section class='bg-white py-24'>
+		<div
+			class='max-w-2xl mx-auto px-6 flex flex-col items-center text-center gap-8'
+		>
+			<p class='text-lg text-text-muted'>
+				{
+					giving?.successBody ??
+						`Your support helps ${site.org.name} keep this work going. A receipt will be sent to you by Modem Pay.`
+				}
+			</p>
+
+			<p class='text-sm text-text-muted'>
+				Questions about your donation? Email{' '}
+				<a
+					href={`mailto:${site.contact.email}`}
+					class='text-accent underline underline-offset-4'
+				>
+					{site.contact.email}
+				</a>
+				.
+			</p>
+
+			<div class='flex flex-wrap justify-center gap-4'>
+				<Button
+					variant='accent'
+					href='/projects'>See Our Work</Button
+				>
+				<Button
+					variant='outline'
+					href='/'>Back to Home</Button
+				>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

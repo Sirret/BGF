@@ -7,6 +7,7 @@
  * Props:
  *   title       — <title> tag content (default: org name)
  *   description — <meta description> content
+ *   noindex     — keep the page out of search results (payment return pages)
  */
 
 import '@styles/global.css';
@@ -20,7 +21,11 @@ import { getSiteSettings } from '@lib/sanity/queries';
 import { urlFor } from '@lib/sanity/image';
 
 const site = await getSiteSettings();
-const { title = site.org.name, description = site.org.subline } = Astro.props;
+const {
+	title = site.org.name,
+	description = site.org.subline,
+	noindex = false,
+} = Astro.props;
 const logoUrl = urlFor(site.org.logo).width(512).height(512).fit('max').auto('format').url();
 ---
 
@@ -40,6 +45,14 @@ const logoUrl = urlFor(site.org.logo).width(512).height(512).fit('max').auto('fo
 			name='generator'
 			content={Astro.generator}
 		/>
+		{
+			noindex && (
+				<meta
+					name='robots'
+					content='noindex, follow'
+				/>
+			)
+		}
 
 		<!-- Open Graph -->
 		<meta

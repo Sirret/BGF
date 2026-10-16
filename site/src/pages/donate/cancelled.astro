@@ -1,0 +1,74 @@
+---
+/**
+ * pages/donate/cancelled.astro
+ * Modem Pay cancel_url — where a donor lands if they back out of checkout.
+ *
+ * Deliberately not apologetic or guilt-tripping: most people who land here
+ * hit a payment problem rather than changing their mind, so the job of this
+ * page is to offer the other ways to give.
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/ui/PageHero.astro';
+import Button from '@components/ui/Button.astro';
+import { getSiteSettings, getDonatePage } from '@lib/sanity/queries';
+import { withBase } from '@components/utils/paths';
+
+const [site, donate] = await Promise.all([getSiteSettings(), getDonatePage()]);
+const giving = donate.onlineGiving;
+---
+
+<BaseLayout
+	title='Donation Cancelled'
+	description='Your donation was not completed.'
+	noindex
+>
+	<PageHero
+		title={giving?.cancelledTitle ?? 'Your donation was cancelled'}
+		breadcrumb='Donate'
+		backgroundImage={donate.hero.backgroundImage}
+	/>
+
+	<section class='bg-white py-24'>
+		<div
+			class='max-w-2xl mx-auto px-6 flex flex-col items-center text-center gap-8'
+		>
+			<p class='text-lg text-text-muted'>
+				{
+					giving?.cancelledBody ??
+						'Nothing has been charged. If something went wrong, you can try again or use one of the other ways to give.'
+				}
+			</p>
+
+			<div class='flex flex-wrap justify-center gap-4'>
+				<Button
+					variant='accent'
+					href='/donate#give'>Try Again</Button
+				>
+				<Button
+					variant='outline'
+					href='/contact'>Get in Touch</Button
+				>
+			</div>
+
+			<p class='text-sm text-text-muted'>
+				Prefer to give another way? Bank transfer and mobile money details are
+				on the{' '}
+				<a
+					href={withBase('/donate')}
+					class='text-accent underline underline-offset-4'
+				>
+					donate page
+				</a>
+				, or email{' '}
+				<a
+					href={`mailto:${site.contact.email}`}
+					class='text-accent underline underline-offset-4'
+				>
+					{site.contact.email}
+				</a>
+				.
+			</p>
+		</div>
+	</section>
+</BaseLayout>

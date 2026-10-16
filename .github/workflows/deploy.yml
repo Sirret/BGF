@@ -37,6 +37,13 @@ jobs:
                   # with an undefined project.
                   PUBLIC_SANITY_PROJECT_ID: "9izf3au6"
                   PUBLIC_SANITY_DATASET: "production"
+                  # Modem Pay publishable key. Safe to keep in the clear — it
+                  # only identifies the merchant and cannot move money; the
+                  # secret key is never used in this build. Without it the
+                  # donate page falls back to the plain payment link.
+                  # TODO: swap for BethGold's pk_live_ key before launch —
+                  # while this is a pk_test_ key, donations are sandbox only.
+                  PUBLIC_MODEM_PAY_KEY: "pk_test_ZhAHzaNF9gqEPJ71xtRkDuYPDx5JKGFFMB7RkEM7"
 
     deploy:
         needs: build
