@@ -35,9 +35,11 @@ const currentPath = Astro.url.pathname;
 			href={withBase('/')}
 			class='flex items-center gap-3 flex-shrink-0'
 		>
+			{/* alt is empty on purpose: the org name sits beside it. The asset
+			    carries a 2:1 crop in Sanity, so w=192 h=96 lands 2x on h-12. */}
 			<img
-				src={urlFor(site.org.logo).width(96).height(96).fit('max').auto('format').url()}
-				alt={`${site.org.name} logo`}
+				src={urlFor(site.org.logo).width(192).height(96).fit('max').auto('format').url()}
+				alt=''
 				class='h-12 w-auto object-contain'
 			/>
 			<div class='hidden sm:flex flex-col leading-tight'>

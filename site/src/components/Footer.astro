@@ -34,16 +34,29 @@ const year = new Date().getFullYear();
 		<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10'>
 			<!-- Col 1: Brand + Social -->
 			<div class='flex flex-col gap-5'>
-				<!-- Logo (inverted to white) -->
+				{/* Logo sits on a white chip because the asset in Sanity is an
+				    opaque JPEG. This used to apply a brightness(0) invert(1)
+				    filter, which only works on a transparent PNG or SVG; on a
+				    JPEG it flattened the whole rectangle, white background
+				    included, into a solid white block. If a transparent-
+				    background logo is ever uploaded, drop the chip instead of
+				    reinstating the filter. Requested at ~2x the rendered
+				    height to stay sharp on high-density screens. */}
 				<a
 					href={withBase('/')}
 					class='flex items-center gap-3'
 				>
-					<img
-						src={urlFor(site.org.logo).width(96).height(96).fit('max').auto('format').url()}
-						alt={`${site.org.name} logo`}
-						class='h-12 w-auto object-contain logo-invert'
-					/>
+					<span
+						class='inline-flex items-center justify-center rounded-lg bg-white p-1.5'
+					>
+						{/* alt is empty on purpose: the org-name span beside this
+						    already names the link, so alt text would read it twice. */}
+						<img
+							src={urlFor(site.org.logo).width(192).height(96).fit('max').auto('format').url()}
+							alt=''
+							class='h-9 w-auto object-contain'
+						/>
+					</span>
 					<span class='font-heading font-bold text-white text-base'>
 						{site.org.name.toUpperCase()}
 					</span>

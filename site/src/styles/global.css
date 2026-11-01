@@ -63,7 +63,7 @@
 	}
 }
 
-/* ─── Static Background & Filter Utilities ───────────────────────────────── */
+/* ─── Static Background Utilities ─────────────────────────────────────────── */
 /* CSP note: these replace inline style="" attributes for values fixed at
    build time. Dynamic, per-document backgrounds (page/article/project hero
    images) now come from Sanity via PageHero.astro's define:vars pattern
@@ -74,9 +74,5 @@
 	   the way withBase() does for .astro files, so it's hardcoded here. */
 	.bg-hero-home {
 		background-image: url('/BGF/images/hero-bg.jpg');
-	}
-
-	.logo-invert {
-		filter: brightness(0) invert(1);
 	}
 }
