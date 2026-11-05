@@ -12,6 +12,22 @@ import { withBase } from '@components/utils/paths';
 
 const site = await getSiteSettings();
 
+/**
+ * A social field holding only a bare domain ("https://linkedin.com") is a
+ * seeded placeholder, not a profile, and linking to it just dumps the visitor
+ * on a login page. Hide those icons instead. The field stays in Sanity, so
+ * pasting a real handle in Studio brings the icon straight back with no code
+ * change - same approach as the address block.
+ */
+const hasProfile = (url?: string) => {
+	if (!url) return false;
+	try {
+		return new URL(url).pathname.replace(/\/+$/, '').length > 0;
+	} catch {
+		return false;
+	}
+};
+
 const quickLinks = [
 	{ label: 'Home', href: '/' },
 	{ label: 'About Us', href: '/about' },
@@ -70,6 +86,7 @@ const year = new Date().getFullYear();
 				<!-- Social Icons -->
 				<div class='flex items-center gap-4 mt-1'>
 					<!-- Facebook -->
+					{hasProfile(site.social.facebook) && (
 					<a
 						href={site.social.facebook}
 						target='_blank'
@@ -92,8 +109,10 @@ const year = new Date().getFullYear();
 							></path>
 						</svg>
 					</a>
+					)}
 
 					<!-- Instagram -->
+					{hasProfile(site.social.instagram) && (
 					<a
 						href={site.social.instagram}
 						target='_blank'
@@ -135,8 +154,10 @@ const year = new Date().getFullYear();
 							></circle>
 						</svg>
 					</a>
+					)}
 
 					<!-- Twitter / X -->
+					{hasProfile(site.social.twitter) && (
 					<a
 						href={site.social.twitter}
 						target='_blank'
@@ -159,8 +180,10 @@ const year = new Date().getFullYear();
 							></path>
 						</svg>
 					</a>
+					)}
 
 					<!-- LinkedIn -->
+					{hasProfile(site.social.linkedin) && (
 					<a
 						href={site.social.linkedin}
 						target='_blank'
@@ -183,8 +206,10 @@ const year = new Date().getFullYear();
 							></path>
 						</svg>
 					</a>
+					)}
 
 					<!-- TikTok -->
+					{hasProfile(site.social.tiktok) && (
 					<a
 						href={site.social.tiktok}
 						target='_blank'
@@ -207,6 +232,7 @@ const year = new Date().getFullYear();
 							></path>
 						</svg>
 					</a>
+					)}
 				</div>
 			</div>
 			<!-- End Col 1 -->

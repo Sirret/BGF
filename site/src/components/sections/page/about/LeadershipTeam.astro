@@ -51,10 +51,20 @@ const team = await getAllTeamMembers();
           <!-- Divider -->
           <div class='w-12 h-0.5 bg-border rounded-full'></div>
 
-          <!-- Bio — readable size with proper line height -->
-          <p class='font-body text-base text-text-muted leading-relaxed'>
-            {member.bio}
-          </p>
+          <!-- Bio. Split on line breaks so a multi-paragraph bio keeps its
+               structure: `bio` is a plain Sanity text field rendered as HTML,
+               where newlines would otherwise collapse into one run-on block. -->
+          <div class='flex flex-col gap-4'>
+            {(member.bio ?? '')
+              .split(/\n+/)
+              .map((para) => para.trim())
+              .filter(Boolean)
+              .map((para) => (
+                <p class='font-body text-base text-text-muted leading-relaxed'>
+                  {para}
+                </p>
+              ))}
+          </div>
 
         </div>
       ))}
